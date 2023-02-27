@@ -17,7 +17,7 @@ const Pleasures = () => {
   const genres = useSelector((state) => state?.genres?.genreList).slice(1);
   const currentUser = useSelector((state) => state.users.currentUser);
   const [genresSelected, setGenresSelected] = useState({
-    id: currentUser.id,
+    _id: currentUser._id,
     genres: [],
   });
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,14 +30,14 @@ const Pleasures = () => {
 
   useEffect(() => {
     dispatch(getGenre());
-    dispatch(getUserByFirebaseId(userFirebase.uid))
+    dispatch(getUserByFirebaseId(userFirebase.uid));
   }, [dispatch]);
 
   useEffect(() => {
-    if(currentUser.genres.length > 1){
+    if (currentUser.genres.length > 1) {
       window.location.reload();
     }
-  }, [currentUser])
+  }, [currentUser]);
 
   function nextPage() {
     if (currentPage < pageNumbers) {
@@ -59,7 +59,10 @@ const Pleasures = () => {
     } else {
       newChecked.splice(currentGenresChecked, 1);
     }
-    setGenresSelected({ id: currentUser.id, genres: newChecked.map((el) => el) });
+    setGenresSelected({
+      _id: currentUser._id,
+      genres: newChecked.map((el) => el),
+    });
   }
 
   function handleSubmit() {

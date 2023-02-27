@@ -1,13 +1,13 @@
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import Post from "../post/Post";
 import styles from "./AllPosts.module.css";
-import PostShared from "../postShared/PostShared"
+import PostShared from "../postShared/PostShared";
 
 const AllPosts = (artistPostsObj) => {
   const [checked, setChecked] = useState("all");
-  const artistPosts = artistPostsObj.artistPostsObj
+  const artistPosts = artistPostsObj.artistPostsObj;
   const [posts, setPosts] = useState(artistPosts);
 
   function handleCheckedAll() {
@@ -25,10 +25,10 @@ const AllPosts = (artistPostsObj) => {
   }
 
   return (
-    <div className={styles.containerAllPosts}>
-      <div className={styles.containerTitleFilters}>
+    <Box className={styles.containerAllPosts}>
+      <Box className={styles.containerTitleFilters}>
         <h2>All Posts</h2>
-        <div className={styles.containerFilters}>
+        <Box className={styles.containerFilters}>
           {checked === "all" ? (
             <Button
               sx={{
@@ -74,20 +74,32 @@ const AllPosts = (artistPostsObj) => {
           ) : (
             <Button onClick={handleCheckedAudio}>Audio</Button>
           )}
-        </div>
-      </div>
-      <div>
+        </Box>
+      </Box>
+      <Box>
         {checked !== "all" ? (
           posts.length === 0 ? (
             <p className={styles.noResultsText}>No post was found</p>
           ) : (
-            posts.map((post, i) => post.idShared ? <PostShared postShared={post} /> : <Post key={i} post={post} comments={false} />)
+            posts.map((post, i) =>
+              post.idShared ? (
+                <PostShared postShared={post} />
+              ) : (
+                <Post key={i} post={post} comments={false} />
+              )
+            )
           )
         ) : (
-          artistPosts.map((post, i) => post.idShared ? <PostShared postShared={post} /> : <Post key={i} post={post} comments={false} />)
+          artistPosts.map((post, i) =>
+            post.idShared ? (
+              <PostShared postShared={post} />
+            ) : (
+              <Post key={i} post={post} comments={false} />
+            )
+          )
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

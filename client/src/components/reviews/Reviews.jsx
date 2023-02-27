@@ -57,7 +57,7 @@ const Reviews = () => {
         >
           {reviews?.map((item) => (
             <Item
-              key={item.id}
+              key={item._id}
               avatar={item.avatar}
               name={item.name}
               rating={item.rating}

@@ -1,64 +1,64 @@
-.input{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 2vh;
-    overflow: hidden;
+.input {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2vh;
+  overflow: hidden;
 }
-.imgInput{
-    cursor: pointer;
+.imgInput {
+  cursor: pointer;
 }
-svg path{
-    transition: 0.3s;
+svg path {
+  transition: 0.3s;
 }
-.imgInput:hover svg path{
-    fill: aqua;
+.imgInput:hover svg path {
+  fill: aqua;
 }
-.inputText{
-    font-family: 'Inter', sans-serif;
-    color: white;
-    resize: none;
-    width: 50vw;
-    border-radius: 20px;
-    border: 0;
-    padding: 6px;
-    padding-left: 12px;
-    height: 25px;
-    word-wrap: break-word;
-    background-color: #101c36;
+.inputText {
+  font-family: "Inter", sans-serif;
+  color: white;
+  resize: none;
+  width: 50vw;
+  border-radius: 20px;
+  border: 0;
+  padding: 6px;
+  padding-left: 12px;
+  height: 25px;
+  word-wrap: break-word;
+  background-color: #101c36;
 }
-.inputSubmit{
-    background-color: aqua;
-    border: 0;
-    color: #000715;
-    padding: 6px;
-    padding-bottom: 4px;
-    border-radius: 50%;
-    margin-bottom: 4px;
+.inputSubmit {
+  background-color: aqua;
+  border: 0;
+  color: #000715;
+  padding: 6px;
+  padding-bottom: 4px;
+  border-radius: 50%;
+  margin-bottom: 4px;
 }
-.inputSubmit:hover{
-    opacity: 0.7;
+.inputSubmit:hover {
+  opacity: 0.7;
 }
 .inputSubmit svg path {
-    stroke: #000715;
+  stroke: #000715;
 }
-.toSend{
-    background-color: #101c36;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: 0.5s;
-    margin-top: 10px;
+.toSend {
+  background-color: #101c36;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s;
+  margin-top: 10px;
 }
-.imagePreview{
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-left: 10px;
-    margin-bottom: 6px;
+.imagePreview {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-bottom: 6px;
 }
-.loading{
-    margin-bottom: 5px;
+.loading {
+  margin-bottom: 5px;
 }

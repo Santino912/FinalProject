@@ -3,7 +3,7 @@ import styles from "./EditProfile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Link, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { updateUser } from "../../redux/features/users/usersGetSlice";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -39,7 +39,7 @@ const EditProfile = (close) => {
       .catch((err) => console.log(err));
   }
 
-  function uploadBanner(file) {
+  async function uploadBanner(file) {
     setBannerLoading(true);
     const fileRef = ref(storage, `profileBanner/${file.name + Math.random()}`);
     return uploadBytes(fileRef, file)
@@ -72,22 +72,22 @@ const EditProfile = (close) => {
   }
 
   function handleSubmit() {
-      dispatch(updateUser(currentUser.id, input));
-      const func = (function (){
-        window.location.reload();
-      })()
+    dispatch(updateUser(currentUser._id, input));
+    const func = (function () {
+      window.location.reload();
+    })();
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.containerSettings}>
-        <div className={styles.header}>
+    <Box className={styles.container}>
+      <Box className={styles.containerSettings}>
+        <Box className={styles.header}>
           <h1>Edit your profile</h1>
           <p>
             <FontAwesomeIcon onClick={close.close} icon={faXmark} />
           </p>
-        </div>
-        <div className={styles.content}>
+        </Box>
+        <Box className={styles.content}>
           <input
             type="file"
             accept="image/*"
@@ -102,11 +102,11 @@ const EditProfile = (close) => {
               <img src={imageUrl} alt="" />
             )}
 
-            <div className={styles.containerLoading}>
+            <Box className={styles.containerLoading}>
               {loading ? <Loading width={"60px"} height={"60px"} /> : null}
-            </div>
+            </Box>
           </label>
-          <div className={styles.inputs}>
+          <Box className={styles.inputs}>
             <TextField
               onChange={(e) => handleChange(e)}
               label="Choose your name"
@@ -122,7 +122,7 @@ const EditProfile = (close) => {
               variant="standard"
               name="username"
             />
-          </div>
+          </Box>
           <Button
             sx={{
               position: "absolute",
@@ -134,9 +134,9 @@ const EditProfile = (close) => {
           >
             Save
           </Button>
-        </div>
+        </Box>
         {currentUser.plan === "Premium" ? (
-          <div className={styles.containerBanner}>
+          <Box className={styles.containerBanner}>
             <p>Choose your banner!</p>
             <input
               type="file"
@@ -152,23 +152,25 @@ const EditProfile = (close) => {
                 <img src={bannerUrl} alt="" />
               )}
 
-              <div className={styles.containerBannerLoading}>
+              <Box className={styles.containerBannerLoading}>
                 {bannerLoading ? (
                   <Loading width={"60px"} height={"60px"} />
                 ) : null}
-              </div>
+              </Box>
             </label>
-          </div>
+          </Box>
         ) : (
-          <div style={{display: "flex", alignItems: "center"}}>
-            <p style={{ color: "white", fontSize: "14px", marginRight: "10px" }}>
+          <Box style={{ display: "flex", alignItems: "center" }}>
+            <p
+              style={{ color: "white", fontSize: "14px", marginRight: "10px" }}
+            >
               Go premium to modify the banner!
             </p>
             <PayButton />
-          </div>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

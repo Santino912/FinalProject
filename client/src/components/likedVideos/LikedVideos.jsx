@@ -23,13 +23,13 @@ export default function LikedVideos() {
 
   useEffect(() => {
     if (Object.keys(userDB).length > 0) {
-      dispatch(getLikesByUserId(userDB.id));
+      dispatch(getLikesByUserId(userDB._id));
     }
   }, [userDB]);
 
   return (
     <Grid container className={style.likedVideos} xs={12}>
-      <Grid style={{maxWidth: "266px"}} item container xs={2.5}>
+      <Grid style={{ maxWidth: "266px" }} item container xs={2.5}>
         <SideBar userDB={userDB} />
       </Grid>
       <Grid item xs={9.5} p={`2%`}>
@@ -48,7 +48,9 @@ export default function LikedVideos() {
             </div>
           </div>
         ) : (
-          <p style={{ margin: "auto",textAlign: "center", color: "white" }}>No liked songs yet</p>
+          <p style={{ margin: "auto", textAlign: "center", color: "white" }}>
+            No liked songs yet
+          </p>
         )}
       </Grid>
     </Grid>

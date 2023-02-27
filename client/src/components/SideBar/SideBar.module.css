@@ -1,119 +1,119 @@
-.testcontainer{
-    background-color: #000A1F;
-    min-height: 100vh;
-    background-image: url(../../images/svg/polygons.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+.testcontainer {
+  background-color: #000a1f;
+  min-height: 100vh;
+  background-image: url(../../images/svg/polygons.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
-h4{
-    margin: 0;
-    cursor: default;
+h4 {
+  margin: 0;
+  cursor: default;
 }
-.filter{
-    background: rgba(0, 10, 31, 0.88);
-    backdrop-filter: blur(15px);
-    min-height: 100vh;
+.filter {
+  background: rgba(0, 10, 31, 0.88);
+  min-height: 100vh;
+  /* backdrop-filter: blur(15px); */
 }
-ul{
-    width: 100%;
-    margin: 0;
-    list-style: none;
-    padding: 0;
+ul {
+  width: 100%;
+  margin: 0;
+  list-style: none;
+  padding: 0;
 }
-.sidebar{
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    color: white;
-    position: fixed;
-    height: 100vh;
-    width: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 8px;
-    padding-right: 16px;
-    gap: 25px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.559);
-    backdrop-filter: blur(50px) opacity(0.5) ;
-    -webkit-backdrop-filter: blur(50px);
-    border-radius: 0px 10px 10px 0px;
-    background-color: #00071c9a;
-    z-index: 2;
+.sidebar {
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  color: white;
+  position: fixed;
+  height: 100vh;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 8px;
+  padding-right: 16px;
+  gap: 25px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.559);
+  border-radius: 0px 10px 10px 0px;
+  background-color: #00071c9a;
+  z-index: 2;
+  /* backdrop-filter: blur(50px) opacity(0.5); */
+  /* -webkit-backdrop-filter: blur(50px); */
 }
-a{
-    color: inherit;
-    text-decoration: none;
+a {
+  color: inherit;
+  text-decoration: none;
 }
-.routescontainer{
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+.routescontainer {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
 }
-.profilePic{
-    cursor: pointer;
-    object-fit: cover;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
+.profilePic {
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
 }
-.profileItem{
-    display: flex;
-    cursor: default !important;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
+.profileItem {
+  display: flex;
+  cursor: default !important;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
 }
 
-.sidebar li{
-    padding-left: 10px;
-    transition: all 0.3s ease;
+.sidebar li {
+  padding-left: 10px;
+  transition: all 0.3s ease;
 }
-.optionsContainer li:hover{
-    color: #00E2BE;
-    cursor: pointer;
+.optionsContainer li:hover {
+  color: #00e2be;
+  cursor: pointer;
 }
-.routescontainer li:hover{
-    color: #00E2BE;
-    cursor: pointer;
+.routescontainer li:hover {
+  color: #00e2be;
+  cursor: pointer;
 }
-.sidebar li svg path{
-    transition: all 0.3s ease;
+.sidebar li svg path {
+  transition: all 0.3s ease;
 }
-.sidebar li:hover svg path{
-    fill: aqua;
+.sidebar li:hover svg path {
+  fill: aqua;
 }
-.profileItem button{
-    font-family: 'Inter', sans-serif;
-    border: none;
-    color: white;
-    letter-spacing: 3px;
-    opacity: 0.6;
-    cursor: pointer;
-    font-size: large;
+.profileItem button {
+  font-family: "Inter", sans-serif;
+  border: none;
+  color: white;
+  letter-spacing: 3px;
+  opacity: 0.6;
+  cursor: pointer;
+  font-size: large;
 }
-.profileItem button:hover{
-    opacity: 1;
+.profileItem button:hover {
+  opacity: 1;
 }
-.optionsContainer{
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 15px;
+.optionsContainer {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 15px;
 }
-.optionsContainer .optionItem{
-    display: flex;
-    gap: 16px;
-    align-items: center;
+.optionsContainer .optionItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
-.titleItem{
-    opacity: 0.7;
+.titleItem {
+  opacity: 0.7;
 }
 
 /* .btn {
@@ -126,56 +126,64 @@ a{
 } */
 
 .btn button {
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    width: 100%;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
 .btn button:hover {
-    color: #00E2BE;
+  color: #00e2be;
 }
 
 .textReview {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .form {
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    width: 400px;
-    height: 300px;
-    text-align: center;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  width: 400px;
+  height: 300px;
+  text-align: center;
 }
 
 .ratingText {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .descriptionText {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .reviewText textarea {
-    color: black !important;
+  color: black !important;
 }
 
 .dotsMenu {
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    font-size: 28px;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  font-size: 28px;
 }
 
 .dotsMenu:hover {
-    color: #00E2BE; 
+  color: #00e2be;
 }
 
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  border: 2px solid #000;
+}
 /* .buttonCancel {
   padding: 0.5em 1em;
   margin-left: 30px;
@@ -191,7 +199,3 @@ a{
   -webkit-user-select: none;
   touch-action: manipulation;
 } */
-
-
-
-

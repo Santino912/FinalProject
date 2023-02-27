@@ -22,7 +22,7 @@ import Conditions from "../conditions/Conditions";
 const Register = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.usersListAll);
-  const [idgoogle, setIdGoogle] = useState("");
+  const [idGoogle, setIdGoogle] = useState("");
   const [loading, setLoading] = useState(true);
   const [showConditions, setShowConditions] = useState(false);
   const [user, setUser] = useState({
@@ -50,11 +50,11 @@ const Register = () => {
   }, [dispatch, userFirebase]);
 
   useEffect(() => {
-    if (idgoogle && users.filter((u) => u.email === user.email).length === 0) {
+    if (idGoogle && users.filter((u) => u.email === user.email).length === 0) {
       axios
         .post("/users", {
           ...user,
-          idgoogle,
+          idGoogle,
         })
         .then(function (response) {
           console.log(response);
@@ -64,7 +64,7 @@ const Register = () => {
         });
     }
     if (userFirebase !== null) navigate("/home");
-  }, [idgoogle]);
+  }, [idGoogle]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,10 +98,10 @@ const Register = () => {
         username: user.username,
         password: user.password,
         email: user.email,
-        idgoogle: res.user.uid,
+        idGoogle: res.user.uid,
       };
 
-      await userExistGoogle(googleUser, users);
+      await userExistGoogle(googleUser);
     } catch (err) {
       return console.log(err);
     }
@@ -117,10 +117,9 @@ const Register = () => {
         username: res.user.email.split("@")[0],
         password: res.user.email,
         email: res.user.email,
-        idgoogle: res.user.uid,
+        idGoogle: res.user.uid,
       };
-
-      await userExistGoogle(googleUser, users);
+      await userExistGoogle(googleUser);
     } catch (err) {
       return console.log(err);
     }
@@ -305,12 +304,12 @@ const Register = () => {
               </form>
               <h5>
                 By registering and logging in, you accept the{" "}
-                <h4
+                <button
                   style={{ color: "var(--second-page-color)" }}
                   onClick={() => setShowConditions(true)}
                 >
                   terms and conditions
-                </h4>
+                </button>
               </h5>
               <Grid
                 className={style.googleBox}

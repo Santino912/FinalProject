@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-//import './index.css';
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
-
-import dotenv from "dotenv";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+import App from "./App";
 import store from "./redux/store";
-dotenv.config();
+//import './index.css';
+
 axios.defaults.baseURL = process.env.REACT_APP_URL || "http://localhost:3001";
 
 ReactDOM.render(

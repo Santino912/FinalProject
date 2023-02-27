@@ -1,33 +1,47 @@
 import axios from "axios";
-import { addPosts, deletePosts, getPostError, getPostStart, getPostSuccess, updatePosts, getAllPostByGenre, getAllPostByTime, getCurrentPostById, clearCurrentPost, getPostsReported, getAllPostByPopularity, getAllPostByRelevance } from "./postSlice";
+import {
+  addPosts,
+  deletePosts,
+  getPostError,
+  getPostStart,
+  getPostSuccess,
+  updatePosts,
+  getAllPostByGenre,
+  getAllPostByTime,
+  getCurrentPostById,
+  clearCurrentPost,
+  getPostsReported,
+  getAllPostByPopularity,
+  getAllPostByRelevance,
+} from "./postSlice";
 
 //obtener los users
 export const getPost = () => {
   return async (dispatch) => {
     dispatch(getPostStart());
     try {
-      const response = await axios.get("/posts");
-      dispatch(getPostSuccess(response.data));
+      const { data } = await axios.get("/posts");
+      dispatch(getPostSuccess(data));
     } catch (error) {
       dispatch(getPostError(error));
     }
   };
 };
 
-//crear users
-export const createdPost = (body) => {
+//crear post
+export const createPost = (body) => {
   return async (dispatch) => {
-    let response = await axios.post("/posts", body);
-    dispatch(addPosts(response.data));
+    const { data } = await axios.post("/posts", body);
+    dispatch(addPosts(data));
     dispatch(getPost());
   };
 };
 
 //actualizar user
-export const updatePost = (id, body) => {
+export const updatePost = (_id, body) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/posts/${id}`, body);
+      const response = await axios.put(`/posts/${_id}`, body);
       if (response) {
         dispatch(updatePosts());
         dispatch(getPost());
@@ -39,10 +53,10 @@ export const updatePost = (id, body) => {
 };
 
 //eliminar user
-export const deletePost = (id) => {
+export const deletePost = (_id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/posts/${id}`);
+      await axios.delete(`/posts/${_id}`);
       dispatch(deletePosts());
       dispatch(getPost());
     } catch (error) {
@@ -52,83 +66,78 @@ export const deletePost = (id) => {
 };
 
 //get post by genre
-export const getPostByGenre = (genres) => {
+export const getPostByGenre = (object) => {
   return async (dispatch) => {
     try {
-      let response = await axios.post('/posts/genres', genres)
-      let array = response.data
-      let hash = {};
-      array = array.filter(o => hash[o.id] ? false : hash[o.id] = true);
-      dispatch(getAllPostByGenre(array))
+      const { data } = await axios.get(`/posts/genres?genres=${object.genres}`);
+      dispatch(getAllPostByGenre(data));
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  };
+};
 
 //obtener post reportados
 export const postsReported = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`/reports`)
-      dispatch(getPostsReported(response.data))
+      const { data } = await axios.get(`/reports`);
+      dispatch(getPostsReported(data));
+    } catch (error) {
+      console.log(error);
     }
-    catch (error) {
-      console.log(error)
-    }
-  }
-}
+  };
+};
 
 //get post by time, pop
 export const getPostByTime = (order) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`/posts/order/`, order);
-      dispatch(getAllPostByTime(response.data))
+      const { data } = await axios.post(`/posts/order/`, order);
+      dispatch(getAllPostByTime(data));
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  };
+};
 
 export const getPostByPopularity = (body) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`/posts/order/popular`, body);
-      dispatch(getAllPostByPopularity(response.data))
+      const { data } = await axios.post(`/posts/order/popular`, body);
+      dispatch(getAllPostByPopularity(data));
     } catch (error) {
       console.log(error);
     }
-  }
-}
-
+  };
+};
+//relevance
 export const getPostByRelevance = (order) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`/posts/genres/with-all`, order);
-      let array = response.data
-      let hash = {};
-      array.posts = array.posts?.filter(o => hash[o.id] ? false : hash[o.id] = true);
-      dispatch(getAllPostByRelevance(array))
+      const { data } = await axios.get(
+        `/posts/genres/with-all?genres=${Object.values(order)}`
+      );
+      dispatch(getAllPostByRelevance(data));
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  };
+};
 
-export const getPostById = (id) => {
+export const getPostById = (_id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`/posts/${id}`)
-      dispatch(getCurrentPostById(response.data))
+      const { data } = await axios.get(`/posts/${_id}`);
+      dispatch(getCurrentPostById(data));
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  };
+};
 
 export const clearPost = () => {
   return (dispatch) => {
-    dispatch(clearCurrentPost())
-  }
-}
+    dispatch(clearCurrentPost());
+  };
+};

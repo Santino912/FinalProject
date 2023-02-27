@@ -24,7 +24,7 @@ import {
   getUser,
   getUserByFirebaseId,
   getUserById,
-  getUserNotification
+  getUserNotification,
 } from "../../redux/features/users/usersGetSlice";
 import { getGenre } from "../../redux/features/genres/genreGetSlice";
 import {
@@ -40,19 +40,17 @@ import SideBar from "../SideBar/SideBar";
 import { useAuth } from "../../context";
 import Loading from "../loading/Loading";
 import PostShared from "../postShared/PostShared";
-import PlayAllButton from "../PlayAllButton/PlayAllButton";
 import PlayButton from "../PlayButton/PlayButton";
 
 const Explore = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.usersList);
   const userDB = useSelector((state) => state.users.currentUser);
-  const user = useSelector((state) => state.users.user);
+  // const user = useSelector((state) => state.users.user);
   const genres = useSelector((state) => state.genres.genreList);
-  const postsFilteredAndOrdered = useSelector(
-    (state) => state.posts.postsOrdered
-  );
-  const allPostsSelector = useSelector((state) => state.posts.possListAll);
+  // const postsFilteredAndOrdered = useSelector((state) => state.posts.postsOrdered );
+
+  const allPostsSelector = useSelector((state) => state.posts.postListAll);
   const postsFilteredSelector = useSelector(
     (state) => state.posts.postsFiltered
   );
@@ -89,15 +87,14 @@ const Explore = () => {
     dispatch(getUser());
     dispatch(getGenre());
     dispatch(getUserById(posts?.userId));
-    dispatch(getUserByFirebaseId(userFirebase.uid));
-    dispatch(getUserNotification(userDB.id));
+    dispatch(getUserByFirebaseId(userFirebase?.uid));
+    dispatch(getUserNotification(userDB?.idGoogle));
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(
       getPostByRelevance({
         genres: userDB.genres?.map((genre) => genre.name),
-        posts: allPostsSelector,
       })
     );
   }, [userDB]);
@@ -192,21 +189,19 @@ const Explore = () => {
         dispatch(
           getPostByRelevance({
             genres: userDB.genres.map((genre) => genre.name),
-            posts: allPostsSelector,
           })
         );
       } else if (orderChecked === "popu") {
         dispatch(getPostByPopularity({ posts: allPostsSelector }));
-      } else if (orderChecked == "asc") {
-        dispatch(getPostByTime({ order: "asc", posts: allPostsSelector }));
+      } else if (orderChecked === "asc") {
+        dispatch(getPostByTime({ order: "asc" }));
       } else {
-        dispatch(getPostByTime({ order: "desc", posts: allPostsSelector }));
+        dispatch(getPostByTime({ order: "desc" }));
       }
     } else {
       dispatch(
         getPostByGenre({
           genres: newChecked.genres,
-          posts: postsFilteredAndOrdered,
         })
       );
     }
@@ -218,7 +213,6 @@ const Explore = () => {
       dispatch(
         getPostByRelevance({
           genres: userDB.genres.map((genre) => genre.name),
-          posts: posts,
         })
       );
     } else if (el.target.value === "popu") {
@@ -706,7 +700,11 @@ const Explore = () => {
                                 >
                                   <img src={logoIcon} alt="" />
                                   <div className={styles.playButton}>
-                                  <PlayButton tracks={currentSongs} track={results} trackIndex={index}/>
+                                    <PlayButton
+                                      tracks={currentSongs}
+                                      track={results}
+                                      trackIndex={index}
+                                    />
                                   </div>
                                 </div>
                                 <div>
@@ -770,7 +768,7 @@ const Explore = () => {
                               if (results.plan === "Premium") {
                                 return (
                                   <Link
-                                    to={`/home/explore/${results.id}`}
+                                    to={`/home/explore/${results._id}`}
                                     style={{ textDecoration: "none" }}
                                   >
                                     <div className={styles.artistContainer}>
@@ -793,7 +791,7 @@ const Explore = () => {
                               } else {
                                 return (
                                   <Link
-                                    to={`/home/explore/${results.id}`}
+                                    to={`/home/explore/${results._id}`}
                                     style={{ textDecoration: "none" }}
                                   >
                                     <div className={styles.artistContainer}>

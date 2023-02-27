@@ -4,40 +4,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "../../redux/features/users/usersGetSlice";
 import styles from "./LikedSongs.module.css";
 import heart from "../../images/heartLikes.png";
+import { Box } from "@mui/material";
 
-const LikedSongs = (id) => {
+const LikedSongs = (_id) => {
   const dispatch = useDispatch();
   const profileUser = useSelector((state) => state.users.user);
   const allUserLikes = useSelector((state) => state.users.userLikes);
-  const [userLikes, setUserLikes] = useState(allUserLikes.filter((likes) => likes.isActive))
-  const posts = useSelector((state) => state.posts.postList);
-  
+  const [userLikes, setUserLikes] = useState(
+    allUserLikes.filter((likes) => likes.isActive)
+  );
+  const allPosts = useSelector((state) => state.posts.postList);
+
   useEffect(() => {
-    dispatch(getUserById(id));
+    dispatch(getUserById(_id));
   }, [dispatch]);
-  
+
   useEffect(() => {
-    setUserLikes(allUserLikes.filter((likes) => likes.isActive))
+    setUserLikes(allUserLikes.filter((likes) => likes.isActive));
   }, [allUserLikes]);
 
-  function likePostCover(id) {
-    const postLiked = posts.find((post) => post.id === id);
+  function likePostCover(_id) {
+    const postLiked = allPosts.find((post) => post._id === _id);
     return postLiked;
   }
 
   return (
-    <div className={styles.containerLikedSongs}>
+    <Box className={styles.containerLikedSongs}>
       <h3>Liked Songs</h3>
-      <div className={styles.likedSongs}>
+      <Box className={styles.likedSongs}>
         {userLikes.length > 0 ? (
-          <div className={styles.containerImageHeart}>
+          <Box className={styles.containerImageHeart}>
             <img
               className={styles.coverLikedSongs}
               src={likePostCover(userLikes[userLikes.length - 1].postId)?.cover}
               alt=""
             />
             <img className={styles.heart} src={heart} alt="" />
-          </div>
+          </Box>
         ) : null}
         {userLikes.length < 1 ? (
           <p>{profileUser.name} has not liked any post</p>
@@ -50,8 +53,8 @@ const LikedSongs = (id) => {
             {profileUser.name} has liked {userLikes.length} songs
           </p>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
