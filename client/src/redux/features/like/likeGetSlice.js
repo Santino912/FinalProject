@@ -8,9 +8,9 @@ export const getLikesByUserId = (_id) => {
       dispatch(
         getVideoLikesSlice(
           response.data
-            .filter((like) => like.isActive)
-            .map((like) => like.post)
-            .filter((post) => post?.type === "video")
+            ?.filter((like) => like.isActive)
+            ?.map((like) => like.post)
+            ?.filter((post) => post?.type === "video")
         )
       );
     } catch (error) {
@@ -26,9 +26,9 @@ export const getSongsLikesByUserId = (_id) => {
       dispatch(
         getSongLikesSlice(
           response.data
-            .filter((like) => like.isActive)
-            .map((like) => like.post)
-            .filter((post) => post?.type === "audio")
+            ?.filter((like) => like.isActive)
+            ?.map((like) => like.post)
+            ?.filter((post) => post?.type === "audio")
         )
       );
     } catch (error) {

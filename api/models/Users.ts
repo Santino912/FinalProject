@@ -58,7 +58,9 @@ const user = new Schema({
   },
   likedPosts: {
     type: Array,
-
-  }
+  },
+  pleasures: {
+    type: Array,
+  },
 })
 export default model("User", user)

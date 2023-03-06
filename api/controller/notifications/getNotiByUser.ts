@@ -7,12 +7,10 @@ const getNotiByUser = async (req: Request, res: Response) => {
 
     try {
 
-        const user = await Users.find({ idGoogle })
-        //const notification = await Notifications.findOne({ user });
+        const user = await Users.findOne({ idGoogle })
+        const notifications = await Notifications.find({ to: user?._id, watched: false, disable: false })
 
-
-        //return res.json(notification);
-
+        return res.send(notifications)
     } catch (error) {
 
         return res.status(500).send(error);

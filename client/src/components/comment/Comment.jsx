@@ -52,7 +52,7 @@ export default function Comment({
         <Avatar src={user && user.avatar} sx={{ width: 24, height: 24 }} />
       </Grid>
       <Grid item>
-        <Link to={`/home/explore/${post.userId}`}>
+        <Link to={`/home/explore/${post.user._id}`}>
           <p className={style.userName}>{user?.name}</p>
         </Link>
       </Grid>

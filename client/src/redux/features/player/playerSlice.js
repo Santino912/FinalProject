@@ -15,11 +15,11 @@ export const playerSlice = createSlice({
       return {
         ...state,
         currentTrackIndex:
-          state.currentTrackIndex < [...state.tracks].length - 1
+          state.currentTrackIndex < [...state.tracks]?.length - 1
             ? state.currentTrackIndex + 1
             : 0,
         nowPlaying: [...state.tracks][
-          state.currentTrackIndex < [...state.tracks].length - 1
+          state.currentTrackIndex < [...state.tracks]?.length - 1
             ? state.currentTrackIndex + 1
             : 0
         ],
@@ -30,11 +30,11 @@ export const playerSlice = createSlice({
         ...state,
         currentTrackIndex:
           state.currentTrackIndex === 0
-            ? [...state.tracks].length - 1
+            ? [...state.tracks]?.length - 1
             : state.currentTrackIndex - 1,
         nowPlaying: [...state.tracks][
           state.currentTrackIndex === 0
-            ? [...state.tracks].length - 1
+            ? [...state.tracks]?.length - 1
             : state.currentTrackIndex - 1
         ],
       };
@@ -62,7 +62,7 @@ export const playerSlice = createSlice({
     remove: (state, action) => {
       return {
         ...state,
-        tracks: [...state.tracks].length
+        tracks: [...state.tracks]?.length
           ? [...state.tracks].filter((t) => t._id !== action.payload)
           : [],
       };

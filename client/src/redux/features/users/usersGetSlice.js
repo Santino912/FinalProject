@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import {
   addUsers,
   deleteUsers,
@@ -21,7 +20,9 @@ import {
   setFollow,
   setUnfollow,
   getUserDataGraphs,
+  getPostsByUserToProfile,
 } from "./usersSlice";
+import { getFollowOfThisUser } from "./utilsUsers";
 
 //obtener los users
 export const getUser = () => {
@@ -59,12 +60,14 @@ export const updateUser = (_id, body) => {
   };
 };
 
+//set user genres
 export const setUserGenres = (body) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(`/users/set/genres`, body);
       if (response) {
         dispatch(setGenres(response.data.genres));
+        dispatch(getByFirebaseId(response.data._id));
         dispatch(getUser());
       }
     } catch (error) {
@@ -89,10 +92,34 @@ export const deleteUser = (_id) => {
 export const getUserById = (_id) => {
   return async (dispatch) => {
     try {
+      if (_id === undefined)
+        return console.log(`_id is undefined in getUserById`);
       const response = await axios.get(`/users/${_id}`);
       dispatch(getById(response.data));
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const getFollowsByUserId = (_id, setter) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/follows/${_id}`);
+      dispatch(setFollow(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getPostsByUser = (_id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/posts/user/${_id}`);
+      dispatch(getPostsByUserToProfile(data));
+    } catch (err) {
+      console.log(err);
     }
   };
 };
@@ -154,6 +181,7 @@ export const getUserLikes = (_id) => {
 
 export const getUserNotification = (_id) => {
   return async (dispatch) => {
+    if (_id === undefined) return;
     try {
       const response = await axios.get(`/notifications/${_id}`);
       await dispatch(getNotifications(response.data));
@@ -201,7 +229,7 @@ export const setUserFollow = (body) => {
     try {
       const response = await axios.post(`/users/follow`, body);
       if (response) {
-        dispatch(setFollow(response.data.FollowerUsers));
+        dispatch(setFollow(response.data));
         dispatch(getUser());
       }
     } catch (error) {
@@ -215,7 +243,7 @@ export const setUserUnfollow = (body) => {
     try {
       const response = await axios.post(`/users/unfollow`, body);
       if (response) {
-        dispatch(setUnfollow(response.data.FollowerUsers));
+        dispatch(setUnfollow(response.data));
         dispatch(getUser());
       }
     } catch (error) {

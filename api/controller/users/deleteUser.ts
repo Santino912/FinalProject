@@ -5,7 +5,7 @@ const deleteUser = async (req: Request, res: Response) => {
     const { _id } = req.params;
 
     try {
-        Users.findOneAndDelete({ _id })
+        await Users.findOneAndDelete({ _id })
 
         res.send("User deleted")
     } catch (err) {

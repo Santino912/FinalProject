@@ -1,14 +1,17 @@
 import { Request, Response } from "express"
 import Likes from "../../models/Likes"
+import Users from "../../models/Users"
 const getLikesByUserId = async (req: Request, res: Response) => {
     const { idUser } = req.params
 
     try {
-        const like = await Likes.find({ idUser })
+        const user = await Users.findOne({ _id: idUser })
 
-        res.send(like)
+        const like = await Likes.find({ user: user?._id })
+
+        return res.send(like)
     } catch (err) {
-        res.status(500).send(err)
+        return res.status(500).send(err)
     }
 
 }

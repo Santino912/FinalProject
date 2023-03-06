@@ -9,23 +9,23 @@ import PopularPost from "./PopularPost";
 const Popular = ({ _id }) => {
   const dispatch = useDispatch();
   let allPosts = useSelector((state) => state.posts.postList);
-  allPosts = allPosts.filter(
-    (post) => post.userId === _id && post.idShared === null
-  );
+  /*   allPosts = allPosts?.filter(
+    (post) => post.user._id === _id && post.idShared === null
+  ); */
   const popularPosts = useSelector((state) => state.posts.postsOrdered).slice(
     0,
     5
   );
 
   useEffect(() => {
-    dispatch(getPostByPopularity({ posts: allPosts }));
+    dispatch(getPostByPopularity());
   }, [dispatch]);
 
   return (
     <div className={styles.containerPopularSongs}>
       <h2>Popular</h2>
       <div>
-        {popularPosts.map((post, index) => {
+        {popularPosts?.map((post, index) => {
           return (
             <div className={styles.containerSong}>
               <p className={styles.songFirstHalfIndex}>{index + 1}</p>

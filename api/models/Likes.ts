@@ -1,17 +1,19 @@
 import { model, Schema } from "mongoose";
 
 const like = new Schema({
-  post: {
-    ref: "Post",
-    type: Schema.Types.Mixed
-  },
-  idUser: {
-    type: String,
-    require: true
-  },
   isActive: {
     type: Boolean,
     require: true
+  },
+  post: {
+    ref: "Post",
+    type: Schema.Types.Mixed,
+    require: true
+  },
+  user: {
+    ref: "User",
+    type: Schema.Types.Mixed,
+    required: true
   },
 })
 export default model("Like", like)

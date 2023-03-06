@@ -112,7 +112,7 @@ export default function Post({ post, comments, margin, border, height }) {
   };
 
   const notification = async () => {
-    if (currentUser._id !== post.userId) {
+    if (currentUser._id !== post.user._id) {
       await dispatch(
         createUserNotification({
           title: JSON.stringify({
@@ -121,7 +121,7 @@ export default function Post({ post, comments, margin, border, height }) {
             post: post.title,
           }),
           content: `/home/explore/${currentUser._id}`,
-          userId: post.userId,
+          userId: post.user._id,
           fromUser: currentUser._id,
         })
       );
@@ -188,7 +188,6 @@ export default function Post({ post, comments, margin, border, height }) {
       })
     );
   };
-
   return (
     <Grid
       container
@@ -201,7 +200,7 @@ export default function Post({ post, comments, margin, border, height }) {
       <Grid item container spacing={1} justifyContent="space-between">
         <Grid item container spacing={2} className={style.avatarName}>
           <Grid item>
-            <Link to={`/home/explore/${post.userId}`}>
+            <Link to={`/home/explore/${post?.user?._id}`}>
               <Avatar
                 src={post.user && post.user.avatar}
                 sx={{ "&:hover": { filter: "brightness(70%)" } }}
@@ -209,7 +208,7 @@ export default function Post({ post, comments, margin, border, height }) {
             </Link>
           </Grid>
           <Grid item container xs={4} direction="column">
-            <Link to={`/home/explore/${post.userId}`}>
+            <Link to={`/home/explore/${post?.user?._id}`}>
               <Typography
                 sx={{ "&:hover": { color: "white", cursor: "pointer" } }}
                 variant="body1"
@@ -217,7 +216,7 @@ export default function Post({ post, comments, margin, border, height }) {
                 {post.user && post.user.name}
               </Typography>
             </Link>
-            <Link to={`/home/explore/${post.userId}`}>
+            <Link to={`/home/explore/${post?.user?._id}`}>
               <Typography
                 sx={{
                   "&:hover": { cursor: "pointer", textDecoration: "underline" },
@@ -280,7 +279,8 @@ export default function Post({ post, comments, margin, border, height }) {
               </SvgIcon>
               Report
             </MenuItem>
-            {currentUser.role === "Admin" || currentUser._id === post.userId ? (
+            {currentUser.role === "Admin" ||
+            currentUser._id === post.user._id ? (
               <MenuItem onClick={handleClickOpenDelete} disableRipple>
                 <SvgIcon
                   xmlns="http://www.w3.org/2000/svg"
@@ -435,11 +435,11 @@ export default function Post({ post, comments, margin, border, height }) {
                           dispatch(
                             createPost({
                               title: descriptionShare,
-                              content: post.content,
-                              type: post.type,
-                              idUser: currentUser._id,
-                              idShared: post._id,
-                              genres: post.genres.map((genre) => genre.name),
+                              content: post?.content,
+                              type: post?.type,
+                              idUser: currentUser?._id,
+                              idShared: post?._id,
+                              genres: post?.genres?.map((genre) => genre.name),
                             })
                           );
                           notification();

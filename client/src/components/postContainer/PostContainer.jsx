@@ -41,7 +41,7 @@ export default function PostContainer() {
           className={style.divPost}
           style={post?.type === "audio" ? { height: "75%" } : {}}
         >
-          {Object.keys(post).length !== 0 ? (
+          {Object.keys(post)?.length !== 0 ? (
             <Post post={post} comments={true} margin={0} height={"100%"} />
           ) : (
             ""

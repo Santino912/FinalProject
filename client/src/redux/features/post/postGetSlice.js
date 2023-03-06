@@ -13,6 +13,7 @@ import {
   getPostsReported,
   getAllPostByPopularity,
   getAllPostByRelevance,
+  getPostsByUserPleasures,
 } from "./postSlice";
 
 //obtener los users
@@ -48,6 +49,27 @@ export const updatePost = (_id, body) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+/* export const userProfilePosts= (_id) => {
+  return async (dispatch) => {
+    try{
+const {data} = await axios.get(`/post`)
+    }catch(err){
+
+    }
+  }
+} */
+
+export const getPostsByUserPleasuresFunct = (idGoogle) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/posts/user/pleasures/${idGoogle}`);
+      dispatch(getPostsByUserPleasures(data));
+    } catch (err) {
+      console.log(err);
     }
   };
 };
@@ -93,7 +115,7 @@ export const postsReported = () => {
 export const getPostByTime = (order) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/posts/order/`, order);
+      const { data } = await axios.get(`/posts/orderTime/${order}`);
       dispatch(getAllPostByTime(data));
     } catch (error) {
       console.log(error);
@@ -104,7 +126,8 @@ export const getPostByTime = (order) => {
 export const getPostByPopularity = (body) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/posts/order/popular`, body);
+      if (!body || !body.order) return;
+      const { data } = await axios.get(`/posts/order/${body.order}`);
       dispatch(getAllPostByPopularity(data));
     } catch (error) {
       console.log(error);

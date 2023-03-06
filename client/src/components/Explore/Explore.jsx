@@ -23,7 +23,6 @@ import logoIcon from "../../images/logoicon.png";
 import {
   getUser,
   getUserByFirebaseId,
-  getUserById,
   getUserNotification,
 } from "../../redux/features/users/usersGetSlice";
 import { getGenre } from "../../redux/features/genres/genreGetSlice";
@@ -66,7 +65,7 @@ const Explore = () => {
   const lastGenre = currentPage * genrePerPage;
   const firstGenre = lastGenre - genrePerPage;
   const currentGenres = genres.slice(firstGenre, lastGenre);
-  const pageNumbers = Math.ceil(genres.length / genrePerPage);
+  const pageNumbers = Math.ceil(genres?.length / genrePerPage);
   let [artistsPerPage, setArtistsPerPage] = useState(10);
   let currentArtists = posibleArtist().slice(0, artistsPerPage);
   let [songsPerPage, setSongsPerPage] = useState(9);
@@ -86,7 +85,6 @@ const Explore = () => {
     dispatch(getPost());
     dispatch(getUser());
     dispatch(getGenre());
-    dispatch(getUserById(posts?.userId));
     dispatch(getUserByFirebaseId(userFirebase?.uid));
     dispatch(getUserNotification(userDB?.idGoogle));
   }, [dispatch]);
@@ -94,7 +92,7 @@ const Explore = () => {
   useEffect(() => {
     dispatch(
       getPostByRelevance({
-        genres: userDB.genres?.map((genre) => genre.name),
+        genres: userDB?.genres?.map((genre) => genre.name),
       })
     );
   }, [userDB]);
@@ -183,12 +181,12 @@ const Explore = () => {
     } else {
       newChecked.genres.splice(currentGenresChecked, 1);
     }
-    setGenresFiltered(newChecked.genres.map((el) => el));
-    if (newChecked.genres.length === 0) {
+    setGenresFiltered(newChecked.genres?.map((el) => el));
+    if (newChecked.genres?.length === 0) {
       if (orderChecked === "relevance") {
         dispatch(
           getPostByRelevance({
-            genres: userDB.genres.map((genre) => genre.name),
+            genres: userDB?.genres?.map((genre) => genre.name),
           })
         );
       } else if (orderChecked === "popu") {
@@ -208,6 +206,7 @@ const Explore = () => {
   }
 
   function handleChecked(el) {
+    console.log(el.target.value);
     setOrderChecked(el.target.value);
     if (el.target.value === "relevance") {
       dispatch(
@@ -349,7 +348,7 @@ const Explore = () => {
                                   type="checkbox"
                                   value={genre.name}
                                 ></input>
-                                {!genresFiltered.find(
+                                {!genresFiltered?.find(
                                   (el) => el === genre.name
                                 ) ? (
                                   <label htmlFor={genre.name}>
@@ -651,8 +650,8 @@ const Explore = () => {
                     </Stack>
                   )}
                 </Stack>
-              ) : (posibleArtist().length === 0 &&
-                  posibleSong().length === 0) ||
+              ) : (posibleArtist()?.length === 0 &&
+                  posibleSong()?.length === 0) ||
                 !posts ? (
                 <h1 className={styles.noResultsText}>No results</h1>
               ) : (
@@ -666,7 +665,7 @@ const Explore = () => {
                       Results
                     </Typography>
                   </div>
-                  {posibleSong().length > 0 ? (
+                  {posibleSong()?.length > 0 ? (
                     <div style={{ marginTop: "10px", marginBottom: "10px" }}>
                       <Typography
                         variant="h5"
@@ -709,10 +708,9 @@ const Explore = () => {
                                 </div>
                                 <div>
                                   <p>{results?.title}</p>
-
                                   <Link
                                     className={styles.artistSong}
-                                    to={results.userId}
+                                    to={results?.user?._id}
                                   >
                                     <p
                                       style={{
@@ -734,7 +732,7 @@ const Explore = () => {
                       </Stack>
                     </div>
                   ) : null}
-                  {currentSongs.length < posibleSong().length ? (
+                  {currentSongs?.length < posibleSong()?.length ? (
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <FontAwesomeIcon
                         className={styles.showMoreButton}
@@ -744,7 +742,7 @@ const Explore = () => {
                     </div>
                   ) : null}
 
-                  {posibleArtist().length > 0 ? (
+                  {posibleArtist()?.length > 0 ? (
                     <div style={{ marginTop: "10px", marginBottom: "10px" }}>
                       <Typography
                         variant="h5"
@@ -768,7 +766,7 @@ const Explore = () => {
                               if (results.plan === "Premium") {
                                 return (
                                   <Link
-                                    to={`/home/explore/${results._id}`}
+                                    to={`/home/explore/${results?.user?._id}`}
                                     style={{ textDecoration: "none" }}
                                   >
                                     <div className={styles.artistContainer}>
@@ -791,7 +789,7 @@ const Explore = () => {
                               } else {
                                 return (
                                   <Link
-                                    to={`/home/explore/${results._id}`}
+                                    to={`/home/explore/${results?.user?._id}`}
                                     style={{ textDecoration: "none" }}
                                   >
                                     <div className={styles.artistContainer}>
@@ -814,7 +812,7 @@ const Explore = () => {
                               }
                             })}
                           </Stack>
-                          {currentArtists.length < posibleArtist().length ? (
+                          {currentArtists?.length < posibleArtist()?.length ? (
                             <FontAwesomeIcon
                               className={styles.showMoreButton}
                               onClick={handleArtistsPerPage}

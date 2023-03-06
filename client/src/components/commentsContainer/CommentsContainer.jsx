@@ -77,9 +77,9 @@ export default function CommentsContainer({ post }) {
       <Grid item mt={`2%`}>
         {comments?.length > 0
           ? comments
-              .slice(0)
-              .reverse()
-              .map((comment, i) => (
+              ?.slice(0)
+              ?.reverse()
+              ?.map((comment, i) => (
                 <Comment
                   key={i}
                   content={comment.content}

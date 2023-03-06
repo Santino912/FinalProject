@@ -9,7 +9,7 @@ const getCountUserGraphs = async (req: Request, res: Response) => {
 
         const regularCount = await Users.count({ plan: "Regular" })
 
-        res.send({ bannedCount, premiumCount, regularCount })
+        return res.send({ bannedCount, premiumCount, regularCount })
     } catch (err) {
         console.log(err)
     }

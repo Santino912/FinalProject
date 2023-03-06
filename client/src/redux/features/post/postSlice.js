@@ -5,6 +5,7 @@ const initialState = {
   postListAll: [],
   postsFiltered: [],
   postsOrdered: [],
+  postsByUserPleasures: [],
   post: {},
   isLoading: true,
   error: false,
@@ -45,6 +46,12 @@ export const postSlice = createSlice({
         isLoading: false,
         error: null,
         postListAll: action.payload,
+      };
+    },
+    getPostsByUserPleasures: (state, action) => {
+      return {
+        ...state,
+        postsByUserPleasures: action.payload,
       };
     },
     getPostError: (state, action) => {
@@ -119,6 +126,7 @@ export const {
   clearCurrentPost,
   getAllPostByPopularity,
   getAllPostByRelevance,
+  getPostsByUserPleasures,
 } = postSlice.actions;
 
 export default postSlice.reducer;

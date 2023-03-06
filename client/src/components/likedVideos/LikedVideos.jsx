@@ -22,7 +22,7 @@ export default function LikedVideos() {
   }, []);
 
   useEffect(() => {
-    if (Object.keys(userDB).length > 0) {
+    if (Object.keys(userDB)?.length > 0) {
       dispatch(getLikesByUserId(userDB._id));
     }
   }, [userDB]);
@@ -33,7 +33,7 @@ export default function LikedVideos() {
         <SideBar userDB={userDB} />
       </Grid>
       <Grid item xs={9.5} p={`2%`}>
-        {likesCurrentUser.length > 0 ? (
+        {likesCurrentUser?.length > 0 ? (
           <div style={{ width: "100%" }}>
             <PlayAllButton songs={likesCurrentUser} />
             <div style={{ marginTop: "30px" }}>

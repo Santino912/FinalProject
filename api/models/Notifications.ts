@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 const notification = new Schema({
     title: {
-        type: String,
+        type: Object,
         require: true
     },
     content: {
@@ -16,6 +16,10 @@ const notification = new Schema({
     watched: {
         type: Boolean,
         default: false
+    },
+    to: {
+        ref: "User",
+        type: Schema.Types.ObjectId
     },
     fromUser: {
         ref: "User",

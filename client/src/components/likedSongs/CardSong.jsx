@@ -34,11 +34,11 @@ export default function CardSong({ arrayMap, post, index, isActive }) {
 
   useEffect(() => {
     async function getUser() {
-      const res = await axios.get(`/users/${post.userId}`);
+      const res = await axios.get(`/users/${post?.user?._id}`);
       setUser(res.data);
     }
     getUser();
-  }, [post.userId]);
+  }, [post?.user?._id]);
 
   return (
     <Box
@@ -95,7 +95,7 @@ export default function CardSong({ arrayMap, post, index, isActive }) {
         </Dialog>
       </Box>
       <Box className={styles.songSecondHalf}>
-        <Link to={`/home/explore/${post.userId}`}>
+        <Link to={`/home/explore/${post?.user?._id}`}>
           <Typography
             sx={{
               "&:hover": { color: "white", cursor: "pointer" },

@@ -7,7 +7,6 @@ const getByGenre = async (req: Request, res: Response) => {
 
 
     try {
-
         const posts = await Posts.find({ genres: { $in: genres } })
 
         return res.send(posts);

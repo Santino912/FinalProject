@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import styles from "./EditProfile.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Box, Button, TextField } from "@mui/material";
 import { updateUser } from "../../redux/features/users/usersGetSlice";
 import { storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Loading from "../loading/Loading";
 import PayButton from "../pay/PayButton";
+import styles from "./EditProfile.module.css";
 
 const EditProfile = (close) => {
   const dispatch = useDispatch();

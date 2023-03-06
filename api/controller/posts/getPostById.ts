@@ -5,10 +5,9 @@ const getPostById = async (req: Request, res: Response) => {
     const { _id } = req.params;
 
     try {
+        const posts = await Posts.find({ _id })
 
-        const post = await Posts.find({ _id })
-
-        return res.json(post);
+        return res.json(posts);
 
     } catch (error) {
 

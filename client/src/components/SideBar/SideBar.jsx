@@ -54,9 +54,10 @@ const SideBar = ({ userDB }) => {
     dispatch(getUserNotification(user.idGoogle));
   }, [allPosts]);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const openBoolean = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState(false);
+  const [openBoolean, setOpenBoolean] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [showEditProfile, setShowEditProfile] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const [showText, setShowText] = useState(false);
@@ -76,7 +77,7 @@ const SideBar = ({ userDB }) => {
   useEffect(() => {
     const getReviews = async () => {
       let allReviews = await axios.get("/reviews");
-      if (allReviews.data.find((r) => r.userId === input.userId.toString())) {
+      if (allReviews.data?.find((r) => r.userId === input.userId.toString())) {
         setShowButton(false);
       }
     };
@@ -135,16 +136,18 @@ const SideBar = ({ userDB }) => {
     p: 4,
   };
 
-  const handleOpenMenu = () => {
-    setOpenMenu(true);
-  };
-
-  const handleCloseMenu = () => {
-    setOpenMenu(false);
-  };
-
   const handleShowSettings = () => {
     setOpenSettings(!openSettings);
+  };
+
+  const handleEditProfile = () => {
+    setShowEditProfile(!showEditProfile);
+    setOpenBoolean(!openBoolean);
+  };
+
+  const handleCloseAll = () => {
+    setShowEditProfile(false);
+    setOpenBoolean(false);
   };
 
   return (
@@ -161,28 +164,12 @@ const SideBar = ({ userDB }) => {
             />
           </Link>
           <FontAwesomeIcon
-            onClick={handleOpenMenu}
+            onClick={() => setOpenBoolean(!openBoolean)}
             className={s.dotsMenu}
             icon={faEllipsis}
           />
-          <Menu
-            style={{ margin: "125px 0 0 134px" }}
-            open={openMenu}
-            onClose={handleCloseMenu}
-            anchorOrigin={{
-              horizontal: "left",
-              vertical: "top",
-            }}
-          >
-            <MenuItem onClick={handleShowSettings}>Edit profile</MenuItem>
-          </Menu>
-          {openSettings && (
-            <EditProfile
-              close={handleShowSettings}
-              setOpenSettings={setOpenSettings}
-            />
-          )}
         </Box>
+
         <li className={s.routeItem}>
           {" "}
           <Link to="/home">Home</Link>{" "}
@@ -432,6 +419,23 @@ const SideBar = ({ userDB }) => {
           </Box>
         </Dialog>
       }
+
+      {showEditProfile && (
+        <EditProfile
+          close={handleCloseAll}
+          setOpenSettings={handleShowSettings}
+        />
+      )}
+      {openBoolean && (
+        <Box
+          className={s.backgroundEditProfile}
+          onClick={() => setOpenBoolean(!openBoolean)}
+        >
+          <Box className={s.editProfileBox} onClick={() => handleEditProfile()}>
+            <h4 style={{ color: "black", fontWeight: 500 }}>Edit profile</h4>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };

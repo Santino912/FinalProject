@@ -86,7 +86,6 @@ export default function Queue({ tracks, trackIndex }) {
         <List
           sx={{
             backgroundColor: "rgba(4, 11, 33, 0.65)",
-            backdropFilter: "blur(15px)",
             height: "100vh",
             overflowY: "scroll",
           }}
@@ -147,7 +146,7 @@ export default function Queue({ tracks, trackIndex }) {
                 </div>
                 <Divider />
               </ListItem>
-              {tracks.length > 1 && (
+              {tracks?.length > 1 && (
                 <PlaylistRemoveRoundedIcon
                   sx={{ cursor: "pointer" }}
                   onClick={() => dispatch(removeTrack(t._id))}
