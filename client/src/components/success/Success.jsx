@@ -13,7 +13,6 @@ const Success = () => {
   const navigate = useNavigate();
 
   const premium = localStorage.getItem("premium");
-  console.log(premium);
 
   const fetchUser = async () => {
     if (premium) {

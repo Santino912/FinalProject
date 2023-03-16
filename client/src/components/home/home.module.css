@@ -24,7 +24,7 @@
   padding: 20px;
   width: calc(100% - 240px - 24px - 40px);
   padding-left: calc(240px + 24px + 20px);
-  /* backdrop-filter: blur(15px); es el filtro del fondo...... da lag, cambiar */
+  /* backdrop-filter: blur(15px); nota, nunca usar esto */
 }
 
 .home .posts .text {

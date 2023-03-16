@@ -1,14 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   usersList: [],
   usersListAll: [],
-  user:{},
   userLikes: [],
   userNotifications: [],
   isLoading: true,
   currentUser: {},
-  userGraphsData: {}
-}
+  userGraphsData: {},
+  user: {},
+  usersProfilePosts: [],
+  userFollows: [],
+};
 
 const userSlice = createSlice({
   name: "users",
@@ -30,7 +32,7 @@ const userSlice = createSlice({
     setGenres: (state, action) => {
       return {
         ...state,
-        currentUser: {...state.currentUser, genres: action.payload}
+        currentUser: { ...state.currentUser, genres: action.payload },
       };
     },
     getUserStart: (state) => {
@@ -56,95 +58,110 @@ const userSlice = createSlice({
         isLoading: false,
       };
     },
-    getById:(state, action)=>{
+    getById: (state, action) => {
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     },
-    cleanUser:(state)=>{
+    cleanUser: (state) => {
       return {
         ...state,
-        user: {}
-      }
+        user: {},
+        usersProfilePosts: [],
+      };
     },
-    getByFirebaseId: (state, action)=>{
+    getByFirebaseId: (state, action) => {
       return {
         ...state,
-        currentUser: action.payload
-      }
+        currentUser: action.payload,
+      };
     },
-    getUpdatePremium : (state, action)=> {
+    getUpdatePremium: (state, action) => {
       return {
         ...state,
-        currentUser: action.payload
-      }
+        currentUser: action.payload,
+      };
     },
     getDownToRegular: (state, action) => {
-      return{
-        ...state,
-        currentUser: action.payload
-      }
-    },
-    getLikes : (state, action)=> {
       return {
         ...state,
-        userLikes: action.payload
-      }
+        currentUser: action.payload,
+      };
     },
-    getNotifications: (state, action)=> {
+    getLikes: (state, action) => {
       return {
         ...state,
-        userNotifications: action.payload
-      }
+        userLikes: action.payload,
+      };
     },
-    // createNotification: (state, action)=> {
-    //    return{
-    //     ...state,
-    //     userNotifications: [...state.userNotifications, action.payload]
-    //    }  
-    // },
-
+    getNotifications: (state, action) => {
+      return {
+        ...state,
+        userNotifications: action.payload,
+      };
+    },
     watchedNotification: (state, action) => {
       return {
         ...state,
-        userNotifications: action.payload
-      }
+        userNotifications: action.payload,
+      };
     },
     disabledNotification: (state, action) => {
       return {
         ...state,
-        userNotifications: action.payload
-      }
+        userNotifications: action.payload,
+      };
     },
     setFollow: (state, action) => {
       return {
         ...state,
-        user: {...state.user, FollowerUsers: action.payload}
-      }
+        userFollows: action.payload,
+      };
     },
     setUnfollow: (state, action) => {
       return {
         ...state,
-        user: {...state.user, FollowerUsers: action.payload}
-      }
+        userFollows: action.payload,
+      };
     },
-    getUserDataGraphs:  (state, action) => {
+    getUserDataGraphs: (state, action) => {
       return {
         ...state,
-        userGraphsData: action.payload
-      }
+        userGraphsData: action.payload,
+      };
     },
-}})
+    getPostsByUserToProfile: (state, action) => {
+      return {
+        ...state,
+        usersProfilePosts: action.payload,
+      };
+    },
+  },
+});
 
-
-
-
-
-
-export const { getUserDataGraphs, addUsers, deleteUsers, updateUsers, getUserStart, getUserError, getUserSuccess, getById, getByFirebaseId, getUpdatePremium, getLikes, setGenres, getNotifications, createNotification, watchedNotification, disabledNotification, cleanUser, getDownToRegular, setFollow, setUnfollow  } = userSlice.actions;
-
-
+export const {
+  getUserDataGraphs,
+  addUsers,
+  deleteUsers,
+  updateUsers,
+  getUserStart,
+  getUserError,
+  getUserSuccess,
+  getById,
+  getByFirebaseId,
+  getUpdatePremium,
+  getLikes,
+  setGenres,
+  getNotifications,
+  createNotification,
+  watchedNotification,
+  disabledNotification,
+  cleanUser,
+  getDownToRegular,
+  setFollow,
+  setUnfollow,
+  getPostsByUserToProfile,
+} = userSlice.actions;
 
 export default userSlice.reducer;
-

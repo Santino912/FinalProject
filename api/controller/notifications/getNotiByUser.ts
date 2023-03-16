@@ -3,16 +3,12 @@ import Notifications from "../../models/Notifications";
 import Users from "../../models/Users";
 
 const getNotiByUser = async (req: Request, res: Response) => {
-    const { idGoogle } = req.params;
+    const { _id } = req.params;
 
     try {
-
-        const user = await Users.find({ idGoogle })
-        //const notification = await Notifications.findOne({ user });
-
-
-        //return res.json(notification);
-
+        const user = await Users.findOne({ _id })
+        const notifications = await Notifications.find({ to: user?._id, disable: false })
+        return res.send(notifications)
     } catch (error) {
 
         return res.status(500).send(error);

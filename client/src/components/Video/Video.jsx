@@ -1,50 +1,57 @@
-import React, {useEffect, useRef} from 'react'
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
-import '@videojs/themes/dist/fantasy/index.css';
-import './Video.css'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef } from "react";
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
+import "@videojs/themes/dist/fantasy/index.css";
+import "./Video.css";
+import { useSelector } from "react-redux";
 
-function Video({song}){
-  const videoRef= useRef(null)
-  const playerRef = useRef(null)
-  const currentUser = useSelector(state => state.users.currentUser)
+function Video({ song }) {
+  const videoRef = useRef(null);
+  const playerRef = useRef(null);
+  const currentUser = useSelector((state) => state.users.currentUser);
   const options = {
     autoplay: false,
     controls: true,
     controlBar: {
-      pictureInPictureToggle: currentUser?.plan === 'Premium'
+      pictureInPictureToggle: currentUser?.plan === "Premium",
     },
-    sources: [{
-      src: song.content,
-      type: 'video/mp4'
-    }]
-  }
+    sources: [
+      {
+        src: song.content,
+        type: "video/mp4",
+      },
+    ],
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     const player = playerRef.current;
-    if(!player){
+    if (!player) {
       const videoElement = videoRef.current;
-      if(!videoElement) return;
+      if (!videoElement) return;
 
-      playerRef.current = videojs(videoElement, options)
-    };
+      playerRef.current = videojs(videoElement, options);
+    }
 
     return () => {
-      if(player) {
+      if (player) {
         player.dispose();
         playerRef.current = null;
       }
     };
-  }, [])
+  }, []);
 
   return (
-    <div className='video-cont'>
-    <div data-vjs-player> 
-        <video ref={videoRef} preload='none' poster={song?.cover} className={`video-js vjs-big-play-centered vjs-theme-fantasy`}></video>
+    <div className="video-cont">
+      <div data-vjs-player>
+        <video
+          ref={videoRef}
+          preload="false"
+          poster={song?.cover}
+          className={`video-js vjs-big-play-centered vjs-theme-fantasy`}
+        ></video>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default Video
+export default Video;

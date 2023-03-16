@@ -7,14 +7,14 @@ const setUserGenres = async (req: Request, res: Response) => {
 
     try {
 
-        const user = await Users.findOne(_id);
+        const user = await Users.findOneAndUpdate({ _id }, { pleasures: genres });
 
-        console.log(user)
+
         return res.json(user);
 
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 }
 

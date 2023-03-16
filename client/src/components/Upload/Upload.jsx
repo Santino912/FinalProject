@@ -20,8 +20,8 @@ import AudioPlayer from "react-h5-audio-player";
 import { storage } from "../../firebase.js";
 import { useAuth } from "../../context";
 import Loading from "../loading/Loading";
-import s from "./Upload.module.css";
 import defaultImg from "../Player/default.png";
+import s from "./Upload.module.css";
 import "react-h5-audio-player/lib/styles.css";
 
 export default function Upload() {
@@ -122,7 +122,9 @@ export default function Upload() {
         type: "",
         genres: [],
       });
-      handleClose();
+      setOpen(false);
+
+      window.location.reload();
     } else alert("Check the information");
   }
 
@@ -211,7 +213,7 @@ export default function Upload() {
                   onChange={handleChange}
                   input={<OutlinedInput />}
                   renderValue={(selected) => {
-                    if (selected.length === 0) {
+                    if (selected?.length === 0) {
                       return <em>Select Genres *</em>;
                     }
                     return selected.join(", ");

@@ -6,11 +6,8 @@ const changePlanUser = async (req: Request, res: Response) => {
     const { _id, plan } = req.body;
 
     try {
-        const user = await Users.findOneAndUpdate(_id);
-        /* 
-                user.update({
-                    plan
-                }); */
+        const user = await Users.findOneAndUpdate({ _id }, { plan });
+
 
         return res.send(user);
 

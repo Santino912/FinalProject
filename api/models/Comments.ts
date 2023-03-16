@@ -13,9 +13,14 @@ const comment = new Schema({
         type: String,
         require: true
     },
+
     commentDate: {
         type: Date,
         default: Date.now()
+    },
+    userId: {
+        type: Schema.Types.Mixed,
+        ref: "User"
     }
 
 })

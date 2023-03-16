@@ -6,6 +6,7 @@ import { getLikesByUserId } from "../../redux/features/like/likeGetSlice";
 import { getPost } from "../../redux/features/post/postGetSlice";
 import { createUserNotification } from "../../redux/features/users/usersGetSlice";
 import style from "./post.module.css";
+import { findLikeByIdUserAndIdPost } from "./utils/LikesRequests";
 
 export default function LikeButton({ post }) {
   const [like, setLike] = useState();
@@ -20,7 +21,8 @@ export default function LikeButton({ post }) {
   }
 
   const notification = async () => {
-    if (currentUser._id !== post.userId) {
+    const data = await findLikeByIdUserAndIdPost(post._id, currentUser._id);
+    if (data.isActive === undefined) {
       await dispatch(
         createUserNotification({
           title: JSON.stringify({
@@ -29,8 +31,9 @@ export default function LikeButton({ post }) {
             post: post.title,
           }),
           content: `/home/post/${post._id}`,
-          userId: post.userId,
+          userId: post.user?._id,
           fromUser: currentUser._id,
+          idPost: post._id,
         })
       );
       console.log("notification created!");
@@ -46,14 +49,13 @@ export default function LikeButton({ post }) {
   useEffect(() => {
     getLikes();
     getLikeOfThisUser();
-  }, [post]);
+  }, [post, dispatch]);
 
   useEffect(() => {
     async function updateLikes() {
       if (click !== undefined) {
         await getLikes();
-        const res = await axios.get(`/likes/count/${currentUser._id}`);
-        const currentLike = (res.data && res.data[0]) || {};
+        const data = await findLikeByIdUserAndIdPost(post._id, currentUser._id);
         async function updateLike() {
           await axios.put(`/likes`, {
             idPost: post._id,
@@ -67,9 +69,8 @@ export default function LikeButton({ post }) {
             idUser: currentUser._id,
           });
         }
-        Object.keys(currentLike).length === 0
-          ? await createLike()
-          : await updateLike();
+
+        data.isActive === undefined ? await createLike() : await updateLike();
         await getLikes();
       }
       dispatch(getLikesByUserId(currentUser._id));
@@ -79,15 +80,15 @@ export default function LikeButton({ post }) {
   }, [click]);
 
   async function getLikeOfThisUser() {
-    const res = await axios.get(`/likes/count/${currentUser._id}`);
-    setLike(res.data[0]?.isActive);
+    const data = await findLikeByIdUserAndIdPost(post._id, currentUser._id);
+    setLike(data?.isActive);
   }
 
   useEffect(() => {
     if (like === undefined && likes !== undefined) {
       getLikeOfThisUser();
     }
-  }, [likes]);
+  }, [likes, dispatch, like]);
 
   return (
     <Grid
@@ -98,9 +99,9 @@ export default function LikeButton({ post }) {
     >
       <Grid item mr={`10%`}>
         <Typography>
-          {likes?.filter((likes) => likes.isActive).length === 0
-            ? ""
-            : likes?.filter((likes) => likes.isActive).length}
+          {likes?.filter((likes) => likes.isActive)?.length === 0
+            ? "0"
+            : likes?.filter((likes) => likes.isActive)?.length}
         </Typography>
       </Grid>
       <Grid item>

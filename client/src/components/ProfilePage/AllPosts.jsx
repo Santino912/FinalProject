@@ -78,10 +78,10 @@ const AllPosts = (artistPostsObj) => {
       </Box>
       <Box>
         {checked !== "all" ? (
-          posts.length === 0 ? (
+          posts?.length === 0 ? (
             <p className={styles.noResultsText}>No post was found</p>
           ) : (
-            posts.map((post, i) =>
+            posts?.map((post, i) =>
               post.idShared ? (
                 <PostShared postShared={post} />
               ) : (
@@ -90,7 +90,7 @@ const AllPosts = (artistPostsObj) => {
             )
           )
         ) : (
-          artistPosts.map((post, i) =>
+          artistPosts?.map((post, i) =>
             post.idShared ? (
               <PostShared postShared={post} />
             ) : (

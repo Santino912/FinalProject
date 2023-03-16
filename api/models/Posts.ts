@@ -13,14 +13,19 @@ const post = new Schema({
         type: Date,
         default: Date.now()
     },
-    idShared: {
-        ref: "User",
-        type: Schema.Types.ObjectId
+    postDateNumber: {
+        type: Number,
+        default: Date.now()
+    },
+    user: {
+        ref: "Users",
+        type: Schema.Types.Mixed
     },
     genres: {
         type: Array,
         require: true
     },
+
     duration: String,
     content: String,
     cover: String,

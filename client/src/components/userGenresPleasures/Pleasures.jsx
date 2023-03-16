@@ -25,7 +25,7 @@ const Pleasures = () => {
   const lastGenre = currentPage * genrePerPage;
   const firstGenre = lastGenre - genrePerPage;
   const currentGenres = genres.slice(firstGenre, lastGenre);
-  const pageNumbers = Math.ceil(genres.length / genrePerPage);
+  const pageNumbers = Math.ceil(genres?.length / genrePerPage);
   const { userFirebase } = useAuth();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Pleasures = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser.genres.length > 1) {
+    if (currentUser.pleasures?.length > 1) {
       window.location.reload();
     }
   }, [currentUser]);
@@ -117,7 +117,7 @@ const Pleasures = () => {
                     type="checkbox"
                     value={genre.name}
                   ></input>
-                  {!genresSelected.genres.find((el) => el === genre.name) ? (
+                  {!genresSelected.genres?.find((el) => el === genre.name) ? (
                     <label htmlFor={genre.name}>{genre.name}</label>
                   ) : (
                     <label
@@ -148,7 +148,7 @@ const Pleasures = () => {
           )}
         </Stack>
         <div>
-          {genresSelected.genres.length > 1 ? (
+          {genresSelected.genres?.length > 1 ? (
             <Button
               onClick={handleSubmit}
               variant="contained"

@@ -54,8 +54,8 @@ const Login = () => {
   useEffect(() => {
     if (
       googleUser &&
-      users?.filter((u) => u.email === googleUser.email).length === 0 &&
-      users.length > 0
+      users?.filter((u) => u.email === googleUser.email)?.length === 0 &&
+      users?.length > 0
     ) {
       axios
         .post("/user", {
@@ -83,7 +83,7 @@ const Login = () => {
       return;
     }
     try {
-      if (!users.find((el) => el.email === user.email)) {
+      if (!users?.find((el) => el.email === user.email)) {
         setEmailError(true);
       } else {
         setEmailError(false);

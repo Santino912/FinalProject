@@ -43,7 +43,7 @@ const Reviews = () => {
 
   return (
     <div style={{ width: "100%", margin: 0, maxWidth: "100vw" }}>
-      {reviews.length && (
+      {reviews?.length && (
         <Carousel
           index={index}
           onChange={handleChange}

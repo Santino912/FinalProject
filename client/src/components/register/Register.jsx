@@ -50,7 +50,7 @@ const Register = () => {
   }, [dispatch, userFirebase]);
 
   useEffect(() => {
-    if (idGoogle && users.filter((u) => u.email === user.email).length === 0) {
+    if (idGoogle && users.filter((u) => u.email === user.email)?.length === 0) {
       axios
         .post("/users", {
           ...user,

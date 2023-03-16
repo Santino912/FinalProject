@@ -4,7 +4,7 @@ import Genres from "../models/Genres"
 export const putGenresInDB = async () => {
     try {
         const genresInDB = await Genres.find()
-        if (genresInDB.length < 22) {
+        if (genresInDB?.length < 22) {
             await Genres.create(genres)
         }
         return

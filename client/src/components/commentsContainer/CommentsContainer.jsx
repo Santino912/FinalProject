@@ -15,7 +15,7 @@ export default function CommentsContainer({ post }) {
   const dispatch = useDispatch();
 
   const notification = async () => {
-    if (currentUser._id !== post.userId) {
+    if (currentUser._id !== post.user._id) {
       await dispatch(
         createUserNotification({
           title: JSON.stringify({
@@ -24,8 +24,9 @@ export default function CommentsContainer({ post }) {
             post: post.title,
           }),
           content: `/home/post/${post._id}`,
-          userId: post.userId,
+          userId: post.user._id,
           fromUser: currentUser._id,
+          idPost: post._id,
         })
       );
       console.log("notification created!");
@@ -77,9 +78,9 @@ export default function CommentsContainer({ post }) {
       <Grid item mt={`2%`}>
         {comments?.length > 0
           ? comments
-              .slice(0)
-              .reverse()
-              .map((comment, i) => (
+              ?.slice(0)
+              ?.reverse()
+              ?.map((comment, i) => (
                 <Comment
                   key={i}
                   content={comment.content}

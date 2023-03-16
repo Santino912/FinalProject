@@ -15,6 +15,8 @@ import {
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { DateTime } from "luxon";
 import {
   disabledUserNotification,
   getUserByFirebaseId,
@@ -22,26 +24,25 @@ import {
   watchedUserNotification,
 } from "../../redux/features/users/usersGetSlice";
 import SideBar from "../SideBar/SideBar";
-import style from "./notification.module.css";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { DateTime } from "luxon";
 import { useAuth } from "../../context/";
+import style from "./notification.module.css";
 
 const Notification = () => {
   const dispatch = useDispatch();
   const userNotification = useSelector(
     (state) => state.users.userNotifications
   );
+  const userDB = useSelector((state) => state.users.currentUser);
   const { userFirebase } = useAuth();
 
   useEffect(() => {
     dispatch(getUserByFirebaseId(userFirebase.uid));
-    dispatch(getUserNotification(userFirebase.uid));
+    dispatch(getUserNotification(userDB._id));
   }, []);
 
   const handleWatched = () => {
     if (userNotification) {
-      userNotification.forEach((el) => {
+      userNotification?.forEach((el) => {
         dispatch(watchedUserNotification(el._id));
       });
     }
@@ -49,19 +50,18 @@ const Notification = () => {
 
   const handleDelete = () => {
     if (userNotification) {
-      userNotification.forEach((el) => {
+      userNotification?.forEach((el) => {
         dispatch(disabledUserNotification(el._id));
       });
     }
   };
-
   return (
     <>
       <div className={style.divContainer}>
         <Stack direction="row">
           <div className={style.background}></div>
           <div style={{ minWidth: "266px" }}>
-            <SideBar />
+            <SideBar userDB={userDB} />
           </div>
           <div className={style.container}>
             <Typography
@@ -81,7 +81,7 @@ const Notification = () => {
             >
               <div className={style.containerDescription}>
                 <>
-                  {userNotification.length > 0 ? (
+                  {userNotification?.length > 0 ? (
                     userNotification?.map((user) => {
                       let data = JSON.parse(user?.title);
                       return (
@@ -98,7 +98,6 @@ const Notification = () => {
                                     />
                                   </Link>
                                 </ListItemAvatar>
-
                                 <ListItemText
                                   component="div"
                                   primary={
@@ -145,7 +144,7 @@ const Notification = () => {
                                           color="#757575"
                                         >
                                           {data?.post}{" "}
-                                          <Link to={user.content}>
+                                          <Link to={user._id}>
                                             {user?.content && (
                                               <Button
                                                 href="#text-buttons"

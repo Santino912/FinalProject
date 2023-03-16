@@ -30,7 +30,7 @@ const AdminGraphs = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setMaxSteps(postDataGraphs.length);
+    setMaxSteps(postDataGraphs?.length);
   }, [postDataGraphs]);
 
   const handleNext = () => {

@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import { UserToCreate } from "../../types";
 import { Mail } from "../../utils/Mailer";
 import Users from "../../models/Users";
 import { bcryptFunction } from "../../utils/userCreate";
 
-const createUser = async (req: UserToCreate, res: Response) => {
+const createUser = async (req: Request, res: Response) => {
     const { name, role, plan, email, password, username, avatar, banner, idGoogle } =
         req.body;
     try {

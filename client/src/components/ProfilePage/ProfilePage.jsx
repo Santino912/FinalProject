@@ -8,21 +8,23 @@ import {
   setUserUnfollow,
   createUserNotification,
   cleanUserState,
+  getPostsByUser,
+  getFollowsByUserId,
 } from "../../redux/features/users/usersGetSlice";
-import { getPost } from "../../redux/features/post/postGetSlice";
 import { Stack, ThemeProvider } from "@mui/system";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Box, Button, createTheme, Menu, MenuItem, Modal } from "@mui/material";
+import { getPost } from "../../redux/features/post/postGetSlice";
+import { changeUserChat } from "../../redux/features/chat/chatGetSlice";
 import styles from "./ProfilePage.module.css";
 import SideBar from "../SideBar/SideBar";
 import checkIcon from "../../images/checkIcon.png";
 import Popular from "./Popular";
 import LikedSongs from "./LikedSongs";
 import AllPosts from "./AllPosts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from "./EditProfile";
 import Upload from "../Upload/Upload";
-import { changeUserChat } from "../../redux/features/chat/chatGetSlice";
 import PlayAllButton from "../PlayAllButton/PlayAllButton";
 import {
   doc,
@@ -32,20 +34,15 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { getFollowOfThisUser } from "../../redux/features/users/utilsUsers";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const { _id } = useParams();
-  const profileUser = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
   const currentUser = useSelector((state) => state.users.currentUser);
-  const profileUserFollowers = useSelector(
-    (state) => state.users.user.FollowerUsers
-  );
-  const allPosts = useSelector((state) => state.posts.postListAll);
-  const artistPosts = Array.isArray(allPosts)
-    ? allPosts.filter((post) => post.userId === _id)
-    : [];
-  const userDB = useSelector((state) => state.users.currentUser);
+  const profileUserFollowers = useSelector((state) => state.users.userFollows);
+  const artistPosts = useSelector((state) => state.users.usersProfilePosts);
   const [open, setOpen] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
   const [followed, setFollowed] = useState(false);
@@ -58,27 +55,16 @@ const ProfilePage = () => {
     dispatch(getPost());
     dispatch(getUserById(_id));
     dispatch(getUserLikes(_id));
+    dispatch(getFollowsByUserId(_id));
+    dispatch(getPostsByUser(_id));
   }, [dispatch, _id]);
 
   useEffect(() => {
-    getFollowOfThisUser();
-  });
-
-  function getFollowOfThisUser() {
-    let check;
-    if (profileUserFollowers) {
-      check = profileUserFollowers.find((user) => user._id === currentUser._id);
-    }
-    if (check !== undefined) {
-      setFollowed(true);
-    } else {
-      setFollowed(false);
-    }
-    return check;
-  }
+    setFollowed(getFollowOfThisUser(profileUserFollowers, _id));
+  }, [profileUserFollowers]);
 
   const notification = async () => {
-    if (currentUser._id !== profileUser._id) {
+    if (currentUser._id !== user._id) {
       await dispatch(
         createUserNotification({
           title: JSON.stringify({
@@ -87,7 +73,7 @@ const ProfilePage = () => {
             post: "",
           }),
           content: "",
-          userId: profileUser._id,
+          userId: user._id,
           fromUser: currentUser._id,
         })
       );
@@ -115,7 +101,7 @@ const ProfilePage = () => {
     await dispatch(
       setUserFollow({
         idUser: currentUser._id,
-        followTo: profileUser._id,
+        followTo: user._id,
       })
     );
     await notification();
@@ -126,7 +112,7 @@ const ProfilePage = () => {
     dispatch(
       setUserUnfollow({
         idUser: currentUser._id,
-        followTo: profileUser._id,
+        followTo: user._id,
       })
     );
     setFollowed(false);
@@ -146,10 +132,10 @@ const ProfilePage = () => {
 
   const handleOnSelect = async () => {
     const combinedId =
-      currentUser.idGoogle > profileUser.idGoogle
-        ? currentUser.idGoogle + profileUser.idGoogle
-        : profileUser.idGoogle + currentUser.idGoogle;
-    dispatch(changeUserChat({ destination: profileUser, chatId: combinedId }));
+      currentUser.idGoogle > user.idGoogle
+        ? currentUser.idGoogle + user.idGoogle
+        : user.idGoogle + currentUser.idGoogle;
+    dispatch(changeUserChat({ destination: user, chatId: combinedId }));
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -160,14 +146,14 @@ const ProfilePage = () => {
         //create user chats
         await updateDoc(doc(db, "userConversations", currentUser.idGoogle), {
           [combinedId + ".userInfo"]: {
-            uid: profileUser.idGoogle,
-            displayName: profileUser.name,
-            photoURL: profileUser.avatar,
+            uid: user.idGoogle,
+            displayName: user.name,
+            photoURL: user.avatar,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
 
-        await updateDoc(doc(db, "userConversations", profileUser.idGoogle), {
+        await updateDoc(doc(db, "userConversations", user.idGoogle), {
           [combinedId + ".userInfo"]: {
             uid: currentUser.idGoogle,
             displayName: currentUser.name,
@@ -187,16 +173,14 @@ const ProfilePage = () => {
         <Box className={styles.fondo}></Box>
 
         <Box className={styles.containerSideBar}>
-          <SideBar userDB={userDB} />
+          <SideBar userDB={currentUser} />
         </Box>
 
         <Box className={styles.containerProfile}>
           <Box className={styles.containerProfileData}>
             <Box
               style={{
-                background: `url(${profileUser?.banner})`,
-                backgroundSize: "cover",
-                backgroundColor: "brightness(50%)",
+                background: `url(${user?.banner})`,
                 position: "absolute",
                 width: "100%",
                 height: "100%",
@@ -205,31 +189,31 @@ const ProfilePage = () => {
               }}
             ></Box>
             <Box className={styles.containerImgName}>
-              <img src={profileUser.avatar} alt="" />
+              <img src={user.avatar} alt="" />
               <Box className={styles.artistData}>
-                {profileUser.plan === "Premium" ? (
+                {user.plan === "Premium" ? (
                   <Box className={styles.badge}>
                     <img src={checkIcon} alt="" />
                     <p>Premium Artist</p>
                   </Box>
                 ) : null}
-                <h1>{profileUser.name}</h1>
+                <h1>{user.name}</h1>
                 <Box className={styles.followersCount}>
                   <p className={styles.followersCount}>
-                    {profileUser.FollowerUsers?.length === 1
-                      ? `${profileUser?.FollowerUsers?.length} follower `
-                      : `${profileUser?.FollowerUsers?.length} followers `}
-                    {profileUser.FollowingUsers?.length > 0
-                      ? profileUser.FollowingUsers.length === 1
-                        ? ` ・ Follow ${profileUser?.FollowingUsers?.length} user`
-                        : ` ・ Follow ${profileUser?.FollowingUsers?.length} users`
+                    {profileUserFollowers?.length === 1
+                      ? `${profileUserFollowers?.length} follower `
+                      : `${profileUserFollowers?.length} followers `}
+                    {user.followingUsers?.length > 0
+                      ? user.followingUsers?.length === 1
+                        ? ` ・ Follow ${profileUserFollowers?.length} user`
+                        : ` ・ Follow ${profileUserFollowers?.length} users`
                       : null}
                   </p>
                 </Box>
               </Box>
             </Box>
             <Box className={styles.optionsContainer}>
-              {currentUser._id === profileUser._id ? (
+              {currentUser._id === user._id ? (
                 <FontAwesomeIcon
                   onClick={handleOpen}
                   className={styles.optionsButton}
@@ -247,28 +231,26 @@ const ProfilePage = () => {
               >
                 <MenuItem onClick={handleOpenSettings}>Edit profile</MenuItem>
               </Menu>
-              <Modal
-                open={openSettings}
-                onClose={handleCloseSettings}
-                sx={{ backdropFilter: "blur(3px)" }}
-              >
-                <EditProfile
-                  close={handleCloseSettings}
-                  setOpenSettings={setOpenSettings}
-                />
-              </Modal>
+              {openSettings && (
+                <Modal onClose={handleCloseSettings}>
+                  <EditProfile
+                    close={handleCloseSettings}
+                    setOpenSettings={setOpenSettings}
+                  />
+                </Modal>
+              )}
             </Box>
           </Box>
 
           <Box className={styles.contentContainer}>
             <Box className={styles.playFollowMessageContainer}>
               <Box className={styles.playFollowContainer}>
-                {artistPosts.length > 0 ? (
+                {artistPosts?.length > 0 ? (
                   <Box>
                     <PlayAllButton songs={artistPosts} />
                   </Box>
                 ) : null}
-                {currentUser._id !== profileUser._id ? (
+                {currentUser._id !== user._id ? (
                   !followed ? (
                     <Button
                       onClick={handleFollow}
@@ -312,7 +294,7 @@ const ProfilePage = () => {
                   )
                 ) : null}
               </Box>
-              {currentUser._id !== profileUser._id ? (
+              {currentUser._id !== user._id ? (
                 <Box>
                   <p
                     style={{
@@ -331,14 +313,14 @@ const ProfilePage = () => {
                 </Box>
               ) : null}
             </Box>
-            {artistPosts.length > 0 ? (
+            {artistPosts?.length > 0 ? (
               <Box>
                 <Box className={styles.popuAndLiked}>
                   <Box className={styles.popu}>
-                    <Popular _id={_id} />
+                    <Popular user={user} />
                   </Box>
                   <Box className={styles.liked}>
-                    <LikedSongs _id={_id} />
+                    <LikedSongs user={user} />
                   </Box>
                 </Box>
                 <Box className={styles.allPosts}>
@@ -348,12 +330,12 @@ const ProfilePage = () => {
             ) : (
               <Box>
                 <Box className={styles.popuAndLiked}>
-                  {currentUser._id === profileUser._id ? (
+                  {currentUser._id === user._id ? (
                     <Box className={styles.noPostsYet}>
                       <p>Share your music with other users</p>
-                      <button className={styles.buttonPost}>
+                      <Box className={styles.buttonPost}>
                         <Upload />
-                      </button>
+                      </Box>
                     </Box>
                   ) : (
                     <p className={styles.noPostsYet}>
@@ -362,7 +344,7 @@ const ProfilePage = () => {
                   )}
 
                   <Box className={styles.liked}>
-                    <LikedSongs />
+                    <LikedSongs user={user} />
                   </Box>
                 </Box>
               </Box>

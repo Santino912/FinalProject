@@ -37,7 +37,7 @@ export default function Home() {
           Home
         </Typography>
         {/* <PostShared postShared={postShared}/> */}
-        {posts.length > 0 &&
+        {posts?.length > 0 &&
           posts
             .slice(0)
             .reverse()

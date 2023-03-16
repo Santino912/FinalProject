@@ -518,7 +518,7 @@ export default function Landing() {
           <hr className={style.footerDividerLine} />
         </Grid>
         <Grid item>
-          <a href="https://github.com/agustinagomez/FinalProject/tree/master">
+          <a href="https://github.com/Santino912/FinalProject">
             <SvgIcon
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 496 512"
