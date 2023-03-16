@@ -5,7 +5,7 @@ const getPostById = async (req: Request, res: Response) => {
     const { _id } = req.params;
 
     try {
-        const posts = await Posts.find({ _id })
+        const posts = await Posts.findOne({ _id })
 
         return res.json(posts);
 

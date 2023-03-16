@@ -40,6 +40,7 @@ export const getUser = () => {
 //crear users
 export const createdUser = (user) => {
   return async (dispatch) => {
+    if (user === undefined) return;
     let response = await axios.post("/user", user);
     dispatch(addUsers(response.data));
   };
@@ -49,6 +50,7 @@ export const createdUser = (user) => {
 export const updateUser = (_id, body) => {
   return async (dispatch) => {
     try {
+      if (_id === undefined || body === undefined) return;
       const response = await axios.put(`/users/${_id}`, body);
       if (response) {
         dispatch(updateUsers());
@@ -80,6 +82,8 @@ export const setUserGenres = (body) => {
 export const deleteUser = (_id) => {
   return async (dispatch) => {
     try {
+      if (_id === undefined) return;
+
       await axios.delete(`/users/${_id}`);
       dispatch(deleteUsers());
       dispatch(getUser());
@@ -104,6 +108,8 @@ export const getUserById = (_id) => {
 
 export const getFollowsByUserId = (_id, setter) => {
   return async (dispatch) => {
+    if (_id === undefined) return;
+
     try {
       const { data } = await axios.get(`/follows/${_id}`);
       dispatch(setFollow(data));
@@ -115,6 +121,8 @@ export const getFollowsByUserId = (_id, setter) => {
 
 export const getPostsByUser = (_id) => {
   return async (dispatch) => {
+    if (_id === undefined) return;
+
     try {
       const { data } = await axios.get(`/posts/user/${_id}`);
       dispatch(getPostsByUserToProfile(data));
@@ -136,6 +144,7 @@ export const cleanUserState = () => {
 
 export const getUserByFirebaseId = (_id) => {
   return async (dispatch) => {
+    if (_id === undefined) return;
     try {
       const { data } = await axios.get(`/users/idGoogle/${_id}`);
       dispatch(getByFirebaseId(data));

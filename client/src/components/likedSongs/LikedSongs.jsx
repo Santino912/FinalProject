@@ -18,14 +18,9 @@ export default function LikedSongs(_id) {
   const { userFirebase } = useAuth();
 
   useEffect(() => {
-    dispatch(getUserByFirebaseId(userFirebase.uid));
-  }, [dispatch, userFirebase.uid]);
-
-  useEffect(() => {
-    if (Object.keys(userDB)?.length > 0) {
-      dispatch(getSongsLikesByUserId(userDB._id));
-    }
-  }, [userDB, dispatch]);
+    dispatch(getUserByFirebaseId(userFirebase?.uid));
+    dispatch(getSongsLikesByUserId(userDB?._id));
+  }, [dispatch]);
   return (
     <Grid container className={style.likedVideos} xs={12}>
       <Grid style={{ maxWidth: "266px" }} item container xs={2.5}>
@@ -36,11 +31,12 @@ export default function LikedSongs(_id) {
           <Box style={{ width: "100%" }}>
             <PlayAllButton songs={likesCurrentUser} />
             <Box style={{ marginTop: "30px" }}>
-              {likesCurrentUser?.map((post, index) => (
+              {likesCurrentUser?.map((like, index) => (
                 <CardSong
                   arrayMap={likesCurrentUser}
-                  post={post}
+                  post={like?.post}
                   index={index}
+                  key={index}
                 />
               ))}
             </Box>

@@ -51,7 +51,7 @@ const SideBar = ({ userDB }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getUserNotification(user.idGoogle));
+    dispatch(getUserNotification(user._id));
   }, [allPosts]);
 
   const [anchorEl, setAnchorEl] = useState(false);

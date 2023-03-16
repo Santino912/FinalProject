@@ -71,7 +71,7 @@ export function validate(input) {
 }
 
 export default function Post({ post, comments, margin, border, height }) {
-  const shareURL = `https://www.socialsound.art/home/post/${post._id}`;
+  const shareURL = `${process.env.REACT_APP_URL}/home/post/${post._id}`;
   const dispatch = useDispatch();
   const monthNames = [
     "Jan",
@@ -123,6 +123,7 @@ export default function Post({ post, comments, margin, border, height }) {
           content: `/home/explore/${currentUser._id}`,
           userId: post.user._id,
           fromUser: currentUser._id,
+          idPost: post._id,
         })
       );
       console.log("notification created!");

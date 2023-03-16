@@ -4,11 +4,10 @@ import Users from "../../models/Users";
 
 const setNotiWatched = async (req: Request, res: Response) => {
 
-    const { idUser } = req.params;
+    const { _id } = req.params;
 
     try {
-        const user = await Users.find({ _id: idUser })
-        const notification = await Notifications.findOneAndUpdate({ to: user }, { watched: true })
+        const notification = await Notifications.findOneAndUpdate({ _id }, { watched: true })
         return res.send(notification)
     } catch (err) {
         return res.status(500).send(err);

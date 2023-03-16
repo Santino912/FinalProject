@@ -58,8 +58,8 @@ router.get("/users/data/graphs", getCountUserGraphs) //Admin
 
 router.get("/posts", getPosts);
 router.get("/posts/:_id", getPostById);
-router.get("/posts/genres", getByGenre);
-router.get("/posts/order/:order", getPopular);
+router.get("/posts/order/popularity", getPopular);
+router.get("/posts/genres/:genres", getByGenre);
 router.get("/posts/orderTime/:order", getByTime);
 router.get("/posts/user/:idUser", getPostByUserId)
 router.get("/posts/genres/with-all", getByGenreWithAll);
@@ -69,7 +69,7 @@ router.get("/follows/:idUser", getFollowsByIdUser)
 
 router.get("/genres", getGenres);
 
-router.get("/notifications/:idGoogle", getNotiByUser);
+router.get("/notifications/:_id", getNotiByUser);
 
 router.get("/likes/users/:idUser", getLikesByUserId);
 router.get("/likes/posts/:idPost", getLikesByPostId);
@@ -84,7 +84,6 @@ router.get("/reports", getReports); //Only for admin!
 //POST
 
 router.post("/posts", createPost);
-router.post("/posts/genres", getByGenre);
 
 router.post("/user", createUser);
 
@@ -121,8 +120,8 @@ router.put("/users/set/genres", setUserGenres);
 router.put("/users/set/update-ban", updateBanUser);
 router.put("/users/set/role", updateRoleUser);
 
-router.put("/notifications/watched/:idUser", setNotiWatched);
-router.put("/notifications/disabled/:idUser", setNotiDisabled);
+router.put("/notifications/watched/:_id", setNotiWatched);
+router.put("/notifications/disabled/:_id", setNotiDisabled);
 
 router.put("/posts/:_id", updatePost);
 

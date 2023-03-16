@@ -1,25 +1,20 @@
 import { Request, Response } from "express";
 import Posts from "../../models/Posts";
 
-
-/* const sortResult = (sort ) => {
-
-}
- */
-
 const getByTime = async (req: Request, res: Response) => {
     let { order } = req.params;
 
     try {
-        const posts = await Posts.find()
 
-        if (order === "asc") {
-            const allPosts = await Posts.find({ $query: {}, $orderby: { postDateNumber: 1 } })
+        if (order === "desc") {
+            const posts = await Posts.aggregate([{ $sort: { postDateNumber: 1 } }])
+            const allPosts = posts
 
             return res.send({ posts, allPosts })
 
-        } if (order === "desc") {
-            const allPosts = await Posts.find({ $query: {}, $orderby: { postDateNumber: - 1 } })
+        } if (order === "asc") {
+            const posts = await Posts.aggregate([{ $sort: { postDateNumber: -1 } }])
+            const allPosts = posts
 
             return res.send({ posts, allPosts })
         }

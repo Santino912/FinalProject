@@ -16,7 +16,7 @@ export async function Mail(email: string) {
         to: [email],
         subject: "Welcome!",
         html: `<h1>Welcome to SocialSound</h1>
-                <a href="https://final-project-sable-two.vercel.app/"><img alt="SocialSound" width="200" height="200" src='cid:logo'/></a>`,
+                <a href="https://socialsound-pi.vercel.app/"><img alt="SocialSound" width="200" height="200" src='cid:logo'/></a>`,
         attachments: [
             {
                 filename: "logoiconbg.png",

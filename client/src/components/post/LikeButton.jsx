@@ -31,8 +31,9 @@ export default function LikeButton({ post }) {
             post: post.title,
           }),
           content: `/home/post/${post._id}`,
-          userId: post.userId,
+          userId: post.user?._id,
           fromUser: currentUser._id,
+          idPost: post._id,
         })
       );
       console.log("notification created!");

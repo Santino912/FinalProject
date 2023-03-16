@@ -86,7 +86,7 @@ const Explore = () => {
     dispatch(getUser());
     dispatch(getGenre());
     dispatch(getUserByFirebaseId(userFirebase?.uid));
-    dispatch(getUserNotification(userDB?.idGoogle));
+    dispatch(getUserNotification(userDB?._id));
   }, [dispatch]);
 
   useEffect(() => {
@@ -206,7 +206,6 @@ const Explore = () => {
   }
 
   function handleChecked(el) {
-    console.log(el.target.value);
     setOrderChecked(el.target.value);
     if (el.target.value === "relevance") {
       dispatch(
@@ -217,7 +216,7 @@ const Explore = () => {
     } else if (el.target.value === "popu") {
       dispatch(getPostByPopularity({ posts: posts }));
     } else {
-      dispatch(getPostByTime({ order: el.target.value, posts: posts }));
+      dispatch(getPostByTime({ order: el.target.value }));
     }
   }
 
@@ -642,7 +641,7 @@ const Explore = () => {
                       {posts?.length > 0 &&
                         posts?.map((post, i) =>
                           post.idShared ? (
-                            <PostShared postShared={post} />
+                            <PostShared postShared={post} key={i} />
                           ) : (
                             <Post key={i} post={post} comments={false} />
                           )

@@ -90,8 +90,12 @@ export const deletePost = (_id) => {
 //get post by genre
 export const getPostByGenre = (object) => {
   return async (dispatch) => {
+    const genres = object.genres
+      .join(",")
+      .replace(/\s/g, "_")
+      .replace(/\//g, "-");
     try {
-      const { data } = await axios.get(`/posts/genres?genres=${object.genres}`);
+      const { data } = await axios.get(`/posts/genres/${genres}`);
       dispatch(getAllPostByGenre(data));
     } catch (error) {
       console.log(error);
@@ -112,7 +116,7 @@ export const postsReported = () => {
 };
 
 //get post by time, pop
-export const getPostByTime = (order) => {
+export const getPostByTime = ({ order }) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/posts/orderTime/${order}`);
@@ -123,11 +127,10 @@ export const getPostByTime = (order) => {
   };
 };
 
-export const getPostByPopularity = (body) => {
+export const getPostByPopularity = () => {
   return async (dispatch) => {
     try {
-      if (!body || !body.order) return;
-      const { data } = await axios.get(`/posts/order/${body.order}`);
+      const { data } = await axios.get(`/posts/order/popularity`);
       dispatch(getAllPostByPopularity(data));
     } catch (error) {
       console.log(error);
@@ -138,9 +141,7 @@ export const getPostByPopularity = (body) => {
 export const getPostByRelevance = (order) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(
-        `/posts/genres/with-all?genres=${Object.values(order)}`
-      );
+      const { data } = await axios.get(`/posts/genres/with-all`);
       dispatch(getAllPostByRelevance(data));
     } catch (error) {
       console.log(error);

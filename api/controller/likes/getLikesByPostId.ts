@@ -5,6 +5,8 @@ const getLikesByPostId = async (req: Request, res: Response) => {
     const { idPost } = req.params
 
     try {
+        if (!idPost) return res.send([])
+
         const post = await Posts.findOne({ _id: idPost })
 
         const likes = await Likes.find({ post: post?._id })

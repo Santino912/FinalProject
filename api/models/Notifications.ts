@@ -17,17 +17,23 @@ const notification = new Schema({
         type: Boolean,
         default: false
     },
-    to: {
-        ref: "User",
-        type: Schema.Types.ObjectId
-    },
-    fromUser: {
-        ref: "User",
-        type: Schema.Types.ObjectId
-    },
     disable: {
         type: Boolean,
         default: false
+    },
+    to: {
+        ref: "User",
+        type: Schema.Types.ObjectId,
+        require: true
+    },
+    fromUser: {
+        ref: "User",
+        type: Schema.Types.ObjectId,
+        require: true
+    },
+    post: {
+        ref: "Post",
+        type: Schema.Types.Mixed
     }
 });
 export default model("Notifications", notification);

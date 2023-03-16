@@ -8,8 +8,9 @@ import PopularPost from "./PopularPost";
 
 const Popular = ({ _id }) => {
   const dispatch = useDispatch();
+  /*
   let allPosts = useSelector((state) => state.posts.postList);
-  /*   allPosts = allPosts?.filter(
+     allPosts = allPosts?.filter(
     (post) => post.user._id === _id && post.idShared === null
   ); */
   const popularPosts = useSelector((state) => state.posts.postsOrdered).slice(
@@ -27,9 +28,11 @@ const Popular = ({ _id }) => {
       <div>
         {popularPosts?.map((post, index) => {
           return (
-            <div className={styles.containerSong}>
-              <p className={styles.songFirstHalfIndex}>{index + 1}</p>
-              <PopularPost post={post} />
+            <div key={`${post._id}div`} className={styles.containerSong}>
+              <p key={`${post._id}p`} className={styles.songFirstHalfIndex}>
+                {index + 1}
+              </p>
+              <PopularPost post={post} key={`${index}of${post._id}`} />
               <PlayButton
                 tracks={popularPosts}
                 track={post}

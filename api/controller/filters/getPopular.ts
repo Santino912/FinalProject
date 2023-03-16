@@ -1,13 +1,25 @@
 import { Request, Response } from "express";
 import Posts from "../../models/Posts";
 
-const getPopular = async (req: Request, res: Response) => {
-
+const getPopular = async (_req: Request, res: Response) => {
     try {
-        const posts = await Posts.find()
         const allPosts = await Posts.find()
-        res.send({ posts: posts, allPosts: allPosts })
+        let posts = await Posts.aggregate([
+            {
+                $lookup: {
+                    from: "likes",
+                    localField: "_id",
+                    foreignField: "post",
+                    as: "likes",
+                },
+
+            },
+            { $addFields: { countLikes: { $size: "$likes" } } },
+            { $sort: { countLikes: -1 } }
+        ],)
+        return res.send({ posts, allPosts })
     } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 

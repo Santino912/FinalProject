@@ -21,15 +21,12 @@ export const getLikesByUserId = (_id) => {
 
 export const getSongsLikesByUserId = (_id) => {
   return async (dispatch) => {
+    if (_id === undefined) return;
     try {
-      const response = await axios.get(`/likes/users/${_id}`);
+      const { data } = await axios.get(`/likes/users/${_id}`);
+
       dispatch(
-        getSongLikesSlice(
-          response.data
-            ?.filter((like) => like.isActive)
-            ?.map((like) => like.post)
-            ?.filter((post) => post?.type === "audio")
-        )
+        getSongLikesSlice(data.filter((like) => like.post.type === "audio"))
       );
     } catch (error) {
       console.log(error);

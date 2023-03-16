@@ -6,6 +6,8 @@ import Users from "../../models/Users"
 const getLikesByPostAndUserId = async (req: Request, res: Response) => {
     const { idPost, idUser } = req.params
     try {
+        if (!idUser || !idPost) return res.send([])
+
         const user = await Users.findOne({ _id: idUser })
 
         const post = await Posts.findOne({ _id: idPost })
