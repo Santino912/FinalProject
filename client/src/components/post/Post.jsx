@@ -194,6 +194,7 @@ export default function Post({ post, comments, margin, border, height }) {
       container
       direction="column"
       className={style.post}
+      wrap={"nowrap"}
       p={`1.5%`}
       m={margin}
       style={{ border, height }}
@@ -240,8 +241,8 @@ export default function Post({ post, comments, margin, border, height }) {
             aria-label="more"
             id="demo-customized-button"
             aria-controls={openMore ? "demo-customized-menu" : undefined}
-            aria-expanded={openMore ? "true" : undefined}
-            aria-haspopup="true"
+            aria-expanded={openMore ? true : undefined}
+            aria-haspopup={true}
             onClick={handleClickMore}
           >
             <SvgIcon
@@ -480,7 +481,7 @@ export default function Post({ post, comments, margin, border, height }) {
               </Dialog>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid sx={{ height: "100%" }} item>
             {comments ? (
               ""
             ) : (

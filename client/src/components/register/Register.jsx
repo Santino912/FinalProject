@@ -71,7 +71,7 @@ const Register = () => {
 
     let flag = false;
 
-    users.map((item) => {
+    users?.map((item) => {
       if (item.username === user.username) {
         setErrors({ ...errors, username: "This username isn't available" });
         flag = true;

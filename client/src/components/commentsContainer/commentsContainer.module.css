@@ -1,34 +1,35 @@
-.commentsContainer{
-    width: 80% !important;
+.commentsContainer {
+  display: flex;
+  flex-direction: column;
 }
 
-.commentsContainer .input{
-    width: 85%;
-    margin-right: 2%;
-    background-color: white;
+.commentsContainer .input {
+  width: 85%;
+  margin-right: 2%;
+  background-color: white;
 }
 
-.commentsContainer .input input{
-    color: black !important;
+.commentsContainer .input input {
+  color: black !important;
 }
 
-.commentsContainer .input input::placeholder{
-    color: black !important;
+.commentsContainer .input input::placeholder {
+  color: black !important;
 }
 
-.commentsContainer div{
-    border-radius: 30px;
+.commentsContainer div {
+  border-radius: 30px;
 }
 
-.commentsContainer button{
-    color: #000A1F;
-    background-color: #00FFD6;
-    font-size: 13px;
-    font-weight: bold;
-    text-transform: none;
-    border-radius: 30px;
+.commentsContainer button {
+  color: #000a1f;
+  background-color: #00ffd6;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: none;
+  border-radius: 30px;
 }
 
-.commentsContainer button:hover{
-    background-color: rgba(0, 255, 214, 0.8);
+.commentsContainer button:hover {
+  background-color: rgba(0, 255, 214, 0.8);
 }

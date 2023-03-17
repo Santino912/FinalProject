@@ -6,13 +6,13 @@ const getByTime = async (req: Request, res: Response) => {
 
     try {
 
-        if (order === "desc") {
+        if (order === "asc") {
             const posts = await Posts.aggregate([{ $sort: { postDateNumber: 1 } }])
             const allPosts = posts
 
             return res.send({ posts, allPosts })
 
-        } if (order === "asc") {
+        } if (order === "desc") {
             const posts = await Posts.aggregate([{ $sort: { postDateNumber: -1 } }])
             const allPosts = posts
 

@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,32 +23,34 @@ export default function PostContainer() {
   }, [dispatch, userFirebase.uid, idPost]);
 
   return (
-    <Grid
-      container
-      className={style.postContainer}
-      p={`1%`}
-      pl={`4%`}
-      pr={`4%`}
-    >
-      <Grid container>
-        <Grid item className={style.back}>
-          <Link to="/home">
-            <Arrow />
-          </Link>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          className={style.divPost}
-          style={post?.type === "audio" ? { height: "75%" } : {}}
-        >
-          {Object.keys(post)?.length !== 0 ? (
-            <Post post={post} comments={true} margin={0} height={"100%"} />
-          ) : (
-            ""
-          )}
+    <Box className={style.backgroundContainer}>
+      <Grid
+        container
+        className={style.postContainer}
+        pt={`1%`}
+        pl={`30px`}
+        pr={`30px`}
+      >
+        <Grid container>
+          <Grid item className={style.back}>
+            <Link to="/home">
+              <Arrow />
+            </Link>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={style.divPost}
+            style={post?.type === "audio" ? { height: "100%" } : {}}
+          >
+            {Object.keys(post)?.length !== 0 ? (
+              <Post post={post} comments={true} height={"100%"} />
+            ) : (
+              ""
+            )}
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 }

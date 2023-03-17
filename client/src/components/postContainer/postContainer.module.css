@@ -1,27 +1,30 @@
+.divPost {
+  max-height: 90%;
+}
+
 .postContainer {
-    background-color: #000A1FE0;
-    min-height: 100vh;
+  background-color: #000a1fe0;
 }
 
 .postContainer .back {
-    color: rgb(255, 255, 255, 1);
-    opacity: 0.5;
-    margin-bottom: 1%;
+  color: rgb(255, 255, 255, 1);
+  opacity: 0.5;
+  margin-bottom: 1%;
 }
 
-.postContainer .back svg{
-    height: 50px;
-    width: 50px;
+.postContainer .back svg {
+  height: 50px;
+  width: 50px;
 }
 
 .postContainer .back:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .postContainer .divPost {
-    -webkit-box-shadow: 5px 5px 27px 14px rgba(0, 255, 214, 0.14);
-    box-shadow: 5px 5px 27px 14px rgba(0, 255, 214, 0.14);
-    border: 1px solid #00FFD6;
-    border-radius: 13px;
-    /* height: 57%; */
+  -webkit-box-shadow: 5px 5px 27px 14px rgba(0, 255, 214, 0.14);
+  box-shadow: 5px 5px 27px 14px rgba(0, 255, 214, 0.14);
+  border: 1px solid #00ffd6;
+  border-radius: 13px;
+  /* height: 57%; */
 }

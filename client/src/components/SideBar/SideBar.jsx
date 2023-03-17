@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Badge,
-  MenuItem,
   Rating,
   TextField,
   Typography,
@@ -33,6 +32,7 @@ import {
   getUserNotification,
 } from "../../redux/features/users/usersGetSlice";
 import EditProfile from "../ProfilePage/EditProfile";
+import Stars from "../../images/svg/star.jsx";
 
 const SideBar = ({ userDB }) => {
   const user = useSelector((state) => state.users.currentUser);
@@ -117,11 +117,8 @@ const SideBar = ({ userDB }) => {
   const mouseEnter = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const mouseLeave = () => {
-    setAnchorEl(false);
-  };
 
-  const handleOpenModal = () => setOpenModal(true);
+  //const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
   const style = {
@@ -163,6 +160,12 @@ const SideBar = ({ userDB }) => {
               src={userDB?.avatar}
             />
           </Link>
+          <Box className={s.nameWithPremium}>
+            <h4 className={s.nameSideBar}>{userDB?.name}</h4>
+            {userDB?.plan === "Premium" && (
+              <h5 className={s.premiumText}>Premium</h5>
+            )}
+          </Box>
           <FontAwesomeIcon
             onClick={() => setOpenBoolean(!openBoolean)}
             className={s.dotsMenu}
@@ -201,60 +204,31 @@ const SideBar = ({ userDB }) => {
         ) : (
           <Box>
             <Button
-              onMouseEnter={mouseEnter}
               id="demo-positioned-button"
+              className={s.cancelPremiumButton}
               aria-controls={openBoolean ? "demo-positioned-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={openBoolean ? "true" : undefined}
+              aria-haspopup={true}
+              aria-expanded={openBoolean ? true : undefined}
+              onClick={() => setOpenModal(true)}
             >
-              <img
-                className={s.premiumIcon}
-                width="92px"
-                alt="premium"
-                src={iconPremium}
-              />
+              Cancel Premium
             </Button>
-            <Menu
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
-              anchorEl={anchorEl}
-              open={openBoolean}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
+            <Modal
+              open={openModal}
+              onClose={handleCloseModal}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
             >
-              <Button
-                onMouseLeave={!openModal && mouseLeave}
-                onClick={handleOpenModal}
-              >
-                Cancel Plan
-              </Button>
-              <Modal
-                open={openModal}
-                onClose={handleCloseModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    Are you sure to cancel the premium plan?
-                  </Typography>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Confirm now and you will lose all premium features!
-                  </Typography>
-                  <Button onClick={() => handleDownRegular()}>Confirm!</Button>
-                </Box>
-              </Modal>
-            </Menu>
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Are you sure to cancel the premium plan?
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Confirm now and you will lose all premium features!
+                </Typography>
+                <Button onClick={() => handleDownRegular()}>Confirm!</Button>
+              </Box>
+            </Modal>
           </Box>
         )}
       </ul>
