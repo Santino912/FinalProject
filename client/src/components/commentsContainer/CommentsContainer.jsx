@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
@@ -56,12 +56,7 @@ export default function CommentsContainer({ post }) {
   }, []);
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignSelf="center"
-      className={style.commentsContainer}
-    >
+    <Box className={style.commentsContainer}>
       <Grid item container>
         <TextField
           placeholder="Add a comment..."
@@ -93,6 +88,6 @@ export default function CommentsContainer({ post }) {
               ))
           : ""}
       </Grid>
-    </Grid>
+    </Box>
   );
 }
