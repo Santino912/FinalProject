@@ -186,7 +186,7 @@ const Explore = () => {
       if (orderChecked === "relevance") {
         dispatch(
           getPostByRelevance({
-            genres: userDB?.genres?.map((genre) => genre.name),
+            genres: userDB?.genres?.map((genre) => genre?.name),
           })
         );
       } else if (orderChecked === "popu") {
@@ -210,7 +210,7 @@ const Explore = () => {
     if (el.target.value === "relevance") {
       dispatch(
         getPostByRelevance({
-          genres: userDB.genres.map((genre) => genre.name),
+          genres: userDB.genres.map((genre) => genre?.name),
         })
       );
     } else if (el.target.value === "popu") {
@@ -338,7 +338,7 @@ const Explore = () => {
                           flexWrap="wrap"
                           sx={{ height: "110px", margin: "20px 0" }}
                         >
-                          {currentGenres.map((genre, key) => {
+                          {currentGenres?.map((genre, key) => {
                             return (
                               <div key={key} className={styles.genresContainer}>
                                 <input
@@ -683,7 +683,7 @@ const Explore = () => {
                         flexWrap="wrap"
                       >
                         <Stack direction="row" flexWrap="wrap">
-                          {currentSongs.map((results, index) => {
+                          {currentSongs?.map((results, index) => {
                             return (
                               <Stack
                                 direction="row"
@@ -761,8 +761,8 @@ const Explore = () => {
                       >
                         <Stack>
                           <Stack direction="row" flexWrap="wrap">
-                            {currentArtists.map((results) => {
-                              if (results.plan === "Premium") {
+                            {currentArtists?.map((results) => {
+                              if (results?.plan === "Premium") {
                                 return (
                                   <Link
                                     to={`/home/explore/${results?.user?._id}`}

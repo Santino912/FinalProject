@@ -53,7 +53,7 @@ const Reviews = () => {
           stopAutoPlayOnHover
           swipe
           className="my-carousel"
-          navButtonsAlwaysVisible="true"
+          navButtonsAlwaysVisible={true}
         >
           {reviews?.map((item) => (
             <Item

@@ -242,7 +242,7 @@ export default function Post({ post, comments, margin, border, height }) {
             id="demo-customized-button"
             aria-controls={openMore ? "demo-customized-menu" : undefined}
             aria-expanded={openMore ? true : undefined}
-            aria-haspopup="true"
+            aria-haspopup={true}
             onClick={handleClickMore}
           >
             <SvgIcon

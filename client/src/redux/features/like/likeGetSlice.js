@@ -8,8 +8,8 @@ export const getLikesByUserId = (_id) => {
       dispatch(
         getVideoLikesSlice(
           response.data
-            ?.filter((like) => like.isActive)
-            ?.map((like) => like.post)
+            ?.filter((like) => like?.isActive)
+            ?.map((like) => like?.post)
             ?.filter((post) => post?.type === "video")
         )
       );

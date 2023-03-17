@@ -1,20 +1,19 @@
-import { Avatar, Box, Button } from "@mui/material";
-import React, { useState } from "react";
-import { Arrow } from "../../componentsIcons";
-import style from "./admin.module.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../redux/features/users/usersGetSlice";
-import UsersPerfil from "./UsersPerfil";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { axiosIsBanned, axiosPremium, axiosRole } from "../utils";
+import { Avatar, Box, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useDispatch, useSelector } from "react-redux";
+import UsersPerfil from "./UsersPerfil";
+import { axiosIsBanned, axiosPremium, axiosRole } from "../utils";
+import { Arrow } from "../../componentsIcons";
+import { getUser } from "../../../redux/features/users/usersGetSlice";
+import style from "./admin.module.css";
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
@@ -143,7 +142,7 @@ const AdminUsers = () => {
               name={"isBanned"}
               disable={`${loading}`}
             >
-              Banned: {userSelected?.isBanned ? "Yes" : "No"}
+              Banned: {userSelected?.isBanned === true ? "Yes" : "No"}
             </Button>
           )}
 
