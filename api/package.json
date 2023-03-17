@@ -23,7 +23,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.ts",
-    "start": "node app.ts"
+    "start": "tsc -w",
+    "build": "tsc"
+
   },
   "keywords": [],
   "author": "",
