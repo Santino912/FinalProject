@@ -77,7 +77,7 @@ const SideBar = ({ userDB }) => {
   useEffect(() => {
     const getReviews = async () => {
       let allReviews = await axios.get("/reviews");
-      if (allReviews.data?.find((r) => r.userId === input.userId.toString())) {
+      if (allReviews?.data?.find((r) => r.userId === input.userId.toString())) {
         setShowButton(false);
       }
     };

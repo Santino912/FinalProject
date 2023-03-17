@@ -483,7 +483,7 @@ export default function Landing() {
         </Grid>
       </Grid>
       <div id="reviews" className={style.reviews}>
-        <Reviews />
+        {/* <Reviews /> */}
       </div>
       <Grid
         item
