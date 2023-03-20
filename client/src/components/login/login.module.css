@@ -23,7 +23,6 @@
   z-index: 2;
   top: 0;
   border-radius: 0px 40px 40px 0px;
-
 }
 
 .backgroundImage {
@@ -70,7 +69,6 @@
   height: 13vh;
 }
 
-
 .orderForm {
   display: flex;
   gap: 2vh;
@@ -81,20 +79,17 @@
   width: 100% !important;
 }
 
-
 .btnRL {
   position: relative;
   height: 50px;
-  color: #000A1F !important;
+  color: #000a1f !important;
   font-size: 15px;
-  background-color: #00FFD6 !important;
+  background-color: #00ffd6 !important;
   border-radius: 40px !important;
   width: 100%;
   font-weight: bold !important;
   font-family: inherit !important;
 }
-
-
 
 .googleButton {
   background-color: var(--main-page-color);
@@ -102,7 +97,6 @@
   padding: 10px;
   cursor: pointer;
   border-radius: 100%;
-
 }
 
 .arrow {
@@ -167,4 +161,24 @@
   border-width: 5px;
   border-style: solid;
   border-color: transparent red transparent transparent;
+}
+
+@media (max-width: 890px) {
+  .divBackground {
+    display: none;
+  }
+  .loginContainer {
+    width: 100%;
+  }
+}
+@media (max-width: 460px) {
+  .divBackground {
+    display: none;
+  }
+  .loginContainer {
+    width: 100%;
+  }
+  .containAll {
+    width: 80%;
+  }
 }

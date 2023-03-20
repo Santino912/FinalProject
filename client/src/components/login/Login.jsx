@@ -283,7 +283,7 @@ const Login = () => {
             <h5>
               By registering and logging in, you accept the{" "}
               <button
-                style={{ color: "var(--second-page-color)" }}
+                style={{ color: "var(--second-page-color)", border: "0" }}
                 onClick={() => setShowConditions(true)}
               >
                 terms and conditions

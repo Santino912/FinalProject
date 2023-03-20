@@ -6,7 +6,6 @@
   background-color: var(--main-page-color);
 }
 
-
 .divBackground {
   width: 50%;
   height: 100%;
@@ -24,7 +23,6 @@
   z-index: 2;
   top: 0;
   border-radius: 0px 40px 40px 0px;
-
 }
 
 .backgroundImage {
@@ -56,7 +54,6 @@
   align-items: flex-start;
   padding: 0px;
 }
-
 
 .containAll {
   display: flex;
@@ -93,11 +90,9 @@
   width: 100%;
   font-weight: bold !important;
   font-family: inherit !important;
-  color: #000A1F !important;
-  background-color: #00FFD6 !important;
+  color: #000a1f !important;
+  background-color: #00ffd6 !important;
 }
-
-
 
 .arrow {
   position: relative;
@@ -157,4 +152,23 @@ button {
   border-width: 5px;
   border-style: solid;
   border-color: transparent rgb(255, 0, 0) transparent transparent;
+}
+@media (max-width: 960px) {
+  .divBackground {
+    display: none;
+  }
+  .registerContainer {
+    width: 100%;
+  }
+}
+@media (max-width: 475px) {
+  .divBackground {
+    display: none;
+  }
+  .loginContainer {
+    width: 100%;
+  }
+  .containAll {
+    width: 80%;
+  }
 }
