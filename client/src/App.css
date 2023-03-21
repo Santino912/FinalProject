@@ -1,18 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .App {
   text-align: center;
-  font-family: 'Inter', sans-serif;
-
+  font-family: "Inter", sans-serif;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
-
 }
-
 
 .App-header {
   background-color: #282c34;
@@ -24,7 +21,6 @@ body {
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 
 .MuiInputBase-input {
   color: white !important;
@@ -47,7 +43,7 @@ body {
 }
 
 .MuiInput-underline:after {
-  border-bottom: 2px solid #00FFD6 !important;
+  border-bottom: 2px solid #00ffd6 !important;
 }
 
 .MuiInputLabel-animated {
@@ -55,23 +51,22 @@ body {
 }
 
 :root {
-  --main-page-color: #000A1F;
-  --second-page-color: #00FFD6;
+  --main-page-color: #000a1f;
+  --second-page-color: #00ffd6;
   --second-page-color-dark: #2d655b;
   --main-page-color-light: #001441ed;
-  --main-page-color-background-light: #000A1FE0
+  --main-page-color-background-light: #000a1fe0;
 }
 
 /* width */
 ::-webkit-scrollbar {
   width: 6px;
   background-color: rgba(255, 255, 255, 0) !important;
-
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgba(252, 0, 0, 0) !important
+  background: rgba(252, 0, 0, 0) !important;
 }
 
 /* Handle */
@@ -86,12 +81,11 @@ body {
 }
 
 html::-webkit-scrollbar {
-
   background-color: #00000000 !important;
   scroll-behavior: smooth;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -106,4 +100,10 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background-color: rgba(129, 129, 129, 0.977);
+}
+
+@media (max-width: 900px) {
+  .playerComponent {
+    display: none;
+  }
 }

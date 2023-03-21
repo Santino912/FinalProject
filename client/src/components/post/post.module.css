@@ -52,3 +52,9 @@
 .post .icon {
   color: #c4c4c4;
 }
+
+@media (max-width: 900px) {
+  .addTrackContainer {
+    display: none;
+  }
+}

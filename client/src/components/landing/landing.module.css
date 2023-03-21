@@ -1,227 +1,240 @@
 .landing {
-    background-color: #000A1F;
-    padding: 5% 10px 0 0 
-    
-
+  background-color: #000a1f;
+  padding: 60px 10px 0 0;
 }
 
 .landing a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
-
-
+.textNavBar {
+  width: 100%;
+  text-align: start;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
 .landing .text {
-    color: white;
-    font-family: 'Inter', sans-serif;
+  color: white;
+  font-family: "Inter", sans-serif;
 }
 
 .landing button {
-    font-size: 13px;
-    font-weight: bold;
-    text-transform: none;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: none;
 }
 
 .landing .signUp {
-    color: #000A1F;
-    background-color: #00FFD6;
+  color: #000a1f;
+  background-color: #00ffd6;
 }
 
 .landing .signUp:hover {
-    background-color: rgba(0, 255, 214, 0.8);
+  background-color: rgba(0, 255, 214, 0.8);
 }
 
 .navbar {
-    box-shadow: 0px 1px 0px rgba(0, 224, 255, 0.18);
-    position: fixed;
-    background-color: var(--main-page-color);
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content:space-between;
-    z-index: 30;
+  box-shadow: 0px 1px 0px rgba(0, 224, 255, 0.18);
+  position: fixed;
+  background-color: var(--main-page-color);
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100vw;
+  z-index: 30;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar .landingLogoicon {
-    width: 69px;
-    height: 56px;
+  width: 69px;
+  height: 56px;
 }
 
 .navbar .buttons .login {
-    color: #00FFD6;
-    background-color: #003B43;
+  color: #00ffd6;
+  background-color: #003b43;
 }
 
 .navbar .buttons .login:hover {
-    background-color: rgba(0, 255, 214, 0.3);
+  background-color: rgba(0, 255, 214, 0.3);
 }
 
 .getStarted .landingLogo img {
-    display: block;
-    max-width: 100%;
-    max-height: 43.415vh;
-    width: auto;
-    height: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 43.415vh;
+  width: auto;
+  height: auto;
 }
 
 .getStarted .share {
-    width: 70%;
+  width: 70%;
 }
 
 .getStarted .share .text {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .getStarted .cardMusic .card {
-    display: block;
-    width: 16.837vw;
-    height: 25.987vw;
-    border-radius: 20px;
-    background: #000A1F;
-    background-image: linear-gradient(163deg, #00FFD6 0%, #3700ff 100%);
-    transition: all .3s;
-    -webkit-box-shadow: 0px 50px 50px -30px rgba(0, 255, 214, 0.14), 0px -50px 50px -30px rgba(0, 255, 214, 0.14), -50px 0px 50px -30px rgba(0, 255, 214, 0.14), 50px 0px 50px -30px rgba(0, 255, 214, 0.14);
-    box-shadow: 0px 50px 50px -30px rgba(0, 255, 214, 0.14), 0px -50px 50px -30px rgba(0, 255, 214, 0.14), -50px 0px 50px -30px rgba(0, 255, 214, 0.14), 50px 0px 50px -30px rgba(0, 255, 214, 0.14);
+  display: block;
+  width: 16.837vw;
+  height: 25.987vw;
+  border-radius: 20px;
+  background: #000a1f;
+  background-image: linear-gradient(163deg, #00ffd6 0%, #3700ff 100%);
+  transition: all 0.3s;
+  -webkit-box-shadow: 0px 50px 50px -30px rgba(0, 255, 214, 0.14),
+    0px -50px 50px -30px rgba(0, 255, 214, 0.14),
+    -50px 0px 50px -30px rgba(0, 255, 214, 0.14),
+    50px 0px 50px -30px rgba(0, 255, 214, 0.14);
+  box-shadow: 0px 50px 50px -30px rgba(0, 255, 214, 0.14),
+    0px -50px 50px -30px rgba(0, 255, 214, 0.14),
+    -50px 0px 50px -30px rgba(0, 255, 214, 0.14),
+    50px 0px 50px -30px rgba(0, 255, 214, 0.14);
 }
 
 .getStarted .cardMusic .card2 {
-    width: 100%;
-    height: 100%;
-    background: #000A1F;
-    border-radius: 19px;
-    transition: all .2s;
+  width: 100%;
+  height: 100%;
+  background: #000a1f;
+  border-radius: 19px;
+  transition: all 0.2s;
 }
 
 .getStarted .cardMusic .card:hover {
-    box-shadow: 0px 0px 30px 1px rgba(0, 255, 214, 0.14);
+  box-shadow: 0px 0px 30px 1px rgba(0, 255, 214, 0.14);
 }
 
 .getStarted .cardMusic .card2:hover {
-    transform: scale(0.98);
-    border-radius: 20px;
+  transform: scale(0.98);
+  border-radius: 20px;
 }
 
 .getStarted .cardMusic .card2 .imageMusic {
-    padding-top: 5%;
-    width: 75%;
-    height: 45%;
+  padding-top: 5%;
+  width: 75%;
+  height: 45%;
 }
 
 .getStarted .cardMusic .card2 .imageMusic img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .getStarted .cardMusic .card2 .author {
-    color: #7C8DB5B8;
+  color: #7c8db5b8;
 }
 
 .getStarted .cardMusic .card2 .line {
-    position: relative;
-    width: 75%;
-    margin-bottom: 5%;
+  position: relative;
+  width: 75%;
+  margin-bottom: 5%;
 }
 
 .getStarted .cardMusic .card2 .line .line1 {
-    position: absolute;
-    width: 35%;
-    border: 1px solid #00FFD6;
-    margin-top: 1.7%;
+  position: absolute;
+  width: 35%;
+  border: 1px solid #00ffd6;
+  margin-top: 1.7%;
 }
 
 .getStarted .cardMusic .card2 .line .line2 {
-    position: absolute;
-    width: 65%;
-    margin-left: 35%;
-    border: 1px solid #003B43;
-    margin-top: 1.7%;
+  position: absolute;
+  width: 65%;
+  margin-left: 35%;
+  border: 1px solid #003b43;
+  margin-top: 1.7%;
 }
 
 .getStarted .cardMusic .card2 .line .icon {
-    position: absolute;
-    color: #00FFD6;
-    font-size: 60%;
-    margin-bottom: 0.8%;
-    margin-left: 33%;
+  position: absolute;
+  color: #00ffd6;
+  font-size: 60%;
+  margin-bottom: 0.8%;
+  margin-left: 33%;
 }
 
 .getStarted .cardMusic .card2 .timers {
-    width: 75%;
+  width: 75%;
 }
 
-
-
 .getStarted .cardMusic .card2 .time {
-    font-size: 0.952vw;
-    font-weight: bold;
-    color: #939eb6;
+  font-size: 0.952vw;
+  font-weight: bold;
+  color: #939eb6;
 }
 
 .getStarted .cardMusic .card2 .mediaPlayer {
-    width: 85%;
-    padding-top: 5%;
-    color: #00FFD6;
+  width: 85%;
+  padding-top: 5%;
+  color: #00ffd6;
 }
 
 .getStarted .cardMusic .card2 .mediaPlayer .play {
-    font-size: 40px;
-    -webkit-box-shadow: 50px 0px 41px -30px rgba(255, 255, 255, 0.81), -50px 0px 41px -30px rgba(255, 255, 255, 0.81), 0px -50px 41px -30px rgba(255, 255, 255, 0.81), 0px 50px 41px -30px rgba(255, 255, 255, 0.81);
-    box-shadow: 50px 0px 41px -30px rgba(255, 255, 255, 0.81), -50px 0px 41px -30px rgba(255, 255, 255, 0.81), 0px -50px 41px -30px rgba(255, 255, 255, 0.81), 0px 50px 41px -30px rgba(255, 255, 255, 0.81);
+  font-size: 40px;
+  -webkit-box-shadow: 50px 0px 41px -30px rgba(255, 255, 255, 0.81),
+    -50px 0px 41px -30px rgba(255, 255, 255, 0.81),
+    0px -50px 41px -30px rgba(255, 255, 255, 0.81),
+    0px 50px 41px -30px rgba(255, 255, 255, 0.81);
+  box-shadow: 50px 0px 41px -30px rgba(255, 255, 255, 0.81),
+    -50px 0px 41px -30px rgba(255, 255, 255, 0.81),
+    0px -50px 41px -30px rgba(255, 255, 255, 0.81),
+    0px 50px 41px -30px rgba(255, 255, 255, 0.81);
 }
-
 
 .getStarted .cardMusic .card2 .mediaPlayer .otherMediaPlayers {
-    font-size: 20px;
+  font-size: 20px;
 }
 
-.features{
-    max-width: 100vw;
+.features {
+  max-width: 100vw;
 }
 
 .features .featuresCard {
-    width: 255px;
-    height: 280px;
-    background-color: white;
-    border-radius: 10px;
+  width: 255px;
+  height: 280px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .features .featuresCard .featuresText {
-    color: #18191F;
+  color: #18191f;
 }
 
 .features .featuresCard .featuresCircle {
-    font-size: 70px;
-    color: rgba(0, 42, 130, 0.26);
+  font-size: 70px;
+  color: rgba(0, 42, 130, 0.26);
 }
 
 .footer {
-    background: #fff url('../../images/logoicon2.png') left center/contain no-repeat local;
-    background-color: #000817;
-
+  background: #fff url("../../images/logoicon2.png") left center/contain
+    no-repeat local;
+  background-color: #000817;
 }
 
 .footer .textFooter {
-    color: #939eb6
+  color: #939eb6;
 }
 
 .footer .footerLogoicon {
-    width: 268px;
-    height: 99px;
+  width: 268px;
+  height: 99px;
 }
 
 .footer .footerDivider {
-    width: 90%;
+  width: 90%;
 }
 
 .footer .footerDividerLine {
-    width: 100%;
-    border: 1px solid #3f4655b8;
+  width: 100%;
+  border: 1px solid #3f4655b8;
 }
 
 .footer .footerGitHub {
-    color: #00FFD6;
-    font-size: 40px;
+  color: #00ffd6;
+  font-size: 40px;
 }
 
 /* .landing .input{
@@ -229,7 +242,33 @@
 } */
 
 .reviews {
-    width: 100%;
-    max-width: 100vw;
-    margin: auto;
+  width: 100%;
+  max-width: 100vw;
+  margin: auto;
+}
+.landingLogoicon div {
+  padding: 0 !important;
+}
+@media (max-width: 900px) {
+  .cardMusic {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .landingLogoIconContainer {
+    display: none;
+  }
+  .textNavBar {
+    text-align: center;
+    padding: 0 5px;
+  }
+  .signUp {
+    font-size: 13px !important;
+    padding: 5px !important;
+  }
+  .login {
+    font-size: 13px !important;
+    padding: 5px !important;
+  }
 }

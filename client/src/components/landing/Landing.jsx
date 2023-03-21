@@ -5,7 +5,6 @@ import logo from "../../images/logo.png";
 import cardMusic from "../../images/cardMusic.png";
 import style from "./landing.module.css";
 import { Link } from "react-router-dom";
-import Reviews from "../reviews/Reviews.jsx";
 import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
@@ -18,55 +17,62 @@ import AudiotrackOutlinedIcon from "@mui/icons-material/AudiotrackOutlined";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import MarkEmailUnreadOutlinedIcon from "@mui/icons-material/MarkEmailUnreadOutlined";
 import OndemandVideoOutlinedIcon from "@mui/icons-material/OndemandVideoOutlined";
+//import Reviews from "../reviews/Reviews.jsx";
 
 export default function Landing() {
   return (
     <Grid container direction="column" className={style.landing} spacing={5}>
-      <Box className={style.navbar}>
-        <Grid
-          item
-          container
-          xs={5}
-          alignItems="center"
-          justifyContent="flex-end"
-          spacing={4}
-        >
-          <Grid item>
+      <Grid className={style.navbar}>
+        <Grid item container alignItems="center" xs={7} md={6} lg={6} xl={8}>
+          <Grid
+            xs={0}
+            sm={3}
+            md={2}
+            lg={2}
+            xl={2}
+            item
+            className={style.landingLogoIconContainer}
+          >
             <img src={logoicon} alt="" className={style.landingLogoicon} />
           </Grid>
-          <Grid item>
-            <Typography className={style.text}>
+          <Grid xs={6} sm={3} md={2} lg={2} xl={2} item>
+            <Typography
+              sx={{ fontSize: "10px + 5vw" }}
+              className={style.textNavBar}
+            >
               <a href="#features">Features</a>
             </Typography>
           </Grid>
-          <Grid item>
-            <Typography className={style.text}>
+          <Grid xs={6} sm={3} md={2} lg={2} xl={2} item>
+            <Typography
+              sx={{ fontSize: "10px + 5vw" }}
+              className={style.textNavBar}
+            >
               <a href="#premium">Premium</a>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography className={style.text}>
-              <a href="#reviews">Reviews</a>
             </Typography>
           </Grid>
         </Grid>
         <Grid
           item
           container
-          xs={3}
+          xs={5}
+          md={6}
+          lg={6}
+          xl={4}
           alignItems="center"
           justifyContent="flex-end"
           spacing={3}
           className={style.buttons}
+          pr={"2%"}
         >
-          <Grid item>
+          <Grid item xs={6} sm={5} md={4} lg={3} xl={3}>
             <Link to="/login">
               <Button variant="contained" className={style.login}>
                 Login
               </Button>
             </Link>
           </Grid>
-          <Grid p={"0 15px 0 0"} item>
+          <Grid item xs={6} sm={5} md={4} lg={3} xl={3}>
             <Link to="/register">
               <Button variant="contained" className={style.signUp}>
                 Sign up
@@ -74,9 +80,9 @@ export default function Landing() {
             </Link>
           </Grid>
         </Grid>
-      </Box>
+      </Grid>
       <Grid item container xs={12} className={style.getStarted}>
-        <Grid item container xs={7} direction="column">
+        <Grid item container xs={12} md={7} xl={7} direction="column">
           <Grid item className={style.landingLogo}>
             <img src={logo} alt="" width="854" height="276" />
           </Grid>
@@ -104,7 +110,8 @@ export default function Landing() {
         <Grid
           item
           container
-          xs={5}
+          md={5}
+          xl={5}
           className={style.cardMusic}
           justifyContent="center"
           alignItems="center"
@@ -221,7 +228,8 @@ export default function Landing() {
             Features
           </Typography>
         </Grid>
-        <Grid item container xs={12} justifyContent="space-between">
+
+        <Grid item container xs={12} justifyContent="center">
           {/* <Grid item container direction="column" justifyContent="space-between" xs={2.3} className={style.featuresCard} p={`2%`} m={`2%`} >
                         <Typography variant='h5' className={`${style.text} ${style.featuresText}`}>
                             Mobile Responsive
@@ -235,7 +243,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -255,7 +266,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -275,7 +289,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -295,7 +312,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -315,7 +335,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -335,7 +358,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -355,7 +381,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -375,7 +404,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -395,7 +427,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -425,27 +460,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
-            className={style.featuresCard}
-            p={`2%`}
-            m={`2%`}
-          >
-            <Typography
-              variant="h5"
-              className={`${style.text} ${style.featuresText}`}
-            >
-              Background player
-            </Typography>
-            <Box className={style.featuresCircle}>
-              <BrandingWatermarkOutlinedIcon sx={{ fontSize: "50px" }} />
-            </Box>
-          </Grid>
-          <Grid
-            item
-            container
-            direction="column"
-            justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}
@@ -465,7 +483,10 @@ export default function Landing() {
             container
             direction="column"
             justifyContent="space-between"
-            xs={3.33}
+            xs={12}
+            md={3}
+            sm={4.5}
+            lg={3.33}
             className={style.featuresCard}
             p={`2%`}
             m={`2%`}

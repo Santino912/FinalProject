@@ -16,7 +16,7 @@ export default function Home() {
   const { userFirebase } = useAuth();
   useEffect(() => {
     dispatch(getPost());
-    dispatch(getUserByFirebaseId(userFirebase.uid));
+    dispatch(getUserByFirebaseId(userFirebase?.uid));
     dispatch(clearPost());
   }, [dispatch, userFirebase.uid]);
 

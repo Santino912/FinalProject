@@ -498,7 +498,7 @@ export default function Post({ post, comments, margin, border, height }) {
               </Link>
             )}
           </Grid>
-          <Grid item>
+          <Grid item className={style.addTrackContainer}>
             <button
               onClick={() => {
                 dispatch(addTrack(post));
