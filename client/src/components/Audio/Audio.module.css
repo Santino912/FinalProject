@@ -43,3 +43,13 @@ audio {
   opacity: 0.6;
   margin-bottom: 5px;
 }
+
+@media (max-width: 500px) {
+  .playerContainer {
+    flex-direction: column;
+    height: 100%;
+  }
+  .songInfo {
+    width: 90vw;
+  }
+}

@@ -95,7 +95,7 @@ export default function LikeButton({ post }) {
       container
       justifyContent="flex-end"
       m={`2.5%`}
-      style={{ width: "100px" }}
+      style={{ width: "40px" }}
     >
       <Grid item mr={`10%`}>
         <Typography>

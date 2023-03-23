@@ -1,49 +1,59 @@
-
 .container {
-    height: 100vh;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
-    font-family: "Inter", sans-serif;
-  }
+  height: 100vh;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
 .background {
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0, 10, 31, 0.88);
-    width: 100%;
-    height: 100%;
-    z-index: -1000;
-  }
-  .list{
-    background: rgb(2,0,36);
-    background: linear-gradient(297deg, rgba(2,0,36,1) 0%, rgba(0,4,8,1) 100%);
-    border-radius: 10px;
-    padding: 4px;
-  
-  }
-  .watched{
-    color: rgb(0, 118, 78);
-    margin-left: 12px;
-    font-size: medium;
-    font-weight: 600;
-  }
-
-
-.containerDescription{
-    margin-top: 6px;
-    width: 100%;  
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 10, 31, 0.88);
+  width: 100%;
+  height: 100%;
+  z-index: -1000;
+}
+.list {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    297deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 4, 8, 1) 100%
+  );
+  border-radius: 10px;
+  padding: 4px;
+}
+.watched {
+  color: rgb(0, 118, 78);
+  margin-left: 12px;
+  font-size: medium;
+  font-weight: 600;
 }
 
-.divNotNotification{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.containerDescription {
+  margin-top: 6px;
+  width: 100%;
 }
 
-.divNotNotification h2{
+.divNotNotification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.divNotNotification h2 {
   color: rgb(255, 255, 255);
-  font-size: 800 ;
+  font-size: 800;
   font-weight: 800;
+}
+
+.sideBarSpace {
+  width: 266px;
+}
+@media (max-width: 900px) {
+  .sideBarSpace {
+    display: none;
+  }
 }

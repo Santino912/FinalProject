@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context";
 import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
-import SideBar from "../SideBar/SideBar";
 import style from "./likedVideos.module.css";
 import CardVideo from "./CardVideo";
 import { getLikesByUserId } from "../../redux/features/like/likeGetSlice";
@@ -29,9 +28,6 @@ export default function LikedVideos() {
 
   return (
     <Grid container className={style.likedVideos} xs={12}>
-      <Grid style={{ maxWidth: "266px" }} item container xs={2.5}>
-        <SideBar userDB={userDB} />
-      </Grid>
       <Grid item xs={9.5} p={`2%`}>
         {likesCurrentUser?.length > 0 ? (
           <div style={{ width: "100%" }}>

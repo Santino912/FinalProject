@@ -4,7 +4,6 @@ import { Box, Grid } from "@mui/material";
 import { getSongsLikesByUserId } from "../../redux/features/like/likeGetSlice";
 import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
 import PlayAllButton from "../PlayAllButton/PlayAllButton";
-import SideBar from "../SideBar/SideBar";
 import { useAuth } from "../../context";
 import CardSong from "./CardSong";
 import style from "./likedSongs.module.css";
@@ -23,9 +22,7 @@ export default function LikedSongs(_id) {
   }, [dispatch]);
   return (
     <Grid container className={style.likedVideos} xs={12}>
-      <Grid style={{ maxWidth: "266px" }} item container xs={2.5}>
-        <SideBar userDB={userDB} />
-      </Grid>
+      <Grid className={style.sideBarSpace} item container xs={2.5} />
       <Grid item container xs={9.5} p={`2%`}>
         {likesCurrentUser?.length > 0 ? (
           <Box style={{ width: "100%" }}>

@@ -22,15 +22,14 @@ import {
   getUserDataGraphs,
   getPostsByUserToProfile,
 } from "./usersSlice";
-import { getFollowOfThisUser } from "./utilsUsers";
 
 //obtener los users
 export const getUser = () => {
   return async (dispatch) => {
     dispatch(getUserStart());
     try {
-      const response = await axios.get("/users");
-      dispatch(getUserSuccess(response.data));
+      const { data } = await axios.get("/users");
+      dispatch(getUserSuccess(data));
     } catch (error) {
       dispatch(getUserError(error));
     }
@@ -68,8 +67,8 @@ export const setUserGenres = (body) => {
     try {
       const response = await axios.put(`/users/set/genres`, body);
       if (response) {
-        dispatch(setGenres(response.data.genres));
-        dispatch(getByFirebaseId(response.data._id));
+        dispatch(setGenres(response?.data?.genres));
+        dispatch(getByFirebaseId(response?.data?._id));
         dispatch(getUser());
       }
     } catch (error) {
@@ -98,8 +97,8 @@ export const getUserById = (_id) => {
     try {
       if (_id === undefined)
         return console.log(`_id is undefined in getUserById`);
-      const response = await axios.get(`/users/${_id}`);
-      dispatch(getById(response.data));
+      const { data } = await axios.get(`/users/${_id}`);
+      dispatch(getById(data));
     } catch (error) {
       console.log(error);
     }
@@ -148,7 +147,7 @@ export const getUserByFirebaseId = (_id) => {
     try {
       const { data } = await axios.get(`/users/idGoogle/${_id}`);
       dispatch(getByFirebaseId(data));
-      dispatch(getUserNotification(data._id));
+      dispatch(getUserNotification(data?._id));
     } catch (error) {
       console.log(error);
     }
@@ -158,8 +157,8 @@ export const getUserByFirebaseId = (_id) => {
 export const getUserUpdatePremium = (_id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/users/premium/${_id}`);
-      dispatch(getUpdatePremium(response.data));
+      const { data } = await axios.put(`/users/premium/${_id}`);
+      dispatch(getUpdatePremium(data));
     } catch (error) {
       console.log(error);
     }

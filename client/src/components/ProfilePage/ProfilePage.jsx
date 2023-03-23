@@ -172,9 +172,7 @@ const ProfilePage = () => {
       <Stack direction="row">
         <Box className={styles.fondo}></Box>
 
-        <Box className={styles.containerSideBar}>
-          <SideBar userDB={currentUser} />
-        </Box>
+        <Box className={styles.containerSideBar} />
 
         <Box className={styles.containerProfile}>
           <Box className={styles.containerProfileData}>
