@@ -23,7 +23,6 @@ import {
   getUserNotification,
   watchedUserNotification,
 } from "../../redux/features/users/usersGetSlice";
-import SideBar from "../SideBar/SideBar";
 import { useAuth } from "../../context/";
 import style from "./notification.module.css";
 
@@ -60,9 +59,8 @@ const Notification = () => {
       <div className={style.divContainer}>
         <Stack direction="row">
           <div className={style.background}></div>
-          <div style={{ minWidth: "266px" }}>
-            <SideBar userDB={userDB} />
-          </div>
+
+          <div className={style.sideBarSpace}></div>
           <div className={style.container}>
             <Typography
               variant="h2"
@@ -166,13 +164,12 @@ const Notification = () => {
                                       </Stack>
 
                                       <div>
-                                        <div>
+                                        <div style={{ textAlign: "right" }}>
                                           <IconButton
                                             aria-label="delete"
                                             size="large"
                                             color="primary"
                                             sx={{
-                                              marginLeft: 150,
                                               color: "red",
                                             }}
                                             onClick={() => handleDelete()}
@@ -184,7 +181,7 @@ const Notification = () => {
                                           sx={{
                                             display: "inline",
                                             fontSize: 12,
-                                            marginLeft: 146,
+                                            textAlign: "right",
                                           }}
                                           component="span"
                                           variant="body2"

@@ -21,6 +21,7 @@ import LikedSongs from "./components/likedSongs/LikedSongs";
 import Success from "./components/success/Success";
 import AdminGraphs from "./components/admin/graphs/AdminGraphs";
 import Player from "./components/Player/Player.jsx";
+import SideBar from "./components/SideBar/SideBar";
 import "./App.css";
 
 function App() {
@@ -32,22 +33,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/home/explore"
-            element={
-              <ProtectedRoute>
-                <Explore />
-              </ProtectedRoute>
-            }
-          />
+
           <Route
             path="/messages"
             element={
@@ -64,14 +50,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/home/explore/:_id"
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
+
           <Route
             path="/home/success"
             element={
@@ -93,30 +72,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <PostContainer />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/home/notification"
-            element={
-              <ProtectedRoute>
-                <Notification />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/home/likedSongs"
-            element={
-              <ProtectedRoute>
-                <LikedSongs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/home/likedVideos"
-            element={
-              <ProtectedRoute>
-                <LikedVideos />
               </ProtectedRoute>
             }
           />
@@ -165,6 +120,60 @@ function App() {
             element={
               <ProtectedRoute>
                 <Navigate to="/login" />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home/explore"
+            element={
+              <ProtectedRoute>
+                <SideBar />
+                <Explore />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <SideBar />
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home/explore/:_id"
+            element={
+              <ProtectedRoute>
+                <SideBar />
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home/likedSongs"
+            element={
+              <ProtectedRoute>
+                <SideBar />
+                <LikedSongs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home/likedVideos"
+            element={
+              <ProtectedRoute>
+                <SideBar />
+                <LikedVideos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home/notification"
+            element={
+              <ProtectedRoute>
+                <SideBar />
+                <Notification />
               </ProtectedRoute>
             }
           />

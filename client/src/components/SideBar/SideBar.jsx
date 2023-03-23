@@ -32,9 +32,8 @@ import {
   getUserNotification,
 } from "../../redux/features/users/usersGetSlice";
 import EditProfile from "../ProfilePage/EditProfile";
-import Stars from "../../images/svg/star.jsx";
 
-const SideBar = ({ userDB }) => {
+const SideBar = () => {
   const user = useSelector((state) => state.users.currentUser);
   const notification = useSelector((state) => state.users.userNotifications);
   const navigate = useNavigate();
@@ -71,6 +70,7 @@ const SideBar = ({ userDB }) => {
     rating: 0,
     description: "",
   });
+  const [checkedSideBar, setCheckedSideBar] = useState(false);
 
   const iconPremium = "https://www.pngmart.com/files/13/Premium-PNG-Photos.png";
 
@@ -147,22 +147,37 @@ const SideBar = ({ userDB }) => {
     setOpenBoolean(false);
   };
 
+  const handleCheckedSideBar = (e) => {
+    setCheckedSideBar(!checkedSideBar);
+  };
+
   return (
-    <Box className={s.sidebar}>
+    <Box
+      className={
+        checkedSideBar && document.documentElement.clientWidth < 900
+          ? s.sideBarResponsive
+          : s.sideBar
+      }
+    >
       <ul className={s.routescontainer}>
-        <img width="70px" alt="logo" src={logo} />
+        <img
+          width="70px"
+          alt="logo"
+          src={logo}
+          onClick={() => handleCheckedSideBar()}
+        />
         <Box className={s.profileItem}>
           <Link to={`/home/explore/${user._id}`}>
             <img
               className={s.profilePic}
               width="40px"
               alt="profile"
-              src={userDB?.avatar}
+              src={user?.avatar}
             />
           </Link>
           <Box className={s.nameWithPremium}>
-            <h4 className={s.nameSideBar}>{userDB?.name}</h4>
-            {userDB?.plan === "Premium" && (
+            <h4 className={s.nameSideBar}>{user?.name}</h4>
+            {user?.plan === "Premium" && (
               <h5 className={s.premiumText}>Premium</h5>
             )}
           </Box>
@@ -355,7 +370,7 @@ const SideBar = ({ userDB }) => {
           </svg>
           Logout
         </li>
-        {userDB?.role === "Admin" && (
+        {user?.role === "Admin" && (
           <li className={s.optionItem} onClick={() => navigate("/admin")}>
             <KeyIcon /> Admin
           </li>
@@ -393,7 +408,6 @@ const SideBar = ({ userDB }) => {
           </Box>
         </Dialog>
       }
-
       {showEditProfile && (
         <EditProfile
           close={handleCloseAll}

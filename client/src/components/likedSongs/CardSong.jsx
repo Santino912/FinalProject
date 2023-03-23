@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function CardSong({ arrayMap, post, index, isActive }) {
+export default function CardSong({ arrayMap, post, index }) {
   const [user, setUser] = useState();
   const [open, setOpen] = React.useState(false);
 

@@ -4,6 +4,7 @@ import { getVideoLikesSlice, getSongLikesSlice } from "./likeSlice";
 export const getLikesByUserId = (_id) => {
   return async (dispatch) => {
     try {
+      if (_id === undefined) return;
       const response = await axios.get(`/likes/users/${_id}`);
       dispatch(
         getVideoLikesSlice(
@@ -26,7 +27,7 @@ export const getSongsLikesByUserId = (_id) => {
       const { data } = await axios.get(`/likes/users/${_id}`);
 
       dispatch(
-        getSongLikesSlice(data.filter((like) => like.post.type === "audio"))
+        getSongLikesSlice(data?.filter((like) => like?.post?.type === "audio"))
       );
     } catch (error) {
       console.log(error);

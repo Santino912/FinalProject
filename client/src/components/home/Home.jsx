@@ -6,13 +6,11 @@ import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
 import { useAuth } from "../../context";
 import Post from "../post/Post";
 import style from "./home.module.css";
-import SideBar from "../SideBar/SideBar";
 import PostShared from "../postShared/PostShared";
 
 export default function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.postListAll);
-  const userDB = useSelector((state) => state.users.currentUser);
   const { userFirebase } = useAuth();
   useEffect(() => {
     dispatch(getPost());
@@ -22,7 +20,6 @@ export default function Home() {
 
   return (
     <Box className={style.home}>
-      <SideBar userDB={userDB} />
       <Box className={style.posts}>
         <Typography
           variant="h2"

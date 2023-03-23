@@ -1,10 +1,10 @@
 /* Because of the SVG inliner, these don't work for icons */
 .vjs-theme-fantasy {
-    --vjs-theme-fantasy--primary: aqua !important;
-    --vjs-theme-fantasy--secondary: aqua !important;
-    transition: all 0.2s ease;
+  --vjs-theme-fantasy--primary: aqua !important;
+  --vjs-theme-fantasy--secondary: aqua !important;
+  transition: all 0.2s ease;
 }
-.vjs-theme-fantasy .vjs-big-play-button{
+.vjs-theme-fantasy .vjs-big-play-button {
   transition: all 0.2s ease;
   color: var(--vjs-theme-fantasy--secondary);
 }
@@ -13,7 +13,7 @@
   background-color: transparent;
   color: aqua;
 }
-.vjs-theme-fantasy .vjs-big-play-button:hover{
+.vjs-theme-fantasy .vjs-big-play-button:hover {
   color: white;
 }
 .vjs-theme-fantasy .vjs-play-control .vjs-icon-placeholder::before {
@@ -30,45 +30,46 @@
 .vjs-theme-fantasy .vjs-play-control:hover .vjs-icon-placeholder::before {
   border: 3px solid rgba(0, 1, 33, 0) !important;
 }
-.video-js .vjs-control-bar{
-  background: rgb(0,3,24) !important;
-  background: linear-gradient(0deg, rgb(0, 2, 18) 0%, rgba(0,16,37,0) 100%) !important;
+.video-js .vjs-control-bar {
+  background: rgb(0, 3, 24) !important;
+  background: linear-gradient(
+    0deg,
+    rgb(0, 2, 18) 0%,
+    rgba(0, 16, 37, 0) 100%
+  ) !important;
 }
-video[poster]{
-  object-fit: cover;
-}
+
 .vjs-poster {
   filter: brightness(45%);
   background-size: cover;
   background-position: inherit;
   object-fit: cover;
 }
-.video-js{
+.video-js {
   width: 100%;
   max-width: calc(45vh * 3);
   min-height: 45vh;
   border-radius: 15px;
   overflow: hidden;
 }
-.video-js .vjs-tech{
+.video-js .vjs-tech {
   border-radius: 15px;
   overflow: hidden;
 }
-.video-js .vjs-text-track-display div{
+.video-js .vjs-text-track-display div {
   color: blueviolet;
 }
-.video-js .vjs-time-tooltip{
+.video-js .vjs-time-tooltip {
   background-color: rgb(0, 11, 34);
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
-.vjs-mouse-display .vjs-time-tooltip{
+.vjs-mouse-display .vjs-time-tooltip {
   background-color: aqua;
   color: rgb(0, 11, 34);
 }
-.video-cont{
+.video-cont {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-

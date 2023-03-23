@@ -244,9 +244,7 @@ const Explore = () => {
       <Stack direction="row">
         <div className={styles.fondo}></div>
         <div className={styles.filter}></div>
-        <div style={{ minWidth: "266px" }}>
-          <SideBar userDB={userDB} />
-        </div>
+        <div className={styles.sideBarSpace} />
         {loaded ? (
           <div className={styles.container}>
             <Typography
@@ -257,11 +255,8 @@ const Explore = () => {
               Explore
             </Typography>
             <Stack
-              direction="row"
+              className={styles.filterPostsContainer}
               spacing={2}
-              justifyContent="space-between"
-              alignItems="center"
-              flexWrap="wrap"
               sx={{ marginTop: "13px" }}
             >
               <div className={styles.containerSearchBar}>
@@ -573,11 +568,7 @@ const Explore = () => {
             <div className={styles.containerContent}>
               {!inputValue ? (
                 <Stack>
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
+                  <Stack className={styles.filterVideoAudio}>
                     <Typography
                       className={styles.forYouText}
                       variant="h4"

@@ -57,9 +57,11 @@ h4 {
   font-size: 18px;
   font-weight: 600;
   color: rgba(129, 129, 129, 1);
-  width: 500px;
+  width: 40vw;
+  max-width: 500px;
   outline: none;
   border: none;
+  min-width: 249px;
 }
 
 .containerContent {
@@ -269,4 +271,42 @@ h4 {
 .showMoreButton:hover {
   cursor: pointer;
   color: white;
+}
+.sideBarSpace {
+  width: 266px;
+}
+
+.filterPostsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filterVideoAudio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .sideBarSpace {
+    display: none;
+  }
+  .container {
+    width: 100%;
+    padding: 30px 0 0 0;
+  }
+  .filterPostsContainer {
+    flex-direction: column;
+  }
+  .forYouText {
+    display: none;
+  }
+  .filterVideoAudio {
+    justify-content: center;
+    align-items: center;
+  }
 }

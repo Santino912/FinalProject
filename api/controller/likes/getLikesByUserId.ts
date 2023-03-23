@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import Likes from "../../models/Likes"
 import Users from "../../models/Users"
+
 const getLikesByUserId = async (req: Request, res: Response) => {
     const { idUser } = req.params
 

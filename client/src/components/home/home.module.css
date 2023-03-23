@@ -1,5 +1,4 @@
 .home {
-  width: calc(100vw - 12px);
   background-color: #000a1f;
   min-height: 100vh;
   background-image: url(../../images/svg/polygons.svg);
@@ -30,4 +29,14 @@
 .home .posts .text {
   padding: 1% 0;
   font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .home .posts {
+    padding: 50px 0px 50px 0;
+    width: 100vw;
+  }
+  .home {
+    width: 100%;
+  }
 }

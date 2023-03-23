@@ -32,6 +32,7 @@ export const getPost = () => {
 //crear post
 export const createPost = (body) => {
   return async (dispatch) => {
+    if (body === undefined) return;
     const { data } = await axios.post("/posts", body);
     dispatch(addPosts(data));
     dispatch(getPost());
@@ -41,6 +42,7 @@ export const createPost = (body) => {
 //actualizar user
 export const updatePost = (_id, body) => {
   return async (dispatch) => {
+    if (_id === undefined || body === undefined) return;
     try {
       const response = await axios.put(`/posts/${_id}`, body);
       if (response) {
@@ -65,6 +67,7 @@ const {data} = await axios.get(`/post`)
 
 export const getPostsByUserPleasuresFunct = (idGoogle) => {
   return async (dispatch) => {
+    if (idGoogle === undefined) return;
     try {
       const { data } = await axios.get(`/posts/user/pleasures/${idGoogle}`);
       dispatch(getPostsByUserPleasures(data));
@@ -77,6 +80,7 @@ export const getPostsByUserPleasuresFunct = (idGoogle) => {
 //eliminar user
 export const deletePost = (_id) => {
   return async (dispatch) => {
+    if (_id === undefined) return;
     try {
       await axios.delete(`/posts/${_id}`);
       dispatch(deletePosts());
@@ -90,6 +94,7 @@ export const deletePost = (_id) => {
 //get post by genre
 export const getPostByGenre = (object) => {
   return async (dispatch) => {
+    if (object === undefined) return;
     const genres = object.genres
       .join(",")
       .replace(/\s/g, "_")
@@ -138,7 +143,7 @@ export const getPostByPopularity = () => {
   };
 };
 //relevance
-export const getPostByRelevance = (order) => {
+export const getPostByRelevance = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/posts/genres/with-all`);
@@ -152,6 +157,7 @@ export const getPostByRelevance = (order) => {
 export const getPostById = (_id) => {
   return async (dispatch) => {
     try {
+      if (_id === undefined) return;
       const { data } = await axios.get(`/posts/${_id}`);
       dispatch(getCurrentPostById(data));
     } catch (error) {
