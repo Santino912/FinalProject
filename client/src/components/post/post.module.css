@@ -53,6 +53,16 @@
   color: #c4c4c4;
 }
 
+.textDescriptionContainer {
+  height: 10vh;
+  min-height: 70px;
+}
+
+.titlePostText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @media (max-width: 900px) {
   .addTrackContainer {
     display: none;

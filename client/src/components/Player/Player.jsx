@@ -29,6 +29,9 @@ function Player() {
       : playerRef.current?.audio.current.pause();
   }, [isPlaying]);
 
+  useEffect(() => {
+    return () => {};
+  }, []);
   const handlePlay = () => {
     !isPlaying && dispatch(togglePlay());
   };
@@ -94,16 +97,17 @@ function Player() {
                 ref={playerRef}
                 key={"23dg26ah21"}
                 style={{ borderRadius: "1rem" }}
-                autoPlay={isPlaying}
+                autoPlay={false}
+                preload="false"
                 src={
                   musicTracks?.length && musicTracks[currentTrackIndex].content
                 }
                 showSkipControls={true}
                 showJumpControls={false}
-                onClickPrevious={handleClickPrevious}
-                onClickNext={handleClickNext}
-                onPlay={handlePlay}
-                onPause={handlePause}
+                onClickPrevious={() => handleClickPrevious}
+                onClickNext={() => handleClickNext}
+                onPlay={() => handlePlay}
+                onPause={() => handlePause}
               />
             </div>
           </motion.div>

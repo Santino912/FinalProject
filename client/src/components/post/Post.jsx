@@ -332,8 +332,10 @@ export default function Post({ post, comments, margin, border, height }) {
           </Menu>
         </Grid>
       </Grid>
-      <Grid item>
-        <Typography variant="h6">{post.title}</Typography>
+      <Grid item className={style.textDescriptionContainer}>
+        <Typography variant="h6" className={style.titlePostText}>
+          {post.title}
+        </Typography>
         <Typography variant="body1">{post.description}</Typography>
       </Grid>
       {post.user?.name && post?.type === "video" ? (

@@ -65,7 +65,11 @@ const Notification = () => {
             <Typography
               variant="h2"
               component="h1"
-              sx={{ fontWeight: "600", color: "white", paddingTop: "20px" }}
+              sx={{
+                fontWeight: "600",
+                color: "white",
+                paddingTop: "20px",
+              }}
             >
               Notifications.
             </Typography>
@@ -86,7 +90,7 @@ const Notification = () => {
                         <div key={user._id}>
                           <List className={style.list} sx={{ width: "100%" }}>
                             <ListItemButton>
-                              <ListItem alignItems="flex-start">
+                              <ListItem className={style.listContainer}>
                                 <ListItemAvatar>
                                   <Link to={`/home/explore/${user.fromUser}`}>
                                     <Avatar
