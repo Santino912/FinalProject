@@ -1,7 +1,6 @@
 .container {
   height: 100vh;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 25px 15px;
   width: 100%;
   font-family: "Inter", sans-serif;
 }
@@ -50,10 +49,24 @@
 }
 
 .sideBarSpace {
-  width: 266px;
+  width: 370px;
+}
+.listContainer {
+  justify-content: flex-start;
 }
 @media (max-width: 900px) {
   .sideBarSpace {
     display: none;
+  }
+}
+
+@media (max-width: 570px) {
+  .listContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    width: 112%;
   }
 }

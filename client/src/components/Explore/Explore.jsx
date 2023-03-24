@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +15,7 @@ import {
   ThemeProvider,
   Button,
   Modal,
+  Box,
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import styles from "./Explore.module.css";
@@ -33,12 +33,11 @@ import {
   getPostByPopularity,
   getPostByRelevance,
 } from "../../redux/features/post/postGetSlice";
-import { useEffect } from "react";
 import Post from "../post/Post";
-import SideBar from "../SideBar/SideBar";
 import { useAuth } from "../../context";
 import Loading from "../loading/Loading";
 import PostShared from "../postShared/PostShared";
+import CloseIcon from "@mui/icons-material/Close";
 import PlayButton from "../PlayButton/PlayButton";
 
 const Explore = () => {
@@ -308,7 +307,15 @@ const Explore = () => {
                     className={styles.modalContainer}
                   >
                     <div>
-                      <h2>Genres</h2>
+                      <Box className={styles.genresTextContainer}>
+                        <h2 className={styles.genresText}>Genres</h2>
+                        <Box
+                          className={styles.closeIconContainer}
+                          onClick={() => handleClose()}
+                        >
+                          <CloseIcon />
+                        </Box>
+                      </Box>
                       <Stack direction="row" justifyContent="space-between">
                         {currentPage > 1 ? (
                           <button className={styles.buttonPages}>
@@ -380,8 +387,8 @@ const Explore = () => {
                         )}
                       </Stack>
                     </div>
-                    <div>
-                      <h2 style={{ marginBottom: "15px" }}>Sort by</h2>
+                    <div className={styles.sortText}>
+                      <h2>Sort by</h2>
                       <div className={styles.sortContainer}>
                         {orderChecked === "desc" ? (
                           <div>
@@ -569,13 +576,6 @@ const Explore = () => {
               {!inputValue ? (
                 <Stack>
                   <Stack className={styles.filterVideoAudio}>
-                    <Typography
-                      className={styles.forYouText}
-                      variant="h4"
-                      component="h3"
-                    >
-                      For you.
-                    </Typography>
                     <div>
                       {checked === "all" ? (
                         <Button

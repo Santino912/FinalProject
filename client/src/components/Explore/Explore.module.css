@@ -291,6 +291,20 @@ h4 {
   align-items: center;
   width: 100%;
 }
+
+.genresText {
+  width: 100%;
+  max-width: 95%;
+}
+.genresTextContainer {
+  display: flex;
+}
+
+.closeIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 @media (max-width: 900px) {
   .sideBarSpace {
     display: none;
@@ -308,5 +322,26 @@ h4 {
   .filterVideoAudio {
     justify-content: center;
     align-items: center;
+  }
+  .modalContainer {
+    top: 0px !important;
+    right: 0px !important;
+    width: 95vw !important;
+    max-height: 500px;
+  }
+  .sortText {
+    padding: 20px;
+  }
+  .genresText {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 355px), (max-height: 638px) {
+  .modalContainer {
+    overflow-y: scroll;
+    height: 100vh !important;
+    min-height: 320px;
+    max-height: 550px;
   }
 }
