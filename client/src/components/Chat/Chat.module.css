@@ -28,7 +28,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 100%;
-  font-size: 50px;
+  font-size: calc(1px + 5vw);
   margin: 0;
 }
 
@@ -151,4 +151,49 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.showConversationsContainer {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url(../../images/logoicon.png);
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #000334;
+  z-index: 2;
+}
+.showConversationsContainer:hover {
+  background-color: #000a1fe0;
+}
+
+.conversationsResponsive {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000a1f94;
+}
+@media (max-width: 768px) {
+  .conversations {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+  }
+  .conversationsResponsive {
+    display: block;
+  }
+  .chatContainer {
+    width: 100%;
+  }
+  .showConversationsContainer {
+    display: block;
+  }
 }

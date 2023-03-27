@@ -235,11 +235,13 @@ export const watchedUserNotification = (_id) => {
   };
 };
 
-export const disabledUserNotification = (_id) => {
+export const disabledUserNotification = (_id, idUser) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/notifications/disabled/${_id}`);
-      dispatch(disabledNotification(response.data));
+      const { data } = await axios.put(
+        `/notifications/disabled/${_id}/${idUser}`
+      );
+      dispatch(disabledNotification(data));
     } catch (error) {
       console.log(error);
     }

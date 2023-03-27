@@ -4,11 +4,13 @@ import Users from "../../models/Users";
 
 const setNotiDisabled = async (req: Request, res: Response) => {
 
-    const { _id } = req.params;
+    const { _id, idUser } = req.params;
 
     try {
-        const notification = await Notifications.findOneAndUpdate({ _id }, { disable: true })
-        return res.send(notification)
+        const notification = await Notifications.findOneAndDelete({ _id })
+
+        const notifications = await Notifications.find({ to: idUser })
+        return res.send(notifications)
     } catch (err) {
         return res.status(500).send(err);
     }

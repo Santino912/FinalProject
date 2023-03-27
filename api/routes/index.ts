@@ -123,7 +123,7 @@ router.put("/users/set/update-ban", updateBanUser);
 router.put("/users/set/role", updateRoleUser);
 
 router.put("/notifications/watched/:_id", setNotiWatched);
-router.put("/notifications/disabled/:_id", setNotiDisabled);
+router.put("/notifications/disabled/:_id/:idUser", setNotiDisabled);
 
 router.put("/posts/:_id", updatePost);
 
