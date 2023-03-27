@@ -8,8 +8,9 @@ const initialState = {
   currentUser: {},
   userGraphsData: {},
   user: {},
-  usersProfilePosts: [],
+  userProfilePosts: [],
   userFollows: [],
+  profilePostsLikes: [],
 };
 
 const userSlice = createSlice({
@@ -68,7 +69,7 @@ const userSlice = createSlice({
       return {
         ...state,
         user: {},
-        usersProfilePosts: [],
+        userProfilePosts: [],
       };
     },
     getByFirebaseId: (state, action) => {
@@ -131,10 +132,16 @@ const userSlice = createSlice({
         userGraphsData: action.payload,
       };
     },
-    getPostsByUserToProfile: (state, action) => {
+    getProfilePostsProfile: (state, action) => {
       return {
         ...state,
-        usersProfilePosts: action.payload,
+        userProfilePosts: action.payload,
+      };
+    },
+    getPostLikedToProfile: (state, action) => {
+      return {
+        ...state,
+        profilePostsLikes: action.payload,
       };
     },
   },
@@ -161,7 +168,8 @@ export const {
   getDownToRegular,
   setFollow,
   setUnfollow,
-  getPostsByUserToProfile,
+  getProfilePostsProfile,
+  getPostLikedToProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;

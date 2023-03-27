@@ -45,6 +45,7 @@ import upToPremium from "../controller/users/upToPremium";
 import getByUserPleasures from "../controller/posts/getByUserPleasures";
 import getPostByUserId from "../controller/posts/getPostByUserId";
 import getFollowsByIdUser from "../controller/follows/getFollowsByIdUser";
+import getPostsLiked from "../controller/posts/getPostsLiked";
 //import { putGenresInDB } from "../utils/GenresToDatabase";
 //putGenresInDB()
 
@@ -58,9 +59,10 @@ router.get("/users/data/graphs", getCountUserGraphs) //Admin
 
 router.get("/posts", getPosts);
 router.get("/posts/:_id", getPostById);
-router.get("/posts/order/popularity", getPopular);
+router.get("/posts/user/likes/:idUser", getPostsLiked);
 router.get("/posts/genres/:genres", getByGenre);
 router.get("/posts/orderTime/:order", getByTime);
+router.get("/posts/order/popularity", getPopular);
 router.get("/posts/user/:idUser", getPostByUserId)
 router.get("/posts/genres/with-all", getByGenreWithAll);
 router.get("/posts/user/pleasures/:idGoogle", getByUserPleasures);

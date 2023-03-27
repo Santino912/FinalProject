@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import { Box } from "@mui/material";
 import styles from "./LikedSongs.module.css";
 import heart from "../../images/heartLikes.png";
 
 const LikedSongs = ({ user }) => {
   const allUserLikes = useSelector((state) => state.users.profilePostsLikes);
-  const allPosts = useSelector((state) => state.posts.postList);
 
   /*  useEffect(() => {
     dispatch(getUserById(_id, "likedSongs line 19"));
   }, [dispatch, _id]); */
-  function likePostCover(_id) {
-    const postLiked = allPosts?.find((post) => post?.user?._id === _id);
-    return postLiked;
-  }
+  /*   function likePostCover(cover) {
+     const postLiked = allPosts?.find((post) => post?.user?._id === _id);
+    return cover;
+  } */
   return (
     <Box className={styles.containerLikedSongs}>
       <h3>Liked Songs</h3>
@@ -24,10 +22,7 @@ const LikedSongs = ({ user }) => {
           <Box className={styles.containerImageHeart}>
             <img
               className={styles.coverLikedSongs}
-              src={
-                likePostCover(allUserLikes[allUserLikes?.length - 1]?.post)
-                  ?.cover
-              }
+              src={allUserLikes[allUserLikes?.length - 1]?.cover}
               alt=""
             />
             <img className={styles.heart} src={heart} alt="" />

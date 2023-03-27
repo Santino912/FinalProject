@@ -1,11 +1,12 @@
 .divPost {
-  max-height: 90%;
+  height: 100%;
 }
 
 .postContainer {
   background-color: #000a1fe0;
   min-height: 100vh;
   width: 100vw;
+  padding: 1% 30px 0 30px;
 }
 
 .postContainer .back {
@@ -34,4 +35,25 @@
   border: 1px solid #00ffd6;
   border-radius: 13px;
   /* height: 57%; */
+}
+
+@media (max-width: 1400px) {
+  .backgroundContainer {
+    padding: 50px 0 0 0;
+    background-color: #000a1f;
+  }
+}
+@media (max-width: 500px) {
+  .postContainer {
+    padding: 0;
+  }
+  .userData {
+    width: 90vw !important;
+  }
+  .postUserName {
+    max-width: 75vw !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
 }

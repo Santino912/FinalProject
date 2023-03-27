@@ -199,8 +199,8 @@ export default function Post({ post, comments, margin, border, height }) {
       m={margin}
       style={{ border, height }}
     >
-      <Grid item container spacing={1} justifyContent="space-between">
-        <Grid item container spacing={2} className={style.avatarName}>
+      <Grid item className={style.userData} container spacing={1}>
+        <Grid item container spacing={2} xs={11} className={style.avatarName}>
           <Grid item>
             <Link to={`/home/explore/${post?.user?._id}`}>
               <Avatar
@@ -214,6 +214,9 @@ export default function Post({ post, comments, margin, border, height }) {
               <Typography
                 sx={{ "&:hover": { color: "white", cursor: "pointer" } }}
                 variant="body1"
+                textOverflow={"ellipsis"}
+                overflow={"hidden"}
+                maxWidth={"75vw"}
               >
                 {post.user && post.user.name}
               </Typography>
@@ -224,6 +227,9 @@ export default function Post({ post, comments, margin, border, height }) {
                   "&:hover": { cursor: "pointer", textDecoration: "underline" },
                 }}
                 variant="body2"
+                textOverflow={"ellipsis"}
+                overflow={"hidden"}
+                maxWidth={"75vw"}
               >
                 {post.user && `@${post.user.username}`}
               </Typography>

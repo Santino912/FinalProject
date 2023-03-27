@@ -24,13 +24,7 @@ export default function PostContainer() {
 
   return (
     <Box className={style.backgroundContainer}>
-      <Grid
-        container
-        className={style.postContainer}
-        pt={`1%`}
-        pl={`30px`}
-        pr={`30px`}
-      >
+      <Grid container className={style.postContainer}>
         <Grid container>
           <Grid item className={style.back}>
             <Link to="/home">

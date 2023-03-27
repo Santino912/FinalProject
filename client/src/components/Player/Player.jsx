@@ -66,7 +66,9 @@ function Player() {
 
   return (
     <div className={s.container}>
-      {location.pathname !== "/login" &&
+      {document.documentElement.clientWidth > "600" &&
+        document.documentElement.clientHeight > "600" &&
+        location.pathname !== "/login" &&
         location.pathname !== "/register" &&
         location.pathname !== "/home/sucess" &&
         !location.pathname.includes("admin") && (
@@ -83,6 +85,7 @@ function Player() {
                   ? musicTracks[currentTrackIndex].cover
                   : defaultImg
               }
+              style={{ backgroundColor: "black" }}
               alt="not found"
             />
             <div className={s.songInfo}>

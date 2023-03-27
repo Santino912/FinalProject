@@ -22,10 +22,10 @@ const PopularPost = ({ post }) => {
     <Box className={styles.containerSong}>
       <Box className={styles.songFirstHalf}>
         <img src={post.cover} alt="" />
-        <p>{post.title}</p>
+        <p className={styles.songFirstHalfTitle}>{post.title}</p>
       </Box>
       <Box className={styles.songSecondHalf}>
-        <p>
+        <p style={{ minWeigth: "30px" }}>
           <FontAwesomeIcon icon={faHeart} />{" "}
           {likes?.filter((likes) => likes.isActive)?.length}
         </p>

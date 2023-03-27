@@ -33,3 +33,17 @@
 .commentsContainer button:hover {
   background-color: rgba(0, 255, 214, 0.8);
 }
+
+@media (max-width: 570px) {
+  .inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .addButton {
+    width: 50%;
+    max-width: 350px;
+    padding: 5px !important;
+  }
+}

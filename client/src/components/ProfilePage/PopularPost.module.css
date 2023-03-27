@@ -1,27 +1,35 @@
 .containerSong {
-    padding: 10px 25px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    color: white;
-    font-weight: 100;
+  padding: 10px 25px;
+  display: flex;
+  width: 100%;
+  color: white;
+  font-weight: 100;
 }
 
 .songFirstHalf {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
 }
 
-.songFirstHalf img{
-    width: 55px;
-    height: 55px;
-    background-color: gray;
-    margin-right: 10px;
+.songFirstHalf img {
+  width: 55px;
+  height: 55px;
+  background-color: inherit;
+  margin-right: 10px;
 }
 
 .songSecondHalf {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 35%;
+}
+
+.songFirstHalfTitle {
+  max-width: 200px;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
 }
