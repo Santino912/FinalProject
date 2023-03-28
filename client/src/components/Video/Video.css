@@ -41,8 +41,8 @@
 
 .vjs-poster {
   filter: brightness(45%);
-  background-size: cover;
-  background-position: inherit;
+  background-size: contain;
+  background-position: center;
   object-fit: cover;
 }
 .video-js {

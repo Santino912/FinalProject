@@ -1,52 +1,57 @@
-.convContainer{
+.convContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userChat {
+  transition: 0.3s;
+  display: flex;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+  margin-left: 10px;
+  width: calc(100% - 10px);
+  gap: 10px;
+  height: 65px;
+  padding-top: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.077);
+}
+.profilePic {
+  height: 50px;
+  border-radius: 50%;
+}
+.userChatName {
+  overflow: hidden;
+  width: 15vw;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.userChat:hover .userChatName {
+  color: aqua;
+}
+.userChat:hover {
+  background-color: rgba(0, 2, 20, 0.7);
+}
+.userChatInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.lastMessage {
+  margin: 0;
+  cursor: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.7;
+  font-size: 15px;
+  width: 21vw;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
+  .userChatName {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.userChat{
-    transition: 0.3s;
-    display: flex;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    cursor: pointer;
-    margin-left: 10px;
-    width: calc(100% - 10px);
-    gap: 10px;
-    height: 65px;
-    padding-top: 13px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.077);
-    
-}
-.profilePic{
-    height: 50px;
-    border-radius: 50%;
-}
-.userChatName{
-    overflow: hidden;
-    width: 15vw;
-    text-overflow: ellipsis;
-    font-weight: 500;
-    transition: 0.3s;
-}
-.userChat:hover .userChatName{
-    color: aqua;
-}
-.userChat:hover{
-    background-color: rgba(0, 2, 20, 0.7);;
-}
-.userChatInfo{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.lastMessage{
-    margin: 0;
-    cursor: inherit;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    opacity: 0.7;
-    font-size: 15px;
-    width: 21vw;
-    height: 30px;
+  }
 }

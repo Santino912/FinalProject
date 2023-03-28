@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./pleasures.module.css";
 import { getGenre } from "../../redux/features/genres/genreGetSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
@@ -71,23 +71,16 @@ const Pleasures = () => {
 
   return (
     <div className={styles.mainDiv}>
-      <Stack
-        direction="column"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{
-          background: "rgba(15, 25, 46, 0.71)",
-          padding: "24px",
-          width: "850px",
-          height: "450px",
-          borderRadius: "10px",
-        }}
-      >
+      <Box className={styles.genresStackContainer}>
         <div className={styles.containerText}>
           <h1>Tell us about you.</h1>
           <p>Click at least two genres you like.</p>
         </div>
-        <Stack direction="row" justifyContent="space-between">
+        <Box
+          className={styles.arrowsContainer}
+          direction="row"
+          justifyContent="space-between"
+        >
           {currentPage > 1 ? (
             <button className={styles.buttonPages}>
               <p onClick={previousPage}>
@@ -101,13 +94,7 @@ const Pleasures = () => {
               </p>
             </button>
           )}
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            flexWrap="wrap"
-            sx={{ height: "180px", width: "810px", margin: "20px 0" }}
-          >
+          <Box className={styles.pleasuresContainer}>
             {currentGenres?.map((genre, key) => {
               return (
                 <div key={key} className={styles.genresContainer}>
@@ -132,7 +119,7 @@ const Pleasures = () => {
                 </div>
               );
             })}
-          </Stack>
+          </Box>
           {currentPage !== pageNumbers ? (
             <button className={styles.buttonPages}>
               <p onClick={nextPage}>
@@ -146,7 +133,7 @@ const Pleasures = () => {
               </p>
             </button>
           )}
-        </Stack>
+        </Box>
         <div>
           {genresSelected.genres?.length > 1 ? (
             <Button
@@ -184,7 +171,7 @@ const Pleasures = () => {
             </Button>
           )}
         </div>
-      </Stack>
+      </Box>
     </div>
   );
 };

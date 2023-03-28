@@ -1,25 +1,31 @@
 .containerAllPosts h2 {
-    font-size: 40px;
-    color: white;
+  font-size: 40px;
+  color: white;
 }
 
 .containerTitleFilters {
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .containerFilters {
-    display: flex;
-    justify-content: space-between;
-    width: 200px;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
 }
 
 .noResultsText {
-    margin-top: 80px;
-    color: white;
-    font-size: 30px;
-    font-weight: 100;
-    text-align: center;
+  margin-top: 80px;
+  color: white;
+  font-size: 30px;
+  font-weight: 100;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .containerTitleFilters {
+    flex-direction: column;
+  }
 }

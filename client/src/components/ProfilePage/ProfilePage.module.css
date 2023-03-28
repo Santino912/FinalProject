@@ -26,13 +26,12 @@
 }
 
 .containerImgName {
-  padding: 40px 35px;
   display: flex;
   align-items: center;
 }
 
 .containerImgName img {
-  width: 170px;
+  width: calc(70px + 5vw);
   border-radius: 50%;
   border: 1px solid black;
   box-shadow: -3px 10px 33px 1px rgba(0, 0, 0, 0.75);
@@ -44,7 +43,6 @@
 }
 
 .artistData .badge {
-  position: absolute;
   display: flex;
   align-items: center;
   width: 160px;
@@ -65,7 +63,7 @@
 
 .artistData h1 {
   color: white;
-  font-size: 70px;
+  font-size: calc(5vw + 1px);
   font-weight: 900;
 }
 
@@ -84,7 +82,6 @@
 
 .optionsContainer {
   position: relative;
-  padding-right: 35px;
 }
 
 .optionsButton {
@@ -98,7 +95,13 @@
 }
 
 .optionsModal {
-  margin: 125px 0 0 -18px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
 }
 
 .contentContainer {
@@ -115,6 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .playFollowContainer .playButton:hover {
@@ -164,4 +168,83 @@
 .buttonPost:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
+}
+.bannerContainer {
+  height: 100%;
+  background-color: #000a1f42;
+}
+
+.banner {
+  position: absolute;
+  z-index: -10 !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.avatar {
+  width: 100px;
+}
+
+.editProfile {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+}
+
+.profileUserName {
+  min-width: 200px;
+  max-width: 50vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 1140px) {
+  .popu {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .containerSideBar {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .contentContainer {
+    padding: 20px 10px;
+  }
+  .popuAndLiked {
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+  }
+  .liked {
+    width: 100% !important;
+    max-width: 90vw !important;
+  }
+  .popu {
+    width: 100% !important;
+    max-width: 90vw !important;
+  }
+  .containerProfile {
+    padding-top: 80px;
+  }
+  .containerProfileData {
+    flex-direction: column;
+  }
+  .containerImgName {
+    flex-direction: column;
+  }
+  .profileUserName {
+    max-width: 90vw;
+  }
+}
+@media (max-width: 380px) {
+  .followersCount {
+    position: static !important;
+    padding: 5px;
+  }
 }

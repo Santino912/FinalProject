@@ -147,7 +147,7 @@ export default function Upload() {
   };
 
   return (
-    <div>
+    <div className={s.allContainer}>
       <button className={s.newPostBtn} onClick={handleClickOpen}>
         {" "}
         <svg
@@ -174,7 +174,7 @@ export default function Upload() {
         aria-labelledby="responsive-dialog-title"
       >
         <h2 className={s.title}>New Post</h2>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form className={s.form} onSubmit={(e) => handleSubmit(e)}>
           <DialogContent className={s.content} id="content">
             <ul className={s.formInputs}>
               <li>

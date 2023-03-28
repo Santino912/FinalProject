@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./Chat.module.css";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import Loading from "../loading/Loading";
 
 function Chat() {
   const dispatch = useDispatch();
+  const [showConversationMenu, setShowConversationMenu] = useState(false);
   const { userFirebase } = useAuth();
   const users = useSelector((state) => state.users.usersListAll);
   const currentUser = useSelector((state) => state.users.currentUser);
@@ -96,9 +97,23 @@ function Chat() {
     }
   };
 
+  const showConversations = () => {
+    setShowConversationMenu(!showConversationMenu);
+  };
+
   return (
     <div className={s.wholeContainer}>
-      <div className={s.conversations}>
+      <div
+        className={s.showConversationsContainer}
+        onClick={() => showConversations()}
+      />
+      <div
+        className={
+          showConversationMenu && document.documentElement.clientWidth <= 768
+            ? s.conversationsResponsive
+            : s.conversations
+        }
+      >
         <div className={s.convHead}>
           <button className={s.goBack} onClick={() => navigate(-1)}>
             <Arrow />

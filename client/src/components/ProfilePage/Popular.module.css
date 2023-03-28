@@ -13,14 +13,14 @@ p {
   margin-bottom: 30px;
 }
 
-.containerSong{
-    display: flex;
-    align-items: center;
-    border-radius: 6px;
+.containerSong {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
 }
 
 .containerSong:hover {
-    background-color: rgba(128, 128, 128, 0.451);
+  background-color: rgba(128, 128, 128, 0.451);
 }
 
 .songFirstHalfIndex {

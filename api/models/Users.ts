@@ -56,9 +56,7 @@ const user = new Schema({
   expirationDate: {
     type: Date,
   },
-  likedPosts: {
-    type: Array,
-  },
+
   pleasures: {
     type: Array,
   },

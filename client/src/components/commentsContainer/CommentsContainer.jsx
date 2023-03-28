@@ -57,7 +57,7 @@ export default function CommentsContainer({ post }) {
 
   return (
     <Box className={style.commentsContainer}>
-      <Grid item container>
+      <Grid item container className={style.inputContainer}>
         <TextField
           placeholder="Add a comment..."
           variant="outlined"
@@ -66,7 +66,11 @@ export default function CommentsContainer({ post }) {
           className={style.input}
           onChange={(e) => setComment(e.target.value)}
         />
-        <Button variant="contained" onClick={handleComment}>
+        <Button
+          className={style.addButton}
+          variant="contained"
+          onClick={handleComment}
+        >
           Add
         </Button>
       </Grid>

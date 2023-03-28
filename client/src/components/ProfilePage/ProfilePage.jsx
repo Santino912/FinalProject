@@ -10,6 +10,7 @@ import {
   cleanUserState,
   getPostsByUser,
   getFollowsByUserId,
+  getPostLiked,
 } from "../../redux/features/users/usersGetSlice";
 import { Stack, ThemeProvider } from "@mui/system";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +19,6 @@ import { Box, Button, createTheme, Menu, MenuItem, Modal } from "@mui/material";
 import { getPost } from "../../redux/features/post/postGetSlice";
 import { changeUserChat } from "../../redux/features/chat/chatGetSlice";
 import styles from "./ProfilePage.module.css";
-import SideBar from "../SideBar/SideBar";
 import checkIcon from "../../images/checkIcon.png";
 import Popular from "./Popular";
 import LikedSongs from "./LikedSongs";
@@ -42,7 +42,7 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.users.user);
   const currentUser = useSelector((state) => state.users.currentUser);
   const profileUserFollowers = useSelector((state) => state.users.userFollows);
-  const artistPosts = useSelector((state) => state.users.usersProfilePosts);
+  const artistPosts = useSelector((state) => state.users.userProfilePosts);
   const [open, setOpen] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
   const [followed, setFollowed] = useState(false);
@@ -55,10 +55,10 @@ const ProfilePage = () => {
     dispatch(getPost());
     dispatch(getUserById(_id));
     dispatch(getUserLikes(_id));
-    dispatch(getFollowsByUserId(_id));
+    dispatch(getPostLiked(_id));
     dispatch(getPostsByUser(_id));
+    dispatch(getFollowsByUserId(_id));
   }, [dispatch, _id]);
-
   useEffect(() => {
     setFollowed(getFollowOfThisUser(profileUserFollowers, _id));
   }, [profileUserFollowers]);
@@ -82,19 +82,16 @@ const ProfilePage = () => {
   };
 
   const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
 
   const handleOpenSettings = () => {
+    setOpen(!open);
     setOpenSettings(true);
   };
 
   const handleCloseSettings = () => {
-    setOpenSettings(false);
+    setOpenSettings(!openSettings);
   };
 
   const handleFollow = async () => {
@@ -176,26 +173,19 @@ const ProfilePage = () => {
 
         <Box className={styles.containerProfile}>
           <Box className={styles.containerProfileData}>
-            <Box
-              style={{
-                background: `url(${user?.banner})`,
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                zIndex: "-100",
-                filter: "blur(1px)",
-              }}
-            ></Box>
+            <Box className={styles.bannerContainer}>
+              <img src={user?.banner} className={styles.banner} alt="Banner" />
+            </Box>
             <Box className={styles.containerImgName}>
-              <img src={user.avatar} alt="" />
+              <img src={user.avatar} className={styles.avatar} alt="Avatar" />
               <Box className={styles.artistData}>
                 {user.plan === "Premium" ? (
                   <Box className={styles.badge}>
-                    <img src={checkIcon} alt="" />
+                    <img src={checkIcon} alt="CheckIcon" />
                     <p>Premium Artist</p>
                   </Box>
                 ) : null}
-                <h1>{user.name}</h1>
+                <h1 className={styles.profileUserName}>{user.name}</h1>
                 <Box className={styles.followersCount}>
                   <p className={styles.followersCount}>
                     {profileUserFollowers?.length === 1
@@ -211,31 +201,22 @@ const ProfilePage = () => {
               </Box>
             </Box>
             <Box className={styles.optionsContainer}>
-              {currentUser._id === user._id ? (
+              {currentUser._id === user._id && (
                 <FontAwesomeIcon
-                  onClick={handleOpen}
+                  onClick={() => handleOpen()}
                   className={styles.optionsButton}
                   icon={faEllipsis}
                 />
-              ) : null}
-              <Menu
-                className={styles.optionsModal}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                  horizontal: "right",
-                  vertical: "top",
-                }}
-              >
-                <MenuItem onClick={handleOpenSettings}>Edit profile</MenuItem>
-              </Menu>
-              {openSettings && (
-                <Modal onClose={handleCloseSettings}>
-                  <EditProfile
-                    close={handleCloseSettings}
-                    setOpenSettings={setOpenSettings}
-                  />
-                </Modal>
+              )}
+              {open && (
+                <Box
+                  className={styles.optionsModal}
+                  onClick={() => handleOpen()}
+                >
+                  <Button onClick={() => handleOpenSettings()}>
+                    Edit profile
+                  </Button>
+                </Box>
               )}
             </Box>
           </Box>
@@ -348,6 +329,14 @@ const ProfilePage = () => {
               </Box>
             )}
           </Box>
+          {openSettings && (
+            <Box className={styles.editProfile}>
+              <EditProfile
+                close={handleCloseSettings}
+                setOpenSettings={() => setOpenSettings()}
+              />
+            </Box>
+          )}
         </Box>
       </Stack>
     </ThemeProvider>

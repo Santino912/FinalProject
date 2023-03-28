@@ -20,7 +20,8 @@ import {
   setFollow,
   setUnfollow,
   getUserDataGraphs,
-  getPostsByUserToProfile,
+  getProfilePostsProfile,
+  getPostLikedToProfile,
 } from "./usersSlice";
 
 //obtener los users
@@ -124,7 +125,20 @@ export const getPostsByUser = (_id) => {
 
     try {
       const { data } = await axios.get(`/posts/user/${_id}`);
-      dispatch(getPostsByUserToProfile(data));
+      dispatch(getProfilePostsProfile(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getPostLiked = (_id) => {
+  return async (dispatch) => {
+    if (_id === undefined) return;
+
+    try {
+      const { data } = await axios.get(`/posts/user/likes/${_id}`);
+      dispatch(getPostLikedToProfile(data));
     } catch (err) {
       console.log(err);
     }
@@ -221,11 +235,13 @@ export const watchedUserNotification = (_id) => {
   };
 };
 
-export const disabledUserNotification = (_id) => {
+export const disabledUserNotification = (_id, idUser) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/notifications/disabled/${_id}`);
-      dispatch(disabledNotification(response.data));
+      const { data } = await axios.put(
+        `/notifications/disabled/${_id}/${idUser}`
+      );
+      dispatch(disabledNotification(data));
     } catch (error) {
       console.log(error);
     }

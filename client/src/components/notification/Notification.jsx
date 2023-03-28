@@ -47,13 +47,14 @@ const Notification = () => {
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = (i) => {
     if (userNotification) {
-      userNotification?.forEach((el) => {
-        dispatch(disabledUserNotification(el._id));
-      });
+      dispatch(disabledUserNotification(userNotification[i]?._id));
     }
   };
+
+  console.log(userNotification);
+
   return (
     <>
       <div className={style.divContainer}>
@@ -84,10 +85,10 @@ const Notification = () => {
               <div className={style.containerDescription}>
                 <>
                   {userNotification?.length > 0 ? (
-                    userNotification?.map((user) => {
+                    userNotification?.map((user, i) => {
                       let data = JSON.parse(user?.title);
                       return (
-                        <div key={user._id}>
+                        <div key={i}>
                           <List className={style.list} sx={{ width: "100%" }}>
                             <ListItemButton>
                               <ListItem className={style.listContainer}>
@@ -176,7 +177,9 @@ const Notification = () => {
                                             sx={{
                                               color: "red",
                                             }}
-                                            onClick={() => handleDelete()}
+                                            onClick={() =>
+                                              handleDelete(i, user?._id)
+                                            }
                                           >
                                             <DeleteIcon fontSize="inherit" />
                                           </IconButton>
