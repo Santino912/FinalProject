@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { getSongsLikesByUserId } from "../../redux/features/like/likeGetSlice";
 import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
 import PlayAllButton from "../PlayAllButton/PlayAllButton";
@@ -21,13 +21,13 @@ export default function LikedSongs(_id) {
     dispatch(getSongsLikesByUserId(userDB?._id));
   }, [dispatch]);
   return (
-    <Grid container className={style.likedVideos} xs={12}>
-      <Grid className={style.sideBarSpace} item container xs={2.5} />
-      <Grid item container xs={9.5} p={`2%`}>
+    <Box container className={style.likedVideos}>
+      <Box className={style.sideBarSpace} />
+      <Box className={style.currentLikesContainer}>
         {likesCurrentUser?.length > 0 ? (
           <Box style={{ width: "100%" }}>
             <PlayAllButton songs={likesCurrentUser} />
-            <Box style={{ marginTop: "30px" }}>
+            <Box className={style.songsContainer}>
               {likesCurrentUser?.map((like, index) => (
                 <CardSong
                   arrayMap={likesCurrentUser}
@@ -39,9 +39,16 @@ export default function LikedSongs(_id) {
             </Box>
           </Box>
         ) : (
-          <p style={{ margin: "0 auto", color: "white" }}>No liked songs yet</p>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            sx={{ height: "100%" }}
+          >
+            <p className={style.noLikedSongsText}>No liked songs yet</p>
+          </Box>
         )}
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 }

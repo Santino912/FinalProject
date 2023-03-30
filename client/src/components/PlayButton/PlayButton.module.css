@@ -1,9 +1,27 @@
-.playBtn{
-    cursor: pointer;
+.playBtn {
+  cursor: pointer;
 }
-.playBtn svg path{
-    fill: white;
+.playBtn svg path {
+  fill: white;
 }
-.playBtn:hover svg path{
-    fill: aqua;
+.playBtn:hover svg path {
+  fill: aqua;
+}
+.svgPlayButton {
+  max-width: 40px;
+  width: 4vw;
+}
+@media (max-width: 900px) {
+  .likeButtonContainer {
+    gap: 5vw;
+  }
+  .containerSong {
+    max-width: 100%;
+  }
+  .svgPlayButton {
+    width: 40px;
+  }
+  .playBtn {
+    display: none !important;
+  }
 }

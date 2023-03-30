@@ -1,9 +1,9 @@
-.playBtn{
-    cursor: pointer;
+.playBtn {
+  cursor: pointer;
 }
-.playBtn:hover svg circle{
-    fill: #051330;
+.playBtn:hover svg circle {
+  fill: #051330;
 }
-.playBtn:hover svg path{
-    fill: #00FFD6;
+.playBtn:hover svg path {
+  fill: #00ffd6;
 }

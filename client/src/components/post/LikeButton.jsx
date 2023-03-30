@@ -1,4 +1,4 @@
-import { Grid, SvgIcon, Typography } from "@mui/material";
+import { SvgIcon, Typography, Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,10 +39,12 @@ export default function LikeButton({ post }) {
       console.log("notification created!");
     }
   };
-
-  const handleLike = () => {
+  const setterLikeAndClick = () => {
     setLike(!like);
     setClick(!click);
+  };
+  const handleLike = () => {
+    setterLikeAndClick();
     if (!like) notification();
   };
 
@@ -91,20 +93,15 @@ export default function LikeButton({ post }) {
   }, [likes, dispatch, like]);
 
   return (
-    <Grid
-      container
-      justifyContent="flex-end"
-      m={`2.5%`}
-      style={{ width: "40px" }}
-    >
-      <Grid item mr={`10%`}>
+    <Box display={"flex"} style={{ width: "30%", gap: "5px" }}>
+      <Box display={"flex"}>
         <Typography>
           {likes?.filter((likes) => likes.isActive)?.length === 0
             ? "0"
             : likes?.filter((likes) => likes.isActive)?.length}
         </Typography>
-      </Grid>
-      <Grid item>
+      </Box>
+      <Box display={"flex"}>
         <button onClick={handleLike}>
           <SvgIcon
             xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +115,7 @@ export default function LikeButton({ post }) {
             )}
           </SvgIcon>
         </button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 }

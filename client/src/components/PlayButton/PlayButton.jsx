@@ -34,8 +34,7 @@ const PlayButton = ({ trackIndex, tracks, track }) => {
     >
       {!isPlaying ? (
         <svg
-          width="56"
-          height="57"
+          className={s.svgPlayButton}
           viewBox="0 0 56 57"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +43,7 @@ const PlayButton = ({ trackIndex, tracks, track }) => {
         </svg>
       ) : songs[currentTrackIndex]?._id === track?._id ? (
         <svg
-          width="56"
-          height="57"
+          className={s.svgPlayButton}
           viewBox="0 0 56 57"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +57,7 @@ const PlayButton = ({ trackIndex, tracks, track }) => {
         </svg>
       ) : (
         <svg
-          width="56"
-          height="57"
+          className={s.svgPlayButton}
           viewBox="0 0 56 57"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
