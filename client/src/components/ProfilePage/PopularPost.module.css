@@ -32,3 +32,10 @@
   white-space: nowrap !important;
   overflow: hidden !important;
 }
+
+.songFirstHalfIndex {
+  max-width: 200px;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}

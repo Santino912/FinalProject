@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Slide,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import PlayButton from "../PlayButton/PlayButton";
 import LikeButton from "../post/LikeButton";
 
 import styles from "./CardSong.module.css";
 import style from "../likedVideos/cardVideo.module.css";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function CardSong({ arrayMap, post, index }) {
   const [user, setUser] = useState();
@@ -46,7 +34,7 @@ export default function CardSong({ arrayMap, post, index }) {
         </Box>
         <Box>
           <img
-            src={post.cover}
+            src={post?.cover}
             alt=""
             style={{ width: "40px", height: "40px", borderRadius: "6px" }}
           />

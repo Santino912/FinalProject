@@ -45,6 +45,7 @@
   color: white;
   flex-direction: column;
   align-items: center;
+  min-height: 570px;
 }
 
 .containerTitle {

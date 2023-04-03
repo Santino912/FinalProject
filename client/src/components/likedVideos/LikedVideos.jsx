@@ -1,12 +1,12 @@
-import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Box } from "@mui/system";
 import { useAuth } from "../../context";
 import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
-import style from "./likedVideos.module.css";
-import CardVideo from "./CardVideo";
 import { getLikesByUserId } from "../../redux/features/like/likeGetSlice";
+import CardVideo from "./CardVideo";
 import PlayAllButton from "../PlayAllButton/PlayAllButton";
+import style from "./likedVideos.module.css";
 
 export default function LikedVideos() {
   const dispatch = useDispatch();
@@ -27,12 +27,13 @@ export default function LikedVideos() {
   }, [userDB]);
 
   return (
-    <Grid container className={style.likedVideos} xs={12}>
-      <Grid item xs={9.5} p={`2%`}>
+    <Box container className={style.likedVideos}>
+      <Box className={style.sideBarSpace} />
+      <Box className={style.likesUserContainer}>
         {likesCurrentUser?.length > 0 ? (
-          <div style={{ width: "100%" }}>
+          <Box style={{ width: "100%" }}>
             <PlayAllButton songs={likesCurrentUser} />
-            <div style={{ marginTop: "30px" }}>
+            <Box style={{ marginTop: "30px" }}>
               {likesCurrentUser?.map((post, index) => (
                 <CardVideo
                   key={index}
@@ -41,14 +42,19 @@ export default function LikedVideos() {
                   allPosts={likesCurrentUser}
                 />
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         ) : (
-          <p style={{ margin: "auto", textAlign: "center", color: "white" }}>
-            No liked songs yet
-          </p>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            sx={{ height: "100%" }}
+          >
+            <p className={style.noLikedSongsText}>No liked songs yet</p>
+          </Box>
         )}
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 }
