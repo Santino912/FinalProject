@@ -61,6 +61,7 @@ const AdminUsers = () => {
     axiosIsBanned(userSelected, setUserSelected, reasonBan);
   };
 
+  console.log(arrUsers);
   return (
     <Box className={style.backgroundAdmin}>
       <Box>

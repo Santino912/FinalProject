@@ -1,3 +1,18 @@
 .containerSong:hover {
-    background-color: rgba(128, 128, 128, 0.451);
+  background-color: rgba(128, 128, 128, 0.451);
+}
+
+.titlePostText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 42vw;
+}
+@media (max-width: 955px) {
+  .titlePostText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 37vw;
+  }
 }

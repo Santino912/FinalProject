@@ -6,18 +6,11 @@ const getByTime = async (req: Request, res: Response) => {
 
     try {
 
-        if (order === "asc") {
-            const posts = await Posts.aggregate([{ $sort: { postDateNumber: 1 } }])
-            const allPosts = posts
+        const num = order === "asc" ? 1 : -1
+        const posts = await Posts.aggregate([{ $sort: { postDateNumber: num } }])
+        const allPosts = posts
 
-            return res.send({ posts, allPosts })
-
-        } if (order === "desc") {
-            const posts = await Posts.aggregate([{ $sort: { postDateNumber: -1 } }])
-            const allPosts = posts
-
-            return res.send({ posts, allPosts })
-        }
+        return res.send({ posts, allPosts })
     } catch (err) {
         return res.status(500).send(err)
     }

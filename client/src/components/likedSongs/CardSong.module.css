@@ -1,0 +1,92 @@
+.containerSong {
+  display: flex;
+  width: 100%;
+  max-width: 75vw;
+  height: 50px;
+  color: white;
+  align-items: center;
+}
+.songFirstHalfIndex {
+  width: 5px;
+  display: flex;
+  align-items: center;
+}
+.songContainer {
+  width: 100%;
+  max-width: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+}
+.likeButtonContainer {
+  display: flex;
+  align-items: center;
+  gap: 2%;
+  max-width: 60%;
+}
+.titlePostContainer {
+  max-height: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
+}
+
+.titlePostText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 42vw;
+}
+.linkUserName {
+  max-width: 25vw;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.linkUserName p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.postModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #0007148a;
+  z-index: 10;
+}
+
+.backgroundPost {
+  background-color: #000714;
+  width: 100%;
+  max-width: 90vw;
+  border-radius: 10px;
+}
+
+@media (max-width: 955px) {
+  .likeButtonContainer {
+    gap: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .likeButtonContainer {
+    gap: 5vw;
+  }
+  .containerSong {
+    max-width: 100%;
+  }
+  .titlePostText {
+    max-width: 39vw;
+  }
+}

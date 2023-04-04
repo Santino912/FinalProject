@@ -4,15 +4,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./reportUsers.module.css";
 
-const ReportUsers = ({
-  data: {
-    title,
-    content,
-    post,
-    userId,
-    user: { name, email, avatar },
-  },
-}) => {
+const ReportUsers = ({ data: { title, content, idUser, idPost, post } }) => {
   const navigate = useNavigate();
   return (
     <Box className={style.containerAll}>
@@ -24,17 +16,20 @@ const ReportUsers = ({
             flexDirection: "column",
             color: "var(--second-page-color)",
           }}
-          to={`/home/explore/${userId}`}
+          to={`/home/explore/${idUser}`}
         >
-          <Avatar src={avatar} alt={`Perfil image ${name}`} />
-          <h6>{email}</h6>
+          <Avatar
+            src={post?.user?.avatar}
+            alt={`Perfil image ${post?.user?.name}`}
+          />
+          <h6>{post?.user?.email}</h6>
         </Link>
 
         <h1>Reason: {title}</h1>
         <Box className={style.detailContainer}>
           <h3>Detail: {content}</h3>
         </Box>
-        <Button onClick={() => navigate(`/home/post/${post._id}`)}>Post</Button>
+        <Button onClick={() => navigate(`/home/post/${idPost}`)}>Post</Button>
       </Box>
     </Box>
   );

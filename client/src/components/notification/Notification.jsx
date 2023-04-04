@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DateTime } from "luxon";
 import {
@@ -33,27 +33,29 @@ const Notification = () => {
   );
   const userDB = useSelector((state) => state.users.currentUser);
   const { userFirebase } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getUserByFirebaseId(userFirebase.uid));
     dispatch(getUserNotification(userDB._id));
   }, []);
 
-  const handleWatched = () => {
+  const handleWatched = (post) => {
     if (userNotification) {
-      userNotification?.forEach((el) => {
-        dispatch(watchedUserNotification(el._id));
-      });
+      dispatch(watchedUserNotification(post));
     }
   };
 
   const handleDelete = (i) => {
     if (userNotification) {
-      dispatch(disabledUserNotification(userNotification[i]?._id));
+      dispatch(
+        disabledUserNotification(
+          userNotification[i]?._id,
+          userNotification[i]?.fromUser
+        )
+      );
     }
   };
-
-  console.log(userNotification);
 
   return (
     <>
@@ -147,7 +149,7 @@ const Notification = () => {
                                           color="#757575"
                                         >
                                           {data?.post}{" "}
-                                          <Link to={user._id}>
+                                          <Link to={user?.post}>
                                             {user?.content && (
                                               <Button
                                                 href="#text-buttons"
@@ -159,7 +161,9 @@ const Notification = () => {
                                                   fontSize: 12,
                                                   fontWeight: 16,
                                                 }}
-                                                onClick={() => handleWatched()}
+                                                onClick={() =>
+                                                  handleWatched(user?.post)
+                                                }
                                               >
                                                 Post
                                               </Button>

@@ -1,5 +1,4 @@
 .containerSong {
-  padding: 10px 25px;
   display: flex;
   width: 100%;
   color: white;
@@ -14,10 +13,10 @@
 }
 
 .songFirstHalf img {
-  width: 55px;
-  height: 55px;
+  width: 50px;
   background-color: inherit;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .songSecondHalf {
@@ -28,6 +27,13 @@
 }
 
 .songFirstHalfTitle {
+  max-width: 200px;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+.songFirstHalfIndex {
   max-width: 200px;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;

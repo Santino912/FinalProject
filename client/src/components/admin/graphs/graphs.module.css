@@ -1,29 +1,34 @@
 .backgroundContainer {
-    background-color: var(--main-page-color);
-    width: 100%;
-    min-height: 100vh;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    gap: 100px;
-
+  background-color: var(--main-page-color);
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 100px;
 }
 
 .containerGraphPie {
-    width: 100%;
-    max-width: 50vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  max-width: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .containerGraphArea {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .containerGraphArea {
     max-width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
 }

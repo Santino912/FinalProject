@@ -8,7 +8,6 @@ const getByGenreWithAll = async (req: Request, res: Response) => {
     try {
 
         let allGenres = `${genres}`.split(",")
-        console.log("first")
         const posts = await Posts.aggregate([
             { $match: { $text: { $search: "Premium" } } },
             { $sort: { score: { $meta: "textScore" }, posts: 1 } }

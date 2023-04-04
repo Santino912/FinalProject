@@ -4,7 +4,7 @@ import style from "./register.module.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Checkbox, Grid, TextField } from "@mui/material";
 import {
   Arrow,
   EmailIcon,
@@ -25,6 +25,8 @@ const Register = () => {
   const [idGoogle, setIdGoogle] = useState("");
   const [loading, setLoading] = useState(true);
   const [showConditions, setShowConditions] = useState(false);
+  const [checkBoxError, setCheckBoxError] = useState(false);
+  const [termsBoolean, setTermsBoolean] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -89,6 +91,13 @@ const Register = () => {
 
     if (flag) return;
 
+    if (!termsBoolean) {
+      setCheckBoxError(true);
+      return setTimeout(() => {
+        setCheckBoxError(false);
+      }, 500);
+    }
+
     try {
       let googleUser;
       const res = await signup(user.email, user.password);
@@ -109,6 +118,12 @@ const Register = () => {
   };
 
   const handleSignInGoogle = async () => {
+    if (!termsBoolean) {
+      setCheckBoxError(true);
+      return setTimeout(() => {
+        setCheckBoxError(false);
+      }, 500);
+    }
     try {
       let googleUser;
       const res = await loginWithGoogle();
@@ -134,6 +149,10 @@ const Register = () => {
 
   const handleFocusPass = (e) =>
     setErrors({ ...errors, password: "", confirmPassword: "" });
+
+  const handleChangeCheck = () => {
+    setTermsBoolean(!termsBoolean);
+  };
 
   return (
     <Box>
@@ -302,15 +321,31 @@ const Register = () => {
                   </Box>
                 </Box>
               </form>
-              <h5>
-                By registering and logging in, you accept the{" "}
-                <button
-                  style={{ color: "var(--second-page-color)", border: "0" }}
-                  onClick={() => setShowConditions(true)}
-                >
-                  terms and conditions
-                </button>
-              </h5>
+              <Box textAlign={"center"}>
+                <h5>
+                  By registering and logging in, you accept the{" "}
+                  <button
+                    style={{ color: "var(--second-page-color)", border: "0" }}
+                    onClick={() => setShowConditions(true)}
+                  >
+                    terms and conditions
+                  </button>
+                  <Checkbox
+                    sx={{
+                      color: "white",
+                      width: "30px",
+                      height: "30px",
+                      "&.Mui-checked": {
+                        color: "var(--second-page-color)",
+                      },
+                    }}
+                    className={checkBoxError && style.checkboxTerms}
+                    onChange={() => handleChangeCheck()}
+                    value={termsBoolean}
+                  />
+                </h5>
+              </Box>
+
               <Grid
                 className={style.googleBox}
                 alignItems="center"
@@ -335,6 +370,7 @@ const Register = () => {
       </Box>
       {showConditions && (
         <Conditions
+          styleTo={"Register"}
           showConditions={showConditions}
           setShowConditions={setShowConditions}
         />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from "./PopularPost.module.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { Box } from "@mui/material";
+import styles from "./PopularPost.module.css";
 
 const PopularPost = ({ post }) => {
   const [likes, setLikes] = useState();
@@ -21,7 +21,7 @@ const PopularPost = ({ post }) => {
   return (
     <Box className={styles.containerSong}>
       <Box className={styles.songFirstHalf}>
-        <img src={post.cover} alt="" />
+        <img src={post.cover} alt={`${post.cover}`} />
         <p className={styles.songFirstHalfTitle}>{post.title}</p>
       </Box>
       <Box className={styles.songSecondHalf}>
