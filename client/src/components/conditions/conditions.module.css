@@ -1,23 +1,63 @@
-.modalContainer{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: rgba(39, 61, 108, 0.327);
-    top: 0;
-    left: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.modalContainerRegister {
+  min-height: 630px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(39, 61, 108, 0.327);
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalContainerLogin {
+  min-height: 570px;
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(39, 61, 108, 0.327);
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal{
-    height: 50%;
-    width: 70%;
-    background-color: var(--main-page-color);
-    display: flex;
-    align-items: center;
-    color:white;
-    border-radius: 20px;
+.modal {
+  min-height: 100%;
+  height: 60%;
+  width: 70%;
+  background-color: var(--main-page-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  border-radius: 20px;
+  flex-direction: column;
+}
 
+.buttonConditions {
+  background-color: var(--second-page-color) !important;
+  color: var(--main-page-color) !important;
+  font-weight: 400 !important;
+  padding: 15px 30px !important;
+  margin-bottom: 40px !important;
+}
+
+.textConditions {
+  font-size: calc(25px + 1vw);
+
+  padding: 40px;
+}
+@media (max-width: 768px), (max-height: 570px) {
+  .modal {
+    height: 90vh;
+    width: 90vw;
+  }
+  .textConditions {
+    padding-top: 40px;
+  }
 }

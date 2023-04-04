@@ -1,31 +1,33 @@
 .adminContainer {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--main-page-color);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 100px;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--main-page-color);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  flex-wrap: wrap;
+  min-height: 400px;
 }
 
 .buttons {
-    width: 200px;
-    height: 150px;
-    background-color: var(--second-page-color) !important;
-    color: black !important;
-    font-weight: 700 !important;
+  width: 200px;
+  height: 150px;
+  background-color: var(--second-page-color) !important;
+  color: black !important;
+  font-weight: 700 !important;
 }
 
 .icon {
-    width: 50px !important;
-    height: 50px !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .arrow {
-    width: 100px !important;
-    height: 100px !important;
-    position: fixed !important;
-    top: 0;
-    left: 0;
+  width: 100px !important;
+  height: 100px !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
 }

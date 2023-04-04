@@ -8,6 +8,14 @@ const report = new Schema({
     content: {
         type: String,
         require: true
+    },
+    idPost: {
+        ref: "Post",
+        type: Schema.Types.Mixed
+    },
+    idUser: {
+        ref: "User",
+        type: Schema.Types.Mixed
     }
 });
 

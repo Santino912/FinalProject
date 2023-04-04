@@ -4,6 +4,7 @@
   color: white;
   display: flex;
   background-color: var(--main-page-color);
+  min-height: 630px;
 }
 
 .divBackground {
@@ -13,6 +14,7 @@
   top: 0;
   background-color: var(--main-page-color);
   border-radius: 0px 40px 40px 0px;
+  min-height: 630px;
 }
 
 .divBackgroundColor {
@@ -23,6 +25,7 @@
   z-index: 2;
   top: 0;
   border-radius: 0px 40px 40px 0px;
+  min-height: 630px;
 }
 
 .backgroundImage {
@@ -154,6 +157,25 @@ button {
   border-style: solid;
   border-color: transparent rgb(255, 0, 0) transparent transparent;
 }
+
+.checkboxTerms {
+  color: red !important;
+  animation: checkBoxAnimated 0.2s ease infinite;
+}
+
+@keyframes checkBoxAnimated {
+  0% {
+    rotate: 20deg;
+  }
+
+  50% {
+    rotate: -20deg;
+  }
+  100% {
+    rotate: 0deg;
+  }
+}
+
 @media (max-width: 960px) {
   .divBackground {
     display: none;

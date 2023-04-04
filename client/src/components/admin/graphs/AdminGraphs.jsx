@@ -8,7 +8,7 @@ import {
   getUser,
 } from "../../../redux/features/users/usersGetSlice";
 import { getPost } from "../../../redux/features/post/postGetSlice";
-import { arrayToDataGraphsPosts, arrayToDataGraphsUser } from "../utils";
+import { arrayToDataGraphsPosts } from "../utils";
 import AreaComponent from "../areaGraphs/Area";
 import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";

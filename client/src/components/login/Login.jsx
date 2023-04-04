@@ -1,3 +1,7 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -10,20 +14,16 @@ import {
   DialogContentText,
   Snackbar,
   Alert,
+  Checkbox,
 } from "@mui/material";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context";
-import { Arrow, EmailIcon, GoogleIcon, PadLock } from "../componentsIcons";
-import style from "./login.module.css";
 import logo from "../../images/logoicon.png";
 import { getUser } from "../../redux/features/users/usersGetSlice";
-import { useDispatch, useSelector } from "react-redux";
 import LoadingProtectRoute from "../../context/LoadingProtectRoute";
-import axios from "axios";
 import Conditions from "../conditions/Conditions";
 import { userExistGoogle } from "../utils";
+import { Arrow, EmailIcon, GoogleIcon, PadLock } from "../componentsIcons";
+import { useAuth } from "../../context";
+import style from "./login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -42,12 +42,14 @@ const Login = () => {
   const [userToResetPassword, setUserToResetPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [showConditions, setShowConditions] = useState(false);
+  const [termsBoolean, setTermsBoolean] = useState(false);
+  const [checkBoxError, setCheckBoxError] = useState(false);
   const [openAlert, setOpenAlert] = useState({
     show: false,
     msg: "",
     severity: "",
   });
-  const [showConditions, setShowConditions] = useState(false);
   const { login, loginWithGoogle, userFirebase, resetPassword } = useAuth();
   const navigate = useNavigate();
 
@@ -88,10 +90,15 @@ const Login = () => {
       } else {
         setEmailError(false);
       }
+      if (!termsBoolean) {
+        setCheckBoxError(true);
+        return setTimeout(() => {
+          setCheckBoxError(false);
+        }, 500);
+      }
       await login(user.email, user.password);
       navigate("/home");
     } catch (err) {
-      console.log(err);
       if (err.message === "Firebase: Error (auth/wrong-password).") {
         setPasswordError(true);
       } else {
@@ -101,6 +108,12 @@ const Login = () => {
   };
 
   const handleSignInGoogle = async () => {
+    if (!termsBoolean) {
+      setCheckBoxError(true);
+      return setTimeout(() => {
+        setCheckBoxError(false);
+      }, 500);
+    }
     try {
       const res = await loginWithGoogle();
       let newUser = {
@@ -114,7 +127,6 @@ const Login = () => {
       userExistGoogle(newUser);
       setGoogleUser(newUser);
     } catch (err) {
-      console.log(err);
       return;
     }
     return navigate("/home");
@@ -163,6 +175,9 @@ const Login = () => {
     setOpen(false);
   };
 
+  const handleChangeCheck = () => {
+    setTermsBoolean(!termsBoolean);
+  };
   return (
     <Box>
       {loading && <LoadingProtectRoute />}
@@ -240,8 +255,7 @@ const Login = () => {
                     variant="standard"
                     label="Email"
                     name="email"
-                    onChange={(e) => handleChange(e)}
-                    value={user.email}
+                    onClick={(e) => handleChange(e)}
                   />
                 </Box>
                 {passwordError && (
@@ -280,15 +294,30 @@ const Login = () => {
                 </Box>
               </Box>
             </form>
-            <h5>
-              By registering and logging in, you accept the{" "}
-              <button
-                style={{ color: "var(--second-page-color)", border: "0" }}
-                onClick={() => setShowConditions(true)}
-              >
-                terms and conditions
-              </button>
-            </h5>
+            <Box textAlign={"center"}>
+              <h5>
+                By registering and logging in, you accept the{" "}
+                <button
+                  style={{ color: "var(--second-page-color)", border: "0" }}
+                  onClick={() => setShowConditions(true)}
+                >
+                  terms and conditions
+                </button>
+                <Checkbox
+                  sx={{
+                    color: "white",
+                    width: "30px",
+                    height: "30px",
+                    "&.Mui-checked": {
+                      color: "var(--second-page-color)",
+                    },
+                  }}
+                  className={checkBoxError && style.checkboxTerms}
+                  onChange={() => handleChangeCheck()}
+                  value={termsBoolean}
+                />
+              </h5>
+            </Box>
             <Grid
               className={style.googleBox}
               alignItems="center"
@@ -298,7 +327,13 @@ const Login = () => {
             >
               <h5 style={{ width: "auto", margin: "5px" }}>or continue with</h5>
               <Button
-                sx={{ padding: "20px", borderRadius: "50%" }}
+                sx={{
+                  padding: "20px",
+                  borderRadius: "50%",
+                  "&.Mui-root:hover": {
+                    backgroundColor: "rgba(95, 0, 0, 0.279);",
+                  },
+                }}
                 onClick={() => handleSignInGoogle()}
                 className={style.googleButton}
               >
@@ -383,6 +418,7 @@ const Login = () => {
       )}
       {showConditions && (
         <Conditions
+          styleTo={"Login"}
           showConditions={showConditions}
           setShowConditions={setShowConditions}
         />

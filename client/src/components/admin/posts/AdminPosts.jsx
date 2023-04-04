@@ -96,7 +96,7 @@ const AdminPosts = () => {
             {postsReportedArr
               ?.slice(
                 activeStep * 6,
-                (activeStep + 1) * 6 == 0 ? 6 : (activeStep + 1) * 6
+                (activeStep + 1) * 6 === 0 ? 6 : (activeStep + 1) * 6
               )
               ?.map((data, i) => (
                 <ReportUsers key={`ReportUsers ${i}`} data={data} />
