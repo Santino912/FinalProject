@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Typography, Box } from "@mui/material";
 import PlayButton from "../PlayButton/PlayButton";
 import LikeButton from "../post/LikeButton";
@@ -9,17 +8,7 @@ import styles from "./CardSong.module.css";
 import style from "../likedVideos/cardVideo.module.css";
 
 export default function CardSong({ arrayMap, post, index }) {
-  const [user, setUser] = useState();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function getUser() {
-      const res = await axios.get(`/users/${post?.user?._id}`);
-      setUser(res.data);
-    }
-    getUser();
-  }, [post?.user?._id]);
-
   return (
     <Box
       className={`${styles.containerSong} ${style.containerSong}`}
@@ -35,7 +24,7 @@ export default function CardSong({ arrayMap, post, index }) {
         <Box>
           <img
             src={post?.cover}
-            alt=""
+            alt="CoverImg"
             style={{ width: "40px", height: "40px", borderRadius: "6px" }}
           />
         </Box>
@@ -46,7 +35,7 @@ export default function CardSong({ arrayMap, post, index }) {
             fontSize: "18px",
           }}
         >
-          <p className={styles.titlePostText}>{post.title}</p>
+          <p className={styles.titlePostText}>{post?.title}</p>
         </Box>
       </Box>
       <Box className={styles.likeButtonContainer}>
@@ -61,7 +50,7 @@ export default function CardSong({ arrayMap, post, index }) {
             }}
             variant="body1"
           >
-            {user && user.name}
+            {post?.user?.name && post?.user?.name}
           </Typography>
         </Link>
         <LikeButton post={post} />

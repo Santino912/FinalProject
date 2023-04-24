@@ -3,6 +3,10 @@ import { model, Schema } from "mongoose";
 const like = new Schema({
   isActive: {
     type: Boolean,
+    default: true
+  },
+  typePost: {
+    type: String,
     require: true
   },
   post: {

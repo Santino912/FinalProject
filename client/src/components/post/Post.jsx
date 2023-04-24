@@ -4,7 +4,6 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
   Grid,
   IconButton,
   Menu,
@@ -25,25 +24,7 @@ import CommentsContainer from "../commentsContainer/CommentsContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Audio from "../Audio/Audio.jsx";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-} from "react-share";
-
-import {
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  TelegramIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
-import { createPost, deletePost } from "../../redux/features/post/postGetSlice";
-import share from "../../images/logoiconbg.png";
+import { deletePost } from "../../redux/features/post/postGetSlice";
 import Video from "../Video/Video";
 import LikeButton from "./LikeButton";
 import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
@@ -51,7 +32,7 @@ import {
   addTrack,
   removeTrack,
 } from "../../redux/features/player/playerGetSlice";
-import { createUserNotification } from "../../redux/features/users/usersGetSlice";
+//import { createUserNotification } from "../../utils";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -71,7 +52,6 @@ export function validate(input) {
 }
 
 export default function Post({ post, comments, margin, border, height }) {
-  const shareURL = `${process.env.REACT_APP_URL}/home/post/${post._id}`;
   const dispatch = useDispatch();
   const monthNames = [
     "Jan",
@@ -89,13 +69,10 @@ export default function Post({ post, comments, margin, border, height }) {
   ];
   const [date, setDate] = useState();
   const currentUser = useSelector((state) => state.users.currentUser);
-  const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openReport, setOpenReport] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [openAlertAddPlaylist, setOpenAlertAddPlaylist] = useState(false);
-  const [openShareInMyProfile, setOpenShareInMyProfile] = useState(false);
-  const [descriptionShare, setDescriptionShare] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
   const openMore = Boolean(anchorEl);
   const [errors, setErrors] = React.useState({});
@@ -109,33 +86,6 @@ export default function Post({ post, comments, margin, border, height }) {
   };
   const handleCloseMore = () => {
     setAnchorEl(null);
-  };
-
-  const notification = async () => {
-    if (currentUser._id !== post.user._id) {
-      await dispatch(
-        createUserNotification({
-          title: JSON.stringify({
-            name: `${currentUser.username} has shared your post`,
-            img: currentUser.avatar,
-            post: post.title,
-          }),
-          content: `/home/explore/${currentUser._id}`,
-          userId: post.user._id,
-          fromUser: currentUser._id,
-          idPost: post._id,
-        })
-      );
-      console.log("notification created!");
-    }
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const handleClickOpenDelete = () => {
@@ -153,14 +103,6 @@ export default function Post({ post, comments, margin, border, height }) {
 
   const handleCloseReport = () => {
     setOpenReport(false);
-  };
-
-  const handleClickOpenShareInMyProfile = () => {
-    setOpenShareInMyProfile(true);
-  };
-
-  const handleCloseShareInMyProfile = () => {
-    setOpenShareInMyProfile(false);
   };
 
   const handleCloseAlert = () => {
@@ -365,129 +307,6 @@ export default function Post({ post, comments, margin, border, height }) {
         <Grid item container xs={5} justifyContent="flex-end" spacing={2}>
           <Grid item>
             <LikeButton post={post} />
-          </Grid>
-          <Grid item>
-            <button onClick={handleClickOpen}>
-              <SvgIcon
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 612 512"
-                className={style.icon}
-              >
-                <path d="M568.5 142.6l-144-135.1c-9.625-9.156-24.81-8.656-33.91 .9687c-9.125 9.625-8.688 24.81 .9687 33.91l100.1 94.56h-163.4C287.5 134.2 249.7 151 221 179.4C192 208.2 176 246.7 176 288v87.1c0 13.25 10.75 23.1 24 23.1S224 389.3 224 376V288c0-28.37 10.94-54.84 30.78-74.5C274.3 194.2 298.9 183 328 184h163.6l-100.1 94.56c-9.656 9.094-10.09 24.28-.9687 33.91c4.719 4.1 11.06 7.531 17.44 7.531c5.906 0 11.84-2.156 16.47-6.562l144-135.1C573.3 172.9 576 166.6 576 160S573.3 147.1 568.5 142.6zM360 384c-13.25 0-24 10.75-24 23.1v47.1c0 4.406-3.594 7.1-8 7.1h-272c-4.406 0-8-3.594-8-7.1V184c0-4.406 3.594-7.1 8-7.1H112c13.25 0 24-10.75 24-23.1s-10.75-23.1-24-23.1H56c-30.88 0-56 25.12-56 55.1v271.1C0 486.9 25.13 512 56 512h272c30.88 0 56-25.12 56-55.1v-47.1C384 394.8 373.3 384 360 384z" />
-              </SvgIcon>
-            </button>
-            <Grid item className={style.dialogContainer}>
-              <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
-                className={style.dialog}
-                PaperProps={{
-                  style: {
-                    backgroundColor: "#011f40",
-                    color: "#1976FA",
-                    padding: "1%",
-                  },
-                }}
-              >
-                <h2>Share!</h2>
-
-                <DialogContent className={style.dialogContent}>
-                  <button
-                    style={{
-                      width: 42,
-                      height: 46,
-                      margin: `2%`,
-                      border: "none",
-                    }}
-                    onClick={handleClickOpenShareInMyProfile}
-                  >
-                    <Avatar src={share} sx={{ width: 42, height: 42 }} />
-                  </button>
-                  <Dialog
-                    open={openShareInMyProfile}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={handleClose}
-                    aria-describedby="alert-dialog-slide-description"
-                    className={style.dialog}
-                    PaperProps={{
-                      style: {
-                        backgroundColor: "#011f40",
-                        color: "#1976FA",
-                        padding: "1%",
-                      },
-                    }}
-                  >
-                    <h2>Add a description if you want!</h2>
-
-                    <DialogContent className={style.dialogContent}>
-                      <TextField
-                        label="Description"
-                        variant="standard"
-                        fullWidth
-                        value={descriptionShare}
-                        onChange={(e) => setDescriptionShare(e.target.value)}
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        onClick={handleCloseShareInMyProfile}
-                        className={style.button}
-                      >
-                        Close
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          handleCloseShareInMyProfile();
-                          dispatch(
-                            createPost({
-                              title: descriptionShare,
-                              content: post?.content,
-                              type: post?.type,
-                              idUser: currentUser?._id,
-                              idShared: post?._id,
-                              genres: post?.genres?.map((genre) => genre.name),
-                            })
-                          );
-                          notification();
-                          handleClose();
-                          setDescriptionShare("");
-                        }}
-                        className={style.button}
-                      >
-                        Share
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                  <FacebookShareButton url={shareURL} style={{ margin: `2%` }}>
-                    <FacebookIcon size={42} round={true} />
-                  </FacebookShareButton>
-                  <TwitterShareButton url={shareURL} style={{ margin: `2%` }}>
-                    <TwitterIcon size={42} round={true} />
-                  </TwitterShareButton>
-                  <TelegramShareButton url={shareURL} style={{ margin: `2%` }}>
-                    <TelegramIcon size={42} round={true} />
-                  </TelegramShareButton>
-                  <WhatsappShareButton url={shareURL} style={{ margin: `2%` }}>
-                    <WhatsappIcon size={42} round={true} />
-                  </WhatsappShareButton>
-                  <LinkedinShareButton url={shareURL} style={{ margin: `2%` }}>
-                    <LinkedinIcon size={42} round={true} />
-                  </LinkedinShareButton>
-                  <EmailShareButton url={shareURL} style={{ margin: `2%` }}>
-                    <EmailIcon size={42} round={true} />
-                  </EmailShareButton>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} className={style.button}>
-                    Close
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </Grid>
           </Grid>
           <Grid sx={{ height: "100%" }} item>
             {comments ? (

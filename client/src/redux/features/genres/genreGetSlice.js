@@ -2,7 +2,7 @@ import axios from "axios";
 import { getGenreStart, getGenreSuccess, getGenreError } from "./genreSlice";
 
 //obtener los generos
-export const getGenre = () => {
+export const getGenres = () => {
   return async (dispatch) => {
     dispatch(getGenreStart());
     try {

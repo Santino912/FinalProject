@@ -1,19 +1,17 @@
 import axios from "axios";
-import style from './index.module.css';
+import style from "./index.module.css";
 // import { url } from "../slices/api";
 
 const PayButton = () => {
-
   const handleCheckout = () => {
     let premium = localStorage.getItem("premium");
-    if(premium) localStorage.removeItem("premium");
-    localStorage.setItem("premium", true)
+    if (premium) localStorage.removeItem("premium");
+    localStorage.setItem("premium", true);
     axios
       .post("/create-checkout-session", {
-       description:'',
-       amount: 1000,
-       quantity: 'month',
-       
+        description: "",
+        amount: 1000,
+        quantity: "month",
       })
       .then((response) => {
         if (response.data.url) {
@@ -25,7 +23,13 @@ const PayButton = () => {
 
   return (
     <div className={style.divButton}>
-      <button className={style.bt} onClick={() => handleCheckout()}>Premium</button>
+      <button
+        aria-label="Pay Premium"
+        className={style.bt}
+        onClick={() => handleCheckout()}
+      >
+        Premium
+      </button>
     </div>
   );
 };

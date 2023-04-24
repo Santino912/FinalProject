@@ -137,7 +137,7 @@ const Input = () => {
             <img
               className={s.imagePreview}
               src={messageData.img}
-              alt="not found"
+              alt={"preview img"}
             />
           ) : (
             ""

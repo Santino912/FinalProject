@@ -60,8 +60,8 @@ const Conversations = () => {
           <img
             className={s.profilePic}
             src={chat[1].userInfo.photoURL}
-            alt=""
-            width="50px"
+            alt="avatar"
+            width={"50px"}
           />
           <div className={s.userChatInfo}>
             <span className={s.userChatName}>

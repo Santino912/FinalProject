@@ -8,7 +8,19 @@ const getPostByUserId = async (req: Request, res: Response) => {
     try {
 
         const user = await Users.findOne({ _id: idUser })
-        const posts = await Posts.find({ "user._id": user?._id })
+        const posts = await Posts.aggregate([{ $match: { _id: user?._id } },
+        {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "post",
+                as: "likes",
+                pipeline: [{ $match: { isActive: true } }]
+            },
+
+        },
+        { $addFields: { countLikes: { $size: "$likes" } } },
+        ])
         return res.send(posts);
 
     } catch (error) {

@@ -11,15 +11,14 @@ const getPopular = async (_req: Request, res: Response) => {
                     localField: "_id",
                     foreignField: "post",
                     as: "likes",
+                    pipeline: [{ $match: { isActive: true } }]
                 },
 
             },
             { $addFields: { countLikes: { $size: "$likes" } } },
-            { $sort: { countLikes: -1 } }
-        ],)
+        ])
         return res.send({ posts, allPosts })
     } catch (err) {
-        console.log(err)
         res.status(500).send(err)
     }
 

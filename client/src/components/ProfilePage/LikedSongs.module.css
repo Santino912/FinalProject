@@ -18,7 +18,7 @@
 .likedSongs {
   display: flex;
   align-items: center;
-  margin-left: 25px;
+  margin-left: 1%;
 }
 
 .likedSongs img {

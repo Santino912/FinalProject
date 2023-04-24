@@ -2,15 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   usersList: [],
   usersListAll: [],
-  userLikes: [],
   userNotifications: [],
   isLoading: true,
-  currentUser: {},
   userGraphsData: {},
   user: {},
-  userProfilePosts: [],
-  userFollows: [],
-  profilePostsLikes: [],
+  currentUser: {},
+  userToProfile: {},
 };
 
 const userSlice = createSlice({
@@ -62,14 +59,19 @@ const userSlice = createSlice({
     getById: (state, action) => {
       return {
         ...state,
-        user: action.payload,
+        userToProfile: action.payload,
       };
     },
-    cleanUser: (state) => {
+    cleanUserToProfile: (state) => {
       return {
         ...state,
-        user: {},
-        userProfilePosts: [],
+        userToProfile: {},
+      };
+    },
+    cleanCurrentUser: (state) => {
+      return {
+        ...state,
+        currentUser: {},
       };
     },
     getByFirebaseId: (state, action) => {
@@ -90,12 +92,6 @@ const userSlice = createSlice({
         currentUser: action.payload,
       };
     },
-    getLikes: (state, action) => {
-      return {
-        ...state,
-        userLikes: action.payload,
-      };
-    },
     getNotifications: (state, action) => {
       return {
         ...state,
@@ -114,30 +110,13 @@ const userSlice = createSlice({
         userNotifications: action.payload,
       };
     },
-    setFollow: (state, action) => {
-      return {
-        ...state,
-        userFollows: action.payload,
-      };
-    },
-    setUnfollow: (state, action) => {
-      return {
-        ...state,
-        userFollows: action.payload,
-      };
-    },
     getUserDataGraphs: (state, action) => {
       return {
         ...state,
         userGraphsData: action.payload,
       };
     },
-    getProfilePostsProfile: (state, action) => {
-      return {
-        ...state,
-        userProfilePosts: action.payload,
-      };
-    },
+
     getPostLikedToProfile: (state, action) => {
       return {
         ...state,
@@ -158,17 +137,13 @@ export const {
   getById,
   getByFirebaseId,
   getUpdatePremium,
-  getLikes,
   setGenres,
   getNotifications,
-  createNotification,
   watchedNotification,
   disabledNotification,
-  cleanUser,
+  cleanUserToProfile,
+  cleanCurrentUser,
   getDownToRegular,
-  setFollow,
-  setUnfollow,
-  getProfilePostsProfile,
   getPostLikedToProfile,
 } = userSlice.actions;
 

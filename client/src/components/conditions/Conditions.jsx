@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@mui/system";
-import style from "./conditions.module.css";
 import { Button } from "@mui/material";
+import style from "./conditions.module.css";
 
-const Conditions = ({ showConditions, setShowConditions, styleTo }) => {
+const Conditions = ({ setShowConditions, styleTo }) => {
   return (
     <Box
       onClick={() => setShowConditions(false)}

@@ -34,13 +34,13 @@ const Message = ({ message }) => {
               ? currentUser.avatar
               : destination.avatar
           }
-          alt=""
+          alt="ProfileImg"
         />
       </div>
       <div className={s.messageContent}>
         {message.text && <p>{message.text}</p>}
         {message.img && (
-          <img className={s.messageImage} src={message.img} alt="" />
+          <img className={s.messageImage} src={message.img} alt="message img" />
         )}
       </div>
       <span>{messageDate(message.date.seconds)}</span>

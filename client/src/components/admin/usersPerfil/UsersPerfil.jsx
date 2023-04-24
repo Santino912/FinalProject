@@ -11,8 +11,6 @@ const UsersPerfil = ({ user }) => {
     if (user.plan === "Premium") return setColorUser("yellow");
   }, [user]);
 
-  console.log(user.isBanned);
-
   return (
     <Button sx={{ color: colorUser, padding: "0" }} fullWidth>
       <div className={style.userDiv}>

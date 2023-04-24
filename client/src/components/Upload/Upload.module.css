@@ -56,18 +56,25 @@
 .selectGenres {
   width: 100%;
   border-radius: 15px;
+  color: white !important;
 }
 .selectGenres:hover {
   outline: none !important;
   border: none !important;
 }
-div[id="mui-component-select-genres"] {
+.selectGenres div[id="mui-component-select-genres"] {
   border-radius: 15px;
   background-color: #0a162f;
   width: 100%;
   border: none;
   outline: none;
+  color: white !important;
 }
+
+.selectGenres .Mui-disabled {
+  color: white !important;
+}
+
 .notchedOutline {
   border: none;
   outline: none !important;

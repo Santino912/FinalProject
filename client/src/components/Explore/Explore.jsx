@@ -20,12 +20,8 @@ import {
 import { Stack } from "@mui/system";
 import styles from "./Explore.module.css";
 import logoIcon from "../../images/logoicon.png";
-import {
-  getUser,
-  getUserByFirebaseId,
-  getUserNotification,
-} from "../../redux/features/users/usersGetSlice";
-import { getGenre } from "../../redux/features/genres/genreGetSlice";
+
+import { getGenres } from "../../redux/features/genres/genreGetSlice";
 import {
   getPost,
   getPostByGenre,
@@ -34,7 +30,6 @@ import {
   getPostByRelevance,
 } from "../../redux/features/post/postGetSlice";
 import Post from "../post/Post";
-import { useAuth } from "../../context";
 import Loading from "../loading/Loading";
 import PostShared from "../postShared/PostShared";
 import CloseIcon from "@mui/icons-material/Close";
@@ -72,7 +67,6 @@ const Explore = () => {
   if (inputValue) {
     currentSongs = posibleSong().slice(0, songsPerPage);
   }
-  const { userFirebase } = useAuth();
 
   useEffect(() => {
     dispatch(getPost());
@@ -82,19 +76,8 @@ const Explore = () => {
 
   useEffect(() => {
     dispatch(getPost());
-    dispatch(getUser());
-    dispatch(getGenre());
-    dispatch(getUserByFirebaseId(userFirebase?.uid));
-    dispatch(getUserNotification(userDB?._id));
+    dispatch(getGenres());
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(
-      getPostByRelevance({
-        genres: userDB?.genres?.map((genre) => genre.name),
-      })
-    );
-  }, [userDB]);
 
   const theme = createTheme({
     typography: {
@@ -687,7 +670,7 @@ const Explore = () => {
                                   className={styles.songContainer}
                                   style={{ position: "relative" }}
                                 >
-                                  <img src={logoIcon} alt="" />
+                                  <img src={logoIcon} alt="logo" />
                                   <div className={styles.playButton}>
                                     <PlayButton
                                       tracks={currentSongs}
@@ -761,7 +744,10 @@ const Explore = () => {
                                   >
                                     <div className={styles.artistContainer}>
                                       <div>
-                                        <img src={results.avatar} alt="" />
+                                        <img
+                                          src={results.avatar}
+                                          alt="avatar"
+                                        />
                                       </div>
                                       <div
                                         className={styles.containerArtistData}
@@ -784,7 +770,10 @@ const Explore = () => {
                                   >
                                     <div className={styles.artistContainer}>
                                       <div>
-                                        <img src={results.avatar} alt="" />
+                                        <img
+                                          src={results.avatar}
+                                          alt="avatar"
+                                        />
                                       </div>
                                       <div
                                         className={styles.containerArtistData}

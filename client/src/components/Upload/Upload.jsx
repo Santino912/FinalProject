@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -14,11 +14,8 @@ import {
   DialogContent /* , DialogTitle */,
 } from "@mui/material";
 import { createPost } from "../../redux/features/post/postGetSlice";
-import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
-import { getGenre } from "../../redux/features/genres/genreGetSlice";
 import AudioPlayer from "react-h5-audio-player";
 import { storage } from "../../firebase.js";
-import { useAuth } from "../../context";
 import Loading from "../loading/Loading";
 import defaultImg from "../Player/default.png";
 import s from "./Upload.module.css";
@@ -27,7 +24,6 @@ import "react-h5-audio-player/lib/styles.css";
 export default function Upload() {
   const currentUser = useSelector((state) => state.users.currentUser);
   const genres = useSelector((state) => state.genres.genreList);
-  const { userFirebase } = useAuth();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState({
@@ -38,15 +34,10 @@ export default function Upload() {
     title: "",
     description: "",
     content: "",
-    cover: null,
+    cover: "",
     type: "",
     genres: [],
   });
-
-  React.useEffect(() => {
-    dispatch(getGenre());
-    userFirebase?.uid && dispatch(getUserByFirebaseId(userFirebase?.uid));
-  }, [userFirebase, dispatch]);
 
   const uploadFile = async (file) => {
     setLoading({ ...loading, cover: true });
@@ -113,7 +104,7 @@ export default function Upload() {
       !loading.content &&
       !loading.cover
     ) {
-      await dispatch(createPost({ ...postData, idUser: currentUser._id }));
+      dispatch(createPost({ ...postData, idUser: currentUser._id }));
       setPostData({
         title: "",
         description: "",
@@ -138,6 +129,7 @@ export default function Upload() {
         maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
         backgroundColor: "transparent",
         borderRadius: "15px",
+        color: "white",
       },
     },
   };
@@ -187,6 +179,7 @@ export default function Upload() {
                   id="standard-basic"
                   label="Song title"
                   variant="standard"
+                  disabled={loading.cover || loading.content}
                 />
               </li>
               <li>
@@ -201,6 +194,7 @@ export default function Upload() {
                   multiline
                   rows={6}
                   variant="standard"
+                  disabled={loading.cover || loading.content}
                 />
               </li>
               <li>
@@ -220,6 +214,7 @@ export default function Upload() {
                   }}
                   MenuProps={MenuProps}
                   inputProps={{ "aria-label": "Without label" }}
+                  disabled={loading.cover || loading.content}
                 >
                   <MenuItem disabled value="">
                     <em>Select Genres</em>
@@ -243,7 +238,7 @@ export default function Upload() {
                     <div className={s.songCover}>
                       <img
                         src={postData?.cover ? postData.cover : defaultImg}
-                        alt="not found"
+                        alt="CoverImg"
                       />
                       <div className={!postData?.cover ? s.addImg : s.addNone}>
                         <svg
@@ -283,6 +278,7 @@ export default function Upload() {
                       <AudioPlayer
                         style={{ borderRadius: "1rem" }}
                         autoPlay={false}
+                        preload={"false"}
                         key={Math.random()}
                         src={postData?.content}
                         showSkipControls={false}
@@ -306,10 +302,19 @@ export default function Upload() {
             </ul>
           </DialogContent>
           <DialogActions>
-            <Button className={s.buttonSc} autoFocus onClick={handleClose}>
+            <Button
+              className={s.buttonSc}
+              autoFocus
+              onClick={handleClose}
+              disabled={loading.cover || loading.content}
+            >
               Cancel
             </Button>
-            <Button className={s.buttonSc} type="submit">
+            <Button
+              className={s.buttonSc}
+              type="submit"
+              disabled={loading.cover || loading.content}
+            >
               Post
             </Button>
           </DialogActions>

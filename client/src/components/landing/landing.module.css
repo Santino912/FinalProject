@@ -1,12 +1,78 @@
 .landing {
   background-color: #000a1f;
-  padding: 60px 10px 0 0;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
 }
 
 .landing a {
   text-decoration: none;
   color: white;
 }
+
+.navbar {
+  box-shadow: 0px 1px 0px rgba(0, 224, 255, 0.18);
+  position: fixed;
+  background-color: var(--main-page-color);
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100vw;
+  z-index: 30;
+  height: 60px;
+  display: flex;
+}
+
+.navbar .landingLogoicon {
+  width: 69px;
+  height: 56px;
+}
+
+.buttons {
+  display: flex;
+  height: 100%;
+  width: 50%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 5%;
+  gap: 5%;
+}
+
+.navbar .buttons .login {
+  max-width: 100px;
+  height: 34px;
+  width: 25%;
+  min-width: 65px;
+  color: #00ffd6;
+  background-color: #003b43;
+  padding: 10px;
+}
+
+.navbar .buttons .login:hover {
+  background-color: rgba(0, 255, 214, 0.3);
+}
+
+.landing .signUp {
+  max-width: 100px;
+  height: 34px;
+  width: 25%;
+  min-width: 65px;
+  padding: 10px;
+  color: #000a1f;
+  background-color: #00ffd6;
+}
+
+.landing .signUp:hover {
+  background-color: rgba(0, 255, 214, 0.8);
+}
+.logoBox {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5%;
+}
+
 .textNavBar {
   width: 100%;
   text-align: start;
@@ -22,43 +88,6 @@
   font-size: 13px;
   font-weight: bold;
   text-transform: none;
-}
-
-.landing .signUp {
-  color: #000a1f;
-  background-color: #00ffd6;
-}
-
-.landing .signUp:hover {
-  background-color: rgba(0, 255, 214, 0.8);
-}
-
-.navbar {
-  box-shadow: 0px 1px 0px rgba(0, 224, 255, 0.18);
-  position: fixed;
-  background-color: var(--main-page-color);
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-width: 100vw;
-  z-index: 30;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.navbar .landingLogoicon {
-  width: 69px;
-  height: 56px;
-}
-
-.navbar .buttons .login {
-  color: #00ffd6;
-  background-color: #003b43;
-}
-
-.navbar .buttons .login:hover {
-  background-color: rgba(0, 255, 214, 0.3);
 }
 
 .getStarted .landingLogo img {

@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getUserById,
-  getUserLikes,
-  setUserFollow,
-  setUserUnfollow,
-  createUserNotification,
-  cleanUserState,
-  getPostsByUser,
-  getFollowsByUserId,
-  getPostLiked,
-} from "../../redux/features/users/usersGetSlice";
+import { getUserByIdToProfile } from "../../redux/features/users/usersGetSlice";
 import { Stack, ThemeProvider } from "@mui/system";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Box, Button, createTheme, Menu, MenuItem, Modal } from "@mui/material";
-import { getPost } from "../../redux/features/post/postGetSlice";
+import { Box, Button, createTheme } from "@mui/material";
 import { changeUserChat } from "../../redux/features/chat/chatGetSlice";
 import styles from "./ProfilePage.module.css";
 import checkIcon from "../../images/checkIcon.png";
-import Popular from "./Popular";
 import LikedSongs from "./LikedSongs";
 import AllPosts from "./AllPosts";
 import EditProfile from "./EditProfile";
@@ -34,52 +22,37 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { getFollowOfThisUser } from "../../redux/features/users/utilsUsers";
+import { followRequest } from "./utils";
+import { cleanUserToProfile } from "../../redux/features/users/usersSlice";
+//import { createUserNotification } from "../../utils";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const { _id } = useParams();
-  const user = useSelector((state) => state.users.user);
   const currentUser = useSelector((state) => state.users.currentUser);
-  const profileUserFollowers = useSelector((state) => state.users.userFollows);
-  const artistPosts = useSelector((state) => state.users.userProfilePosts);
+  const profileUser = useSelector((state) => state.users.userToProfile);
   const [open, setOpen] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
-  const [followed, setFollowed] = useState(false);
+  const [following, setFollowing] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   useEffect(() => {
-    return () => dispatch(cleanUserState());
-  }, [dispatch]);
+    const followBoolean = profileUser?.followers?.some(
+      (follow) => follow?.user === currentUser?._id
+    );
+    setFollowing(followBoolean);
+    setFollowersCount(profileUser?.followersCount);
+    setFollowingCount(profileUser?.followingCount);
+  }, [profileUser, dispatch]);
 
   useEffect(() => {
-    dispatch(getPost());
-    dispatch(getUserById(_id));
-    dispatch(getUserLikes(_id));
-    dispatch(getPostLiked(_id));
-    dispatch(getPostsByUser(_id));
-    dispatch(getFollowsByUserId(_id));
+    dispatch(getUserByIdToProfile(_id));
+
+    return () => {
+      dispatch(cleanUserToProfile());
+    };
   }, [dispatch, _id]);
-  useEffect(() => {
-    setFollowed(getFollowOfThisUser(profileUserFollowers, _id));
-  }, [profileUserFollowers]);
-
-  const notification = async () => {
-    if (currentUser._id !== user._id) {
-      await dispatch(
-        createUserNotification({
-          title: JSON.stringify({
-            name: `${currentUser.username} has started following you.`,
-            img: currentUser.avatar,
-            post: "",
-          }),
-          content: "",
-          userId: user._id,
-          fromUser: currentUser._id,
-        })
-      );
-      console.log("notification created!");
-    }
-  };
 
   const handleOpen = () => {
     setOpen(!open);
@@ -94,25 +67,11 @@ const ProfilePage = () => {
     setOpenSettings(!openSettings);
   };
 
-  const handleFollow = async () => {
-    await dispatch(
-      setUserFollow({
-        idUser: currentUser._id,
-        followTo: user._id,
-      })
-    );
-    await notification();
-    setFollowed(true);
-  };
-
-  const handleUnfollow = () => {
-    dispatch(
-      setUserUnfollow({
-        idUser: currentUser._id,
-        followTo: user._id,
-      })
-    );
-    setFollowed(false);
+  const handleFollow = () => {
+    setFollowing(!following);
+    const num = following ? -1 : +1;
+    setFollowersCount(followersCount + num);
+    followRequest({ idUser: currentUser?._id, followTo: profileUser?._id });
   };
 
   const theme = createTheme({
@@ -129,10 +88,10 @@ const ProfilePage = () => {
 
   const handleOnSelect = async () => {
     const combinedId =
-      currentUser.idGoogle > user.idGoogle
-        ? currentUser.idGoogle + user.idGoogle
-        : user.idGoogle + currentUser.idGoogle;
-    dispatch(changeUserChat({ destination: user, chatId: combinedId }));
+      currentUser.idGoogle > profileUser.idGoogle
+        ? currentUser.idGoogle + profileUser.idGoogle
+        : profileUser.idGoogle + currentUser.idGoogle;
+    dispatch(changeUserChat({ destination: profileUser, chatId: combinedId }));
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -143,14 +102,14 @@ const ProfilePage = () => {
         //create user chats
         await updateDoc(doc(db, "userConversations", currentUser.idGoogle), {
           [combinedId + ".userInfo"]: {
-            uid: user.idGoogle,
-            displayName: user.name,
-            photoURL: user.avatar,
+            uid: profileUser.idGoogle,
+            displayName: profileUser.name,
+            photoURL: profileUser.avatar,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
 
-        await updateDoc(doc(db, "userConversations", user.idGoogle), {
+        await updateDoc(doc(db, "userConversations", profileUser.idGoogle), {
           [combinedId + ".userInfo"]: {
             uid: currentUser.idGoogle,
             displayName: currentUser.name,
@@ -174,34 +133,30 @@ const ProfilePage = () => {
         <Box className={styles.containerProfile}>
           <Box className={styles.containerProfileData}>
             <Box className={styles.bannerContainer}>
-              <img src={user?.banner} className={styles.banner} alt="Banner" />
+              <img
+                src={profileUser?.banner}
+                className={styles.banner}
+                alt="Banner"
+              />
             </Box>
             <Box className={styles.containerImgName}>
-              <img src={user.avatar} className={styles.avatar} alt="Avatar" />
+              <img
+                src={profileUser.avatar}
+                className={styles.avatar}
+                alt="Avatar"
+              />
               <Box className={styles.artistData}>
-                {user.plan === "Premium" ? (
+                {profileUser.plan === "Premium" ? (
                   <Box className={styles.badge}>
                     <img src={checkIcon} alt="CheckIcon" />
                     <p>Premium Artist</p>
                   </Box>
                 ) : null}
-                <h1 className={styles.profileUserName}>{user.name}</h1>
-                <Box className={styles.followersCount}>
-                  <p className={styles.followersCount}>
-                    {profileUserFollowers?.length === 1
-                      ? `${profileUserFollowers?.length} follower `
-                      : `${profileUserFollowers?.length} followers `}
-                    {user.followingUsers?.length > 0
-                      ? user.followingUsers?.length === 1
-                        ? ` ・ Follow ${profileUserFollowers?.length} user`
-                        : ` ・ Follow ${profileUserFollowers?.length} users`
-                      : null}
-                  </p>
-                </Box>
+                <h1 className={styles.profileUserName}>{profileUser.name}</h1>
               </Box>
             </Box>
             <Box className={styles.optionsContainer}>
-              {currentUser._id === user._id && (
+              {currentUser._id === profileUser._id && (
                 <FontAwesomeIcon
                   onClick={() => handleOpen()}
                   className={styles.optionsButton}
@@ -222,58 +177,36 @@ const ProfilePage = () => {
           </Box>
 
           <Box className={styles.contentContainer}>
+            <Box className={styles.followersCount}>
+              <p className={styles.followersCount}>
+                {followersCount <= 1
+                  ? `・${followersCount} Follower`
+                  : `・${followersCount} Followers`}
+                {followingCount <= 1
+                  ? `・ Follow ${followingCount} user`
+                  : `・ Follow ${followingCount} users`}
+              </p>
+            </Box>
             <Box className={styles.playFollowMessageContainer}>
               <Box className={styles.playFollowContainer}>
-                {artistPosts?.length > 0 ? (
+                {profileUser?.posts?.length > 0 ? (
                   <Box>
-                    <PlayAllButton songs={artistPosts} />
+                    <PlayAllButton songs={profileUser?.posts} />
                   </Box>
                 ) : null}
-                {currentUser._id !== user._id ? (
-                  !followed ? (
-                    <Button
-                      onClick={handleFollow}
-                      variant="contained"
-                      sx={{
-                        height: "48px",
-                        marginLeft: "30px",
-                        fontSize: "18px",
-                        color: "black",
-                        fontWeight: "500",
-                        backgroundColor: "rgba(0, 255, 214, 1)",
-                        width: "110px",
-                        textTransform: "none",
-                        "&:hover": {
-                          backgroundColor: "rgba(0, 255, 214, 1)",
-                        },
-                      }}
-                    >
-                      Follow
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleUnfollow}
-                      variant="contained"
-                      sx={{
-                        height: "48px",
-                        marginLeft: "30px",
-                        fontSize: "18px",
-                        color: "black",
-                        fontWeight: "500",
-                        backgroundColor: "rgba(195, 195, 195, 1)",
-                        width: "110px",
-                        textTransform: "none",
-                        "&:hover": {
-                          backgroundColor: "rgba(195, 195, 195, 0.8)",
-                        },
-                      }}
-                    >
-                      Following
-                    </Button>
-                  )
-                ) : null}
+                {currentUser?._id !== profileUser?._id && (
+                  <Button
+                    className={
+                      following ? styles.followingButton : styles.followButton
+                    }
+                    onClick={handleFollow}
+                    variant="contained"
+                  >
+                    {following ? "Following" : "Follow"}
+                  </Button>
+                )}
               </Box>
-              {currentUser._id !== user._id ? (
+              {currentUser?._id !== profileUser?._id ? (
                 <Box>
                   <p
                     style={{
@@ -292,24 +225,21 @@ const ProfilePage = () => {
                 </Box>
               ) : null}
             </Box>
-            {artistPosts?.length > 0 ? (
+            {profileUser?.posts?.length > 0 ? (
               <Box>
                 <Box className={styles.popuAndLiked}>
-                  <Box className={styles.popu}>
-                    <Popular user={user} />
-                  </Box>
                   <Box className={styles.liked}>
-                    <LikedSongs user={user} />
+                    <LikedSongs user={profileUser} />
                   </Box>
                 </Box>
                 <Box className={styles.allPosts}>
-                  <AllPosts artistPostsObj={artistPosts} />
+                  <AllPosts posts={profileUser?.posts} />
                 </Box>
               </Box>
             ) : (
               <Box>
                 <Box className={styles.popuAndLiked}>
-                  {currentUser._id === user._id ? (
+                  {currentUser._id === profileUser._id ? (
                     <Box className={styles.noPostsYet}>
                       <p>Share your music with other users</p>
                       <Box className={styles.buttonPost}>
@@ -323,7 +253,7 @@ const ProfilePage = () => {
                   )}
 
                   <Box className={styles.liked}>
-                    <LikedSongs user={user} />
+                    <LikedSongs user={profileUser} />
                   </Box>
                 </Box>
               </Box>

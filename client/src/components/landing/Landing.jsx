@@ -1,15 +1,9 @@
-import { Box, Button, Grid, SvgIcon, Typography } from "@mui/material";
 import React from "react";
-import logoicon from "../../images/logoicon.png";
-import logo from "../../images/logo.png";
-import cardMusic from "../../images/cardMusic.png";
-import style from "./landing.module.css";
-import { Link } from "react-router-dom";
-import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
+import { Box, Button, Grid, SvgIcon, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import MusicVideoOutlinedIcon from "@mui/icons-material/MusicVideoOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
@@ -17,74 +11,64 @@ import AudiotrackOutlinedIcon from "@mui/icons-material/AudiotrackOutlined";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import MarkEmailUnreadOutlinedIcon from "@mui/icons-material/MarkEmailUnreadOutlined";
 import OndemandVideoOutlinedIcon from "@mui/icons-material/OndemandVideoOutlined";
-//import Reviews from "../reviews/Reviews.jsx";
+import SmartphoneIcon from "@mui/icons-material/Smartphone";
+import cardMusic from "../../images/cardMusic.png";
+import logoicon from "../../images/logoicon.png";
+import logo from "../../images/logo.png";
+import style from "./landing.module.css";
 
 export default function Landing() {
+  const navigate = useNavigate();
+
   return (
-    <Grid container direction="column" className={style.landing} spacing={5}>
-      <Grid className={style.navbar}>
-        <Grid item container alignItems="center" xs={7} md={6} lg={6} xl={8}>
-          <Grid
-            xs={0}
-            sm={3}
-            md={2}
-            lg={2}
-            xl={2}
-            item
-            className={style.landingLogoIconContainer}
-          >
-            <img src={logoicon} alt="" className={style.landingLogoicon} />
-          </Grid>
-          <Grid xs={6} sm={3} md={2} lg={2} xl={2} item>
+    <Box className={style.landing}>
+      <Box className={style.navbar}>
+        <Box className={style.logoBox}>
+          <Box className={style.landingLogoIconContainer}>
+            <img
+              src={logoicon}
+              alt="LogoImg"
+              className={style.landingLogoicon}
+            />
+          </Box>
+          <Box>
             <Typography
               sx={{ fontSize: "10px + 5vw" }}
               className={style.textNavBar}
             >
               <a href="#features">Features</a>
             </Typography>
-          </Grid>
-          <Grid xs={6} sm={3} md={2} lg={2} xl={2} item>
+          </Box>
+          <Box>
             <Typography
               sx={{ fontSize: "10px + 5vw" }}
               className={style.textNavBar}
             >
               <a href="#premium">Premium</a>
             </Typography>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          xs={5}
-          md={6}
-          lg={6}
-          xl={4}
-          alignItems="center"
-          justifyContent="flex-end"
-          spacing={3}
-          className={style.buttons}
-          pr={"2%"}
-        >
-          <Grid item xs={6} sm={5} md={4} lg={3} xl={3}>
-            <Link to="/login">
-              <Button variant="contained" className={style.login}>
-                Login
-              </Button>
-            </Link>
-          </Grid>
-          <Grid item xs={6} sm={5} md={4} lg={3} xl={3}>
-            <Link to="/register">
-              <Button variant="contained" className={style.signUp}>
-                Sign up
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Box>
+        </Box>
+        <Box className={style.buttons}>
+          <Button
+            variant="contained"
+            className={style.login}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </Button>
+          <Button
+            variant="contained"
+            className={style.signUp}
+            onClick={() => navigate("/login")}
+          >
+            Sign up
+          </Button>
+        </Box>
+      </Box>
       <Grid item container xs={12} className={style.getStarted}>
         <Grid item container xs={12} md={7} xl={7} direction="column">
           <Grid item className={style.landingLogo}>
-            <img src={logo} alt="" width="854" height="276" />
+            <img src={logo} alt="LogoImg" width={"854"} height={"276"} />
           </Grid>
           <Grid
             item
@@ -125,7 +109,7 @@ export default function Landing() {
               alignItems="center"
             >
               <Grid item className={style.imageMusic}>
-                <img src={cardMusic} alt="" />
+                <img src={cardMusic} alt="Card" />
               </Grid>
               <Grid item container direction="column" alignItems="center">
                 <Grid item>
@@ -393,10 +377,10 @@ export default function Landing() {
               variant="h5"
               className={`${style.text} ${style.featuresText}`}
             >
-              Support Other Artists by Sharing their Songs
+              Responsive
             </Typography>
             <Box className={style.featuresCircle}>
-              <ShareOutlinedIcon sx={{ fontSize: "50px" }} />
+              <SmartphoneIcon sx={{ fontSize: "50px" }} />
             </Box>
           </Grid>
           <Grid
@@ -516,7 +500,7 @@ export default function Landing() {
         mt={`20%`}
       >
         <Grid item>
-          <img src={logo} alt="" className={style.footerLogoicon} />
+          <img src={logo} alt="logoimg" className={style.footerLogoicon} />
         </Grid>
         <Grid item container xs={4} justifyContent="center" spacing={4}>
           {/* <Grid item>
@@ -558,6 +542,6 @@ export default function Landing() {
       {/* <Grid item container xs={5} justifyContent="center">
                 <TextField id="outlined-basic" label="Outlined" variant="outlined" className={style.input} />
             </Grid> */}
-    </Grid>
+    </Box>
   );
 }

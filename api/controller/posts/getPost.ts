@@ -4,10 +4,22 @@ import Posts from "../../models/Posts"
 
 const getPosts = async (req: Request, res: Response) => {
     try {
-        const allPosts = await Posts.find()
-        res.send(allPosts)
+        let allPosts = await Posts.aggregate([
+            {
+                $lookup: {
+                    from: "likes",
+                    localField: "_id",
+                    foreignField: "post",
+                    as: "likes",
+                    pipeline: [{ $match: { isActive: true } }]
+                },
+
+            },
+            { $addFields: { countLikes: { $size: "$likes" } } },
+        ])
+        return res.send(allPosts)
     } catch (err) {
-        res.send(err)
+        return res.send(err)
     }
 }
 

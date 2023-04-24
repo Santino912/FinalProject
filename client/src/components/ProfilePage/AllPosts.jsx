@@ -3,12 +3,10 @@ import React from "react";
 import { useState } from "react";
 import Post from "../post/Post";
 import styles from "./AllPosts.module.css";
-import PostShared from "../postShared/PostShared";
 
-const AllPosts = (artistPostsObj) => {
+const AllPosts = ({ posts }) => {
   const [checked, setChecked] = useState("all");
-  const artistPosts = artistPostsObj.artistPostsObj;
-  const [posts, setPosts] = useState(artistPosts);
+  const [postsFilter, setPostsFilter] = useState(posts);
 
   function handleCheckedAll() {
     setChecked("all");
@@ -16,14 +14,14 @@ const AllPosts = (artistPostsObj) => {
 
   function handleCheckedVideo() {
     setChecked("video");
-    setPosts(artistPosts.filter((post) => post.type.includes("video")));
+    setPostsFilter(posts.filter((post) => post.type.includes("video")));
   }
 
   function handleCheckedAudio() {
     setChecked("audio");
-    setPosts(artistPosts.filter((post) => post.type.includes("audio")));
+    setPostsFilter(posts.filter((post) => post.type.includes("audio")));
   }
-
+  console.log(posts);
   return (
     <Box className={styles.containerAllPosts}>
       <Box className={styles.containerTitleFilters}>
@@ -78,25 +76,15 @@ const AllPosts = (artistPostsObj) => {
       </Box>
       <Box>
         {checked !== "all" ? (
-          posts?.length === 0 ? (
+          postsFilter?.length === 0 ? (
             <p className={styles.noResultsText}>No post was found</p>
           ) : (
-            posts?.map((post, i) =>
-              post.idShared ? (
-                <PostShared postShared={post} />
-              ) : (
-                <Post key={i} post={post} comments={false} />
-              )
-            )
+            postsFilter?.map((post, i) => (
+              <Post key={i} post={post} comments={false} />
+            ))
           )
         ) : (
-          artistPosts?.map((post, i) =>
-            post.idShared ? (
-              <PostShared postShared={post} />
-            ) : (
-              <Post key={i} post={post} comments={false} />
-            )
-          )
+          posts?.map((post, i) => <Post key={i} post={post} comments={false} />)
         )}
       </Box>
     </Box>

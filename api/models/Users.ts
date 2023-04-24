@@ -56,7 +56,6 @@ const user = new Schema({
   expirationDate: {
     type: Date,
   },
-
   pleasures: {
     type: Array,
   },

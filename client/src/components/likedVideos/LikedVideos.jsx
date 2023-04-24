@@ -1,29 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
-import { useAuth } from "../../context";
-import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
-import { getLikesByUserId } from "../../redux/features/like/likeGetSlice";
+import { getSongsLikesByUserId } from "../../redux/features/like/likeGetSlice";
 import CardVideo from "./CardVideo";
 import PlayAllButton from "../PlayAllButton/PlayAllButton";
 import style from "./likedVideos.module.css";
+import { clearLikes } from "../../redux/features/like/likeSlice";
 
 export default function LikedVideos() {
   const dispatch = useDispatch();
   const userDB = useSelector((state) => state.users.currentUser);
   const likesCurrentUser = useSelector(
-    (state) => state.likes.likesVideoCurrentUser
+    (state) => state.likes.likesPostsCurrentUser
   );
-  const { userFirebase } = useAuth();
 
   useEffect(() => {
-    dispatch(getUserByFirebaseId(userFirebase.uid));
-  }, []);
+    dispatch(getSongsLikesByUserId(userDB._id, "video"));
 
-  useEffect(() => {
-    if (Object.keys(userDB)?.length > 0) {
-      dispatch(getLikesByUserId(userDB._id));
-    }
+    return () => {
+      dispatch(clearLikes());
+    };
   }, [userDB]);
 
   return (

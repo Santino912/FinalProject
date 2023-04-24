@@ -97,9 +97,13 @@ const EditProfile = (close) => {
           />
           <label style={{ position: "relative" }} htmlFor="avatar">
             {loading ? (
-              <img className={styles.imageLoading} src={imageUrl} alt="" />
+              <img
+                className={styles.imageLoading}
+                src={imageUrl}
+                alt="LoadingImage"
+              />
             ) : (
-              <img src={imageUrl} alt="" />
+              <img src={imageUrl} alt="UrlImage" />
             )}
 
             <Box className={styles.containerLoading}>
@@ -147,9 +151,13 @@ const EditProfile = (close) => {
             />
             <label style={{ position: "relative" }} htmlFor="banner">
               {bannerLoading ? (
-                <img className={styles.imageLoading} src={bannerUrl} alt="" />
+                <img
+                  className={styles.imageLoading}
+                  src={bannerUrl}
+                  alt="BannerImg"
+                />
               ) : (
-                <img src={bannerUrl} alt="" />
+                <img src={bannerUrl} alt="BannerImg" />
               )}
 
               <Box className={styles.containerBannerLoading}>

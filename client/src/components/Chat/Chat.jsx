@@ -48,10 +48,9 @@ function Chat() {
   }, []);
 
   const formatResult = (item) => {
-    console.log(item);
     return (
       <div className={s.resultWrapper}>
-        <img className={s.resultPic} src={item.avatar} alt="not found" />
+        <img className={s.resultPic} src={item.avatar} alt="avatar" />
         <div className={s.resultInfo}>
           <span className={s.resultName}>{item.name}</span>
           <span className={s.resultUsername}>@{item.username}</span>
@@ -161,9 +160,9 @@ function Chat() {
           <div className={s.receiver}>
             <img
               className={s.recPc}
-              width="50px"
+              width={"50px"}
               src={destination.avatar}
-              alt="a"
+              alt="avatar chat"
             />
             <h4>{destination.name}</h4>
           </div>

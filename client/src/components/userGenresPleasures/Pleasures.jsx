@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styles from "./pleasures.module.css";
-import { getGenre } from "../../redux/features/genres/genreGetSlice";
+import { getGenres } from "../../redux/features/genres/genreGetSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { setUserGenres } from "../../redux/features/users/usersGetSlice";
-import { useAuth } from "../../context";
-import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
+import styles from "./pleasures.module.css";
 
 const Pleasures = () => {
   const dispatch = useDispatch();
@@ -26,11 +24,9 @@ const Pleasures = () => {
   const firstGenre = lastGenre - genrePerPage;
   const currentGenres = genres.slice(firstGenre, lastGenre);
   const pageNumbers = Math.ceil(genres?.length / genrePerPage);
-  const { userFirebase } = useAuth();
 
   useEffect(() => {
-    dispatch(getGenre());
-    dispatch(getUserByFirebaseId(userFirebase.uid));
+    dispatch(getGenres());
   }, [dispatch]);
 
   useEffect(() => {

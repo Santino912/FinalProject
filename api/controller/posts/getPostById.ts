@@ -5,9 +5,22 @@ const getPostById = async (req: Request, res: Response) => {
     const { _id } = req.params;
 
     try {
-        const posts = await Posts.findOne({ _id })
 
-        return res.json(posts);
+        const postOne = await Posts.findOne({ _id })
+
+        const post = await Posts.aggregate([{ $match: { _id: postOne?._id } },
+        {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "post",
+                as: "likes",
+                pipeline: [{ $match: { isActive: true } }]
+            }
+        },
+        { $addFields: { countLikes: { $size: "$likes" } } }
+        ])
+        return res.send(post[0]);
 
     } catch (error) {
 

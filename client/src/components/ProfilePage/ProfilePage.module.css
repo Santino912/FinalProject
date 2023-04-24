@@ -18,6 +18,7 @@
 }
 
 .containerProfileData {
+  min-height: 150px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -67,12 +68,11 @@
   font-weight: 900;
 }
 
-.artistData p.followersCount {
-  position: absolute;
+.followersCount {
   color: white;
   font-size: 13.5px;
   font-weight: 200;
-  bottom: -25px;
+  text-align: center;
 }
 
 .containerFollowFollowers {
@@ -111,7 +111,7 @@
 .playFollowContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .playFollowMessageContainer {
@@ -126,18 +126,12 @@
   transform: scale(1.08);
 }
 
-.popuAndLiked {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 50px;
-}
-
 .popuAndLiked .popu {
   width: 60%;
 }
 
-.popuAndLiked .liked {
-  width: 35%;
+.liked {
+  width: 100%;
 }
 
 .allPosts {
@@ -200,6 +194,37 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.followButton {
+  height: 48px;
+  margin-left: 30px;
+  font-size: 18px;
+  color: black !important;
+  font-weight: 500;
+  background-color: rgba(0, 255, 214, 1) !important;
+  width: 110px;
+  text-transform: none;
+}
+
+.followButton :hover {
+  background-color: var(--main-page-color) !important;
+}
+
+.followingButton {
+  height: 48px;
+  margin-left: 30px;
+  font-size: 18px;
+  color: black !important;
+  font-weight: 500;
+  background-color: rgb(111, 202, 187) !important;
+  width: 110px;
+  text-transform: none;
+}
+
+.followingButton :hover {
+  background-color: rgba(0, 255, 214, 1) !important;
+}
+
 @media (max-width: 1140px) {
   .popu {
     display: none;
@@ -221,10 +246,7 @@
     align-items: center;
     justify-items: center;
   }
-  .liked {
-    width: 100% !important;
-    max-width: 90vw !important;
-  }
+
   .popu {
     width: 100% !important;
     max-width: 90vw !important;
@@ -240,11 +262,5 @@
   }
   .profileUserName {
     max-width: 90vw;
-  }
-}
-@media (max-width: 380px) {
-  .followersCount {
-    position: static !important;
-    padding: 5px;
   }
 }

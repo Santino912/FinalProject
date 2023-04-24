@@ -6,14 +6,10 @@ import getByGenre from "../controller/filters/getByGenre";
 import getByGenreWithAll from "../controller/filters/getByGenreWithAll";
 import getByTime from "../controller/filters/getByTime";
 import getPopular from "../controller/filters/getPopular";
-import addFollower from "../controller/follows/addFollower";
-import removeFollower from "../controller/follows/removeFollower";
+import createFollower from "../controller/follows/createFollower";
 import getGenres from "../controller/genres/getGenres";
 import changeStatusLike from "../controller/likes/changeStatusLike";
 import createLike from "../controller/likes/createLike";
-import getLikesByPostAndUserId from "../controller/likes/getLikesByPostAndUserId";
-import getLikesByPostId from "../controller/likes/getLikesByPostId";
-import getLikesByUserId from "../controller/likes/getLikesByUserId";
 import createNoti from "../controller/notifications/createNoti";
 import getNotiByUser from "../controller/notifications/getNotiByUser";
 import setNotiDisabled from "../controller/notifications/setNotiDisabled";
@@ -33,8 +29,7 @@ import createUser from "../controller/users/createUser";
 import deleteUser from "../controller/users/deleteUser";
 import downToRegular from "../controller/users/downToRegular";
 import getCountUserGraphs from "../controller/users/getCountUserGraphs";
-import getUserById from "../controller/users/getUserByIdAdmin";
-import getUserByidGoogle from "../controller/users/getUserByIdGoogle";
+import getUserById from "../controller/users/getUserById";
 import getUsers from "../controller/users/getUsers";
 import restoreUser from "../controller/users/restoreUser";
 import setUserGenres from "../controller/users/setUserGenres";
@@ -44,8 +39,10 @@ import updateUser from "../controller/users/updateUser";
 import upToPremium from "../controller/users/upToPremium";
 import getByUserPleasures from "../controller/posts/getByUserPleasures";
 import getPostByUserId from "../controller/posts/getPostByUserId";
-import getFollowsByIdUser from "../controller/follows/getFollowsByIdUser";
 import getPostsLiked from "../controller/posts/getPostsLiked";
+import getUserByidGoogle from "../controller/users/getUserByIdGoogle";
+import updateFollow from "../controller/follows/updateFollow";
+import getLikedUserPost from "../controller/likes/getLikedUserPost";
 //import { putGenresInDB } from "../utils/GenresToDatabase";
 //putGenresInDB()
 
@@ -67,15 +64,13 @@ router.get("/posts/user/:idUser", getPostByUserId)
 router.get("/posts/genres/with-all", getByGenreWithAll);
 router.get("/posts/user/pleasures/:idGoogle", getByUserPleasures);
 
-router.get("/follows/:idUser", getFollowsByIdUser)
 
 router.get("/genres", getGenres);
 
 router.get("/notifications/:_id", getNotiByUser);
 
-router.get("/likes/users/:idUser", getLikesByUserId);
-router.get("/likes/posts/:idPost", getLikesByPostId);
-router.get("/likes/:idPost/:idUser", getLikesByPostAndUserId);
+router.get("/likes/user/:type/:idUser", getLikedUserPost);
+
 
 router.get("/comments/:idPost", getByPostId);
 
@@ -89,8 +84,7 @@ router.post("/posts", createPost);
 
 router.post("/user", createUser);
 
-router.post("/users/follow", addFollower);
-router.post("/users/unfollow", removeFollower);
+router.post("/follow/create", createFollower);
 
 router.post("/likes", createLike);
 
@@ -128,6 +122,8 @@ router.put("/notifications/disabled/:_id/:idUser", setNotiDisabled);
 router.put("/posts/:_id", updatePost);
 
 router.put("/restore/:_id", restoreUser);
+
+router.put("/follow/change", updateFollow)
 
 router.put("/likes", changeStatusLike);
 

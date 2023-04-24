@@ -2,25 +2,19 @@ import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../context";
-import { getPostById } from "../../redux/features/post/postGetSlice";
-import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
 import { Arrow } from "../componentsIcons";
 import Post from "../post/Post";
 import style from "./postContainer.module.css";
 
-export default function PostContainer() {
-  const post = useSelector((state) => state.posts.post);
+export default function PostContainer({ post }) {
   const dispatch = useDispatch();
   const { idPost } = useParams();
   const { userFirebase } = useAuth();
 
-  useEffect(() => {
-    dispatch(getUserByFirebaseId(userFirebase.uid));
-    dispatch(getPostById(idPost));
-  }, [dispatch, userFirebase.uid, idPost]);
+  useEffect(() => {}, [dispatch, userFirebase.uid, idPost]);
 
   return (
     <Box className={style.backgroundContainer}>

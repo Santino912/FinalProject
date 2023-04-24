@@ -86,7 +86,7 @@ function Player() {
                   : defaultImg
               }
               style={{ backgroundColor: "black" }}
-              alt="not found"
+              alt="MusicImg"
             />
             <div className={s.songInfo}>
               <Queue tracks={musicTracks} trackIndex={currentTrackIndex} />
@@ -101,7 +101,7 @@ function Player() {
                 key={"23dg26ah21"}
                 style={{ borderRadius: "1rem" }}
                 autoPlay={false}
-                preload="false"
+                preload={"false"}
                 src={
                   musicTracks?.length && musicTracks[currentTrackIndex].content
                 }

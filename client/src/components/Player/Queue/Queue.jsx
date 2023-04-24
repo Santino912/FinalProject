@@ -100,7 +100,7 @@ export default function Queue({ tracks, trackIndex }) {
                 onClick={() => handleTrack(i)}
               >
                 <div className={s.queueItem}>
-                  <img src={t.cover ? t.cover : defaultImg} alt="not found" />
+                  <img src={t.cover ? t.cover : defaultImg} alt="ImageCover" />
                   <ListItemText
                     className={s.trackInfo}
                     sx={{ color: "white" }}

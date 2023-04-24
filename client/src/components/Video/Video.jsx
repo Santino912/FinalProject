@@ -45,7 +45,8 @@ function Video({ song }) {
       <div data-vjs-player>
         <video
           ref={videoRef}
-          preload="false"
+          preload={"false"}
+          autoPlay={false}
           poster={song?.cover}
           className={`video-js vjs-big-play-centered vjs-theme-fantasy`}
         ></video>

@@ -1,10 +1,9 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import style from "./register.module.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context";
-import { Box, Button, Checkbox, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import {
   Arrow,
   EmailIcon,
@@ -14,7 +13,10 @@ import {
 } from "../componentsIcons/index";
 import logo from "../../images/logoicon.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/features/users/usersGetSlice";
+import {
+  clearCurrentUserFunct,
+  getUser,
+} from "../../redux/features/users/usersGetSlice";
 import { userExistGoogle } from "../utils";
 import LoadingProtectRoute from "../../context/LoadingProtectRoute";
 import Conditions from "../conditions/Conditions";
@@ -25,8 +27,6 @@ const Register = () => {
   const [idGoogle, setIdGoogle] = useState("");
   const [loading, setLoading] = useState(true);
   const [showConditions, setShowConditions] = useState(false);
-  const [checkBoxError, setCheckBoxError] = useState(false);
-  const [termsBoolean, setTermsBoolean] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -52,20 +52,9 @@ const Register = () => {
   }, [dispatch, userFirebase]);
 
   useEffect(() => {
-    if (idGoogle && users.filter((u) => u.email === user.email)?.length === 0) {
-      axios
-        .post("/users", {
-          ...user,
-          idGoogle,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-    if (userFirebase !== null) navigate("/home");
+    if (userFirebase !== null) return navigate("/home");
+
+    clearCurrentUserFunct();
   }, [idGoogle]);
 
   const handleSubmit = async (e) => {
@@ -91,13 +80,6 @@ const Register = () => {
 
     if (flag) return;
 
-    if (!termsBoolean) {
-      setCheckBoxError(true);
-      return setTimeout(() => {
-        setCheckBoxError(false);
-      }, 500);
-    }
-
     try {
       let googleUser;
       const res = await signup(user.email, user.password);
@@ -118,12 +100,6 @@ const Register = () => {
   };
 
   const handleSignInGoogle = async () => {
-    if (!termsBoolean) {
-      setCheckBoxError(true);
-      return setTimeout(() => {
-        setCheckBoxError(false);
-      }, 500);
-    }
     try {
       let googleUser;
       const res = await loginWithGoogle();
@@ -150,13 +126,12 @@ const Register = () => {
   const handleFocusPass = (e) =>
     setErrors({ ...errors, password: "", confirmPassword: "" });
 
-  const handleChangeCheck = () => {
-    setTermsBoolean(!termsBoolean);
-  };
-
   return (
     <Box>
       {loading && <LoadingProtectRoute />}
+      <button onClick={() => navigate("/")} className={style.arrowResposive}>
+        <Arrow />
+      </button>
       <Box className={style.containerRegisterDiv}>
         <Box className={style.divBackground}>
           <Box className={style.divTitle}>
@@ -330,19 +305,6 @@ const Register = () => {
                   >
                     terms and conditions
                   </button>
-                  <Checkbox
-                    sx={{
-                      color: "white",
-                      width: "30px",
-                      height: "30px",
-                      "&.Mui-checked": {
-                        color: "var(--second-page-color)",
-                      },
-                    }}
-                    className={checkBoxError && style.checkboxTerms}
-                    onChange={() => handleChangeCheck()}
-                    value={termsBoolean}
-                  />
                 </h5>
               </Box>
 

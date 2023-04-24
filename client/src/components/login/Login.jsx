@@ -17,7 +17,10 @@ import {
   Checkbox,
 } from "@mui/material";
 import logo from "../../images/logoicon.png";
-import { getUser } from "../../redux/features/users/usersGetSlice";
+import {
+  clearCurrentUserFunct,
+  getUser,
+} from "../../redux/features/users/usersGetSlice";
 import LoadingProtectRoute from "../../context/LoadingProtectRoute";
 import Conditions from "../conditions/Conditions";
 import { userExistGoogle } from "../utils";
@@ -27,7 +30,6 @@ import style from "./login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.usersListAll);
   const [googleUser, setGoogleUser] = useState({
     name: "",
     username: "",
@@ -43,8 +45,6 @@ const Login = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showConditions, setShowConditions] = useState(false);
-  const [termsBoolean, setTermsBoolean] = useState(false);
-  const [checkBoxError, setCheckBoxError] = useState(false);
   const [openAlert, setOpenAlert] = useState({
     show: false,
     msg: "",
@@ -54,47 +54,28 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (
-      googleUser &&
-      users?.filter((u) => u.email === googleUser.email)?.length === 0 &&
-      users?.length > 0
-    ) {
-      axios
-        .post("/user", {
-          ...googleUser,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-    if (userFirebase !== null) navigate("/home");
-  }, [googleUser]);
+    if (userFirebase !== null) return navigate("/home");
+    clearCurrentUserFunct();
+  }, [googleUser, userFirebase, navigate]);
 
   useEffect(() => {
-    // if (userFirebase !== null) navigate("/home");
     dispatch(getUser());
     setLoading(false);
   }, [dispatch, userFirebase]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { data } = axios.post("/user", {
+      ...googleUser,
+    });
     if (!user.password || !user.email) {
       return;
     }
     try {
-      if (!users?.find((el) => el.email === user.email)) {
+      if (!data?.email) {
         setEmailError(true);
       } else {
         setEmailError(false);
-      }
-      if (!termsBoolean) {
-        setCheckBoxError(true);
-        return setTimeout(() => {
-          setCheckBoxError(false);
-        }, 500);
       }
       await login(user.email, user.password);
       navigate("/home");
@@ -108,12 +89,6 @@ const Login = () => {
   };
 
   const handleSignInGoogle = async () => {
-    if (!termsBoolean) {
-      setCheckBoxError(true);
-      return setTimeout(() => {
-        setCheckBoxError(false);
-      }, 500);
-    }
     try {
       const res = await loginWithGoogle();
       let newUser = {
@@ -175,12 +150,16 @@ const Login = () => {
     setOpen(false);
   };
 
-  const handleChangeCheck = () => {
-    setTermsBoolean(!termsBoolean);
-  };
   return (
     <Box>
       {loading && <LoadingProtectRoute />}
+      <button
+        aria-label="Back Landing"
+        onClick={() => navigate("/")}
+        className={style.arrowResposive}
+      >
+        <Arrow />
+      </button>
       <Snackbar open={openAlert.show && openAlert.severity === "success"}>
         <Alert severity="success">{openAlert.msg}</Alert>
       </Snackbar>
@@ -189,7 +168,11 @@ const Login = () => {
       </Snackbar>
       <Box className={style.containerLoginDiv}>
         <Box className={style.divBackground}>
-          <button onClick={() => navigate("/")} className={style.arrow}>
+          <button
+            aria-label="Back Landing"
+            onClick={() => navigate("/")}
+            className={style.arrow}
+          >
             <Arrow />
           </button>
 
@@ -220,10 +203,7 @@ const Login = () => {
             <Box className={style.containerTitle}>
               <h1 style={{ fontSize: "40px" }}>Log in</h1>
               <h4 style={{ margin: "5px 0", height: "20px" }}>
-                If you don’t have an account{" "}
-              </h4>
-              <h4 style={{ margin: "5px 0", height: "20px" }}>
-                you can
+                If you don’t have an account you can
                 <Link
                   style={{ color: "#00FFD6", textDecoration: "none" }}
                   to="/register"
@@ -298,24 +278,12 @@ const Login = () => {
               <h5>
                 By registering and logging in, you accept the{" "}
                 <button
+                  aria-label="Terms"
                   style={{ color: "var(--second-page-color)", border: "0" }}
                   onClick={() => setShowConditions(true)}
                 >
                   terms and conditions
                 </button>
-                <Checkbox
-                  sx={{
-                    color: "white",
-                    width: "30px",
-                    height: "30px",
-                    "&.Mui-checked": {
-                      color: "var(--second-page-color)",
-                    },
-                  }}
-                  className={checkBoxError && style.checkboxTerms}
-                  onChange={() => handleChangeCheck()}
-                  value={termsBoolean}
-                />
               </h5>
             </Box>
             <Grid

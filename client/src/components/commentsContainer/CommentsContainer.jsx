@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createUserNotification } from "../../redux/features/users/usersGetSlice";
+import { createUserNotification } from "../../utils";
 import Comment from "../comment/Comment";
 import style from "./commentsContainer.module.css";
 
@@ -18,12 +18,7 @@ export default function CommentsContainer({ post }) {
     if (currentUser._id !== post.user._id) {
       await dispatch(
         createUserNotification({
-          title: JSON.stringify({
-            name: `${currentUser.username} commented on your post`,
-            img: currentUser.avatar,
-            post: post.title,
-          }),
-          content: `/home/post/${post._id}`,
+          content: `${currentUser.username} commented on your post`,
           userId: post.user._id,
           fromUser: currentUser._id,
           idPost: post._id,

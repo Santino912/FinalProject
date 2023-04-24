@@ -1,34 +1,12 @@
 import axios from "axios";
-import { getVideoLikesSlice, getSongLikesSlice } from "./likeSlice";
+import { getUserLikesSlice } from "./likeSlice";
 
-export const getLikesByUserId = (_id) => {
+export const getSongsLikesByUserId = (_id, type) => {
   return async (dispatch) => {
     try {
       if (_id === undefined) return;
-      const response = await axios.get(`/likes/users/${_id}`);
-      dispatch(
-        getVideoLikesSlice(
-          response.data
-            ?.filter((like) => like?.isActive)
-            ?.map((like) => like?.post)
-            ?.filter((post) => post?.type === "video")
-        )
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const getSongsLikesByUserId = (_id) => {
-  return async (dispatch) => {
-    if (_id === undefined) return;
-    try {
-      const { data } = await axios.get(`/likes/users/${_id}`);
-
-      dispatch(
-        getSongLikesSlice(data?.filter((like) => like?.post?.type === "audio"))
-      );
+      const { data } = await axios.get(`/likes/user/${type}/${_id}`);
+      dispatch(getUserLikesSlice(data));
     } catch (error) {
       console.log(error);
     }

@@ -1,23 +1,23 @@
 import { Request, Response } from "express";
 import Notifications from "../../models/Notifications";
-import Posts from "../../models/Posts";
 import Users from "../../models/Users";
+import Posts from "../../models/Posts";
 
 const createNoti = async (req: Request, res: Response) => {
 
-    const { title, content, fromUser, userId, idPost } = req.body;
+    const { title, content, fromUserId, idToUser, idPost } = req.body;
     try {
-        const userTo = await Users.findOne({ _id: userId })
-        const user = await Users.findOne({ _id: fromUser })
         const post = await Posts.findOne({ _id: idPost })
+        const fromUser = await Users.findOne({ _id: fromUserId })
+        const to = await Users.findOne({ _id: idToUser })
         const notification = await Notifications.create({
             title,
             content,
-            fromUser: user?._id,
-            to: userTo?._id,
+            fromUser,
+            to,
             post
         });
-        return res.json(notification);
+        return res.send(notification);
     } catch (err) {
         console.log(err);
         return res.status(500).send(err);

@@ -12,18 +12,15 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DateTime } from "luxon";
 import {
   disabledUserNotification,
-  getUserByFirebaseId,
-  getUserNotification,
   watchedUserNotification,
 } from "../../redux/features/users/usersGetSlice";
-import { useAuth } from "../../context/";
 import style from "./notification.module.css";
 
 const Notification = () => {
@@ -32,14 +29,7 @@ const Notification = () => {
     (state) => state.users.userNotifications
   );
   const userDB = useSelector((state) => state.users.currentUser);
-  const { userFirebase } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(getUserByFirebaseId(userFirebase.uid));
-    dispatch(getUserNotification(userDB._id));
-  }, []);
-
+  //usar userdb para notificaciones
   const handleWatched = (post) => {
     if (userNotification) {
       dispatch(watchedUserNotification(post));
@@ -88,7 +78,7 @@ const Notification = () => {
                 <>
                   {userNotification?.length > 0 ? (
                     userNotification?.map((user, i) => {
-                      let data = JSON.parse(user?.title);
+                      let data = user;
                       return (
                         <div key={i}>
                           <List className={style.list} sx={{ width: "100%" }}>

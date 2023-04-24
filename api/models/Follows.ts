@@ -8,6 +8,10 @@ const follow = new Schema({
     following: {
         type: Schema.Types.ObjectId,
         ref: "Users"
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 });
 export default model("Follow", follow);

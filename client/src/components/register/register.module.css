@@ -1,5 +1,4 @@
 .containerRegisterDiv {
-  height: 100vh;
   width: 100vw;
   color: white;
   display: flex;
@@ -9,7 +8,6 @@
 
 .divBackground {
   width: 50%;
-  height: 100%;
   position: relative;
   top: 0;
   background-color: var(--main-page-color);
@@ -113,6 +111,20 @@
   opacity: 1;
 }
 
+.arrowResposive {
+  position: absolute;
+  display: none;
+  z-index: 10;
+  border: 0px;
+  color: rgb(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0);
+  opacity: 0.5;
+  padding: 15px;
+}
+.arrowResposive:hover {
+  opacity: 1;
+}
+
 .logo {
   width: 200px;
   height: 200px;
@@ -182,6 +194,14 @@ button {
   }
   .registerContainer {
     width: 100%;
+    margin-top: 70px;
+    justify-content: flex-start;
+  }
+  .arrowResposive {
+    display: block;
+  }
+  .containerRegisterDiv {
+    position: fixed;
   }
 }
 @media (max-width: 475px) {
@@ -193,5 +213,9 @@ button {
   }
   .containAll {
     width: 80%;
+  }
+  .containerRegisterDiv {
+    width: 100vw;
+    height: 100vh;
   }
 }

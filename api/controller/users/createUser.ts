@@ -26,8 +26,6 @@ const createUser = async (req: Request, res: Response) => {
 
 
 
-        //Mail(email).catch(console.error);
-
         return res.send(user);
 
     } catch (error) {

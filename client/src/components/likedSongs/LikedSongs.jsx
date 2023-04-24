@@ -2,36 +2,38 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { getSongsLikesByUserId } from "../../redux/features/like/likeGetSlice";
-import { getUserByFirebaseId } from "../../redux/features/users/usersGetSlice";
 import PlayAllButton from "../PlayAllButton/PlayAllButton";
-import { useAuth } from "../../context";
 import CardSong from "./CardSong";
 import style from "./likedSongs.module.css";
+import { clearLikes } from "../../redux/features/like/likeSlice";
 
 export default function LikedSongs(_id) {
   const dispatch = useDispatch();
   const userDB = useSelector((state) => state.users.currentUser);
-  const likesCurrentUser = useSelector(
-    (state) => state.likes.likesSongCurrentUser
-  );
-  const { userFirebase } = useAuth();
+  const postsLiked = useSelector((state) => state.likes.likesPostsCurrentUser);
 
   useEffect(() => {
-    dispatch(getUserByFirebaseId(userFirebase?.uid));
-    dispatch(getSongsLikesByUserId(userDB?._id));
+    dispatch(getSongsLikesByUserId(userDB?._id, "audio"));
+
+    return () => {
+      dispatch(clearLikes());
+    };
   }, [dispatch]);
+
   return (
     <Box container className={style.likedVideos}>
       <Box className={style.sideBarSpace} />
       <Box className={style.currentLikesContainer}>
-        {likesCurrentUser?.length > 0 ? (
+        {postsLiked?.length > 0 ? (
           <Box style={{ width: "100%" }}>
-            <PlayAllButton songs={likesCurrentUser} />
+            <Box style={{ width: "55px" }}>
+              <PlayAllButton songs={postsLiked} />
+            </Box>
             <Box className={style.songsContainer}>
-              {likesCurrentUser?.map((like, index) => (
+              {postsLiked?.map((post, index) => (
                 <CardSong
-                  arrayMap={likesCurrentUser}
-                  post={like?.post}
+                  arrayMap={postsLiked}
+                  post={post}
                   index={index}
                   key={index}
                 />
