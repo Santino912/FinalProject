@@ -22,15 +22,6 @@ body {
   color: white;
 }
 
-.MuiInputBase-input {
-  color: white !important;
-  border-color: white !important;
-}
-
-.MuiInputBase-input::placeholder {
-  color: white !important;
-}
-
 .MuiInput-underline:before {
   left: 0;
   right: 0;

@@ -5,9 +5,9 @@ const initialState = {
   userNotifications: [],
   isLoading: true,
   userGraphsData: {},
-  user: {},
   currentUser: {},
   userToProfile: {},
+  user: {},
 };
 
 const userSlice = createSlice({
@@ -15,7 +15,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addUsers: (state, action) => {
-      state.usersList.push(action.payload);
+      return {
+        ...state,
+        usersList: action.payload,
+      };
     },
     deleteUsers: (state) => {
       return {
@@ -25,12 +28,6 @@ const userSlice = createSlice({
     updateUsers: (state) => {
       return {
         ...state,
-      };
-    },
-    setGenres: (state, action) => {
-      return {
-        ...state,
-        currentUser: { ...state.currentUser, genres: action.payload },
       };
     },
     getUserStart: (state) => {
@@ -86,12 +83,6 @@ const userSlice = createSlice({
         currentUser: action.payload,
       };
     },
-    getDownToRegular: (state, action) => {
-      return {
-        ...state,
-        currentUser: action.payload,
-      };
-    },
     getNotifications: (state, action) => {
       return {
         ...state,
@@ -116,11 +107,22 @@ const userSlice = createSlice({
         userGraphsData: action.payload,
       };
     },
-
     getPostLikedToProfile: (state, action) => {
       return {
         ...state,
         profilePostsLikes: action.payload,
+      };
+    },
+    usersToExplore: (state, action) => {
+      return {
+        ...state,
+        usersList: action.payload,
+      };
+    },
+    clearUsers: (state) => {
+      return {
+        ...state,
+        usersList: [],
       };
     },
   },
@@ -145,6 +147,8 @@ export const {
   cleanCurrentUser,
   getDownToRegular,
   getPostLikedToProfile,
+  usersToExplore,
+  clearUsers,
 } = userSlice.actions;
 
 export default userSlice.reducer;

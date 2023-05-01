@@ -3,9 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   postList: [],
   postListAll: [],
-  postsFiltered: [],
-  postsOrdered: [],
-  postsByUserPleasures: [],
+  postsExplore: [],
   post: {},
   isLoading: true,
   error: false,
@@ -20,7 +18,6 @@ export const postSlice = createSlice({
       return {
         ...state,
         postList: [action.payload, ...state.postList],
-        postsFiltered: [action.payload, ...state.postsFiltered],
       };
     },
     deletePosts: (state) => {
@@ -37,58 +34,25 @@ export const postSlice = createSlice({
       return {
         ...state,
         isLoading: true,
-        error: null,
       };
     },
-    getPostSuccess: (state, action) => {
+    getAllPosts: (state, action) => {
       return {
         ...state,
         isLoading: false,
-        error: null,
+        postsExplore: action.payload,
+      };
+    },
+    getPostsToHome: (state, action) => {
+      return {
+        ...state,
         postListAll: action.payload,
       };
     },
-    getPostsByUserPleasures: (state, action) => {
+    getPostsAndUsers: (state, action) => {
       return {
         ...state,
-        postsByUserPleasures: action.payload,
-      };
-    },
-    getPostError: (state, action) => {
-      return {
-        ...state,
-        error: action.payload,
-        isLoading: false,
-      };
-    },
-    getAllPostByGenre: (state, action) => {
-      return {
-        ...state,
-        postList: action.payload,
-        postsFiltered: action.payload,
-      };
-    },
-    getAllPostByTime: (state, action) => {
-      return {
-        ...state,
-        postList: action.payload,
-        postsFiltered: action.payload.posts,
-        postsOrdered: action.payload.allPosts,
-      };
-    },
-    getAllPostByPopularity: (state, action) => {
-      return {
-        ...state,
-        postsFiltered: action.payload.posts,
-        postsOrdered: action.payload.allPosts,
-      };
-    },
-    getAllPostByRelevance: (state, action) => {
-      return {
-        ...state,
-        postList: action.payload,
-        postsFiltered: action.payload.posts,
-        postsOrdered: action.payload.allPosts,
+        postListAll: action.payload,
       };
     },
     getCurrentPostById: (state, action) => {
@@ -118,15 +82,10 @@ export const {
   deletePosts,
   updatePosts,
   getPostStart,
-  getPostError,
-  getPostSuccess,
-  getAllPostByGenre,
-  getAllPostByTime,
+  getAllPosts,
   getCurrentPostById,
   clearCurrentPost,
-  getAllPostByPopularity,
-  getAllPostByRelevance,
-  getPostsByUserPleasures,
+  getPostsToHome,
 } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -3,9 +3,7 @@ import createComment from "../controller/comments/createComment";
 import deleteComment from "../controller/comments/deleteComment";
 import getByPostId from "../controller/comments/getByPostId";
 import getByGenre from "../controller/filters/getByGenre";
-import getByGenreWithAll from "../controller/filters/getByGenreWithAll";
-import getByTime from "../controller/filters/getByTime";
-import getPopular from "../controller/filters/getPopular";
+import getPostsToHome from "../controller/filters/getPostsToHome";
 import createFollower from "../controller/follows/createFollower";
 import getGenres from "../controller/genres/getGenres";
 import changeStatusLike from "../controller/likes/changeStatusLike";
@@ -17,7 +15,7 @@ import setNotiWatched from "../controller/notifications/setNotiWatched";
 import payment from "../controller/pay/payment";
 import createPost from "../controller/posts/createPost";
 import deletePost from "../controller/posts/deletePost";
-import getPosts from "../controller/posts/getPost";
+import getPosts from "../controller/posts/getPosts";
 import getPostById from "../controller/posts/getPostById";
 import updatePost from "../controller/posts/updatePost";
 import createReport from "../controller/reports/createReport";
@@ -37,7 +35,6 @@ import updateBanUser from "../controller/users/updateBanUser";
 import updateRoleUser from "../controller/users/updateRoleUser";
 import updateUser from "../controller/users/updateUser";
 import upToPremium from "../controller/users/upToPremium";
-import getByUserPleasures from "../controller/posts/getByUserPleasures";
 import getPostByUserId from "../controller/posts/getPostByUserId";
 import getPostsLiked from "../controller/posts/getPostsLiked";
 import getUserByidGoogle from "../controller/users/getUserByIdGoogle";
@@ -54,15 +51,12 @@ router.get("/users/:_id", getUserById);
 router.get("/users/idGoogle/:idGoogle", getUserByidGoogle);
 router.get("/users/data/graphs", getCountUserGraphs) //Admin
 
-router.get("/posts", getPosts);
+router.get("/posts/filtered", getPosts);
 router.get("/posts/:_id", getPostById);
 router.get("/posts/user/likes/:idUser", getPostsLiked);
 router.get("/posts/genres/:genres", getByGenre);
-router.get("/posts/orderTime/:order", getByTime);
-router.get("/posts/order/popularity", getPopular);
+router.get("/posts/home/all", getPostsToHome)
 router.get("/posts/user/:idUser", getPostByUserId)
-router.get("/posts/genres/with-all", getByGenreWithAll);
-router.get("/posts/user/pleasures/:idGoogle", getByUserPleasures);
 
 
 router.get("/genres", getGenres);

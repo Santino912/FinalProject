@@ -2,30 +2,50 @@ import axios from "axios";
 import {
   addPosts,
   deletePosts,
-  getPostError,
   getPostStart,
-  getPostSuccess,
+  getAllPosts,
   updatePosts,
-  getAllPostByGenre,
-  getAllPostByTime,
   getCurrentPostById,
   clearCurrentPost,
   getPostsReported,
-  getAllPostByPopularity,
-  getAllPostByRelevance,
-  getPostsByUserPleasures,
+  getPostsToHome,
 } from "./postSlice";
+import { usersToExplore, clearUsers } from "../users/usersSlice";
 
 //obtener los users
-export const getPost = () => {
+export const getPost = (value, setLoaded) => {
   return async (dispatch) => {
     dispatch(getPostStart());
-    try {
-      const { data } = await axios.get("/posts");
-      dispatch(getPostSuccess(data));
-    } catch (error) {
-      dispatch(getPostError(error));
+    const type = !value?.type ? "?type=all" : `?type=${value?.type}`;
+    const genres =
+      value?.genres <= 0
+        ? ""
+        : `&genres=${value?.genres
+            ?.join(",")
+            .replace(/\s/g, "_")
+            .replace(/\//g, "-")}`;
+    const order = !value?.order ? "" : `&order=${value?.order}`;
+    const name = !value?.name ? "" : `&name=${value?.name}`;
+
+    const { data } = await axios.get(
+      `/posts/filtered${type}${genres}${order}${name}`
+    );
+    if (name.length > 0) {
+      dispatch(getAllPosts(data?.allPosts));
+      dispatch(usersToExplore(data?.allUsers));
+    } else {
+      dispatch(clearUsers());
+      dispatch(getAllPosts(data));
     }
+    setLoaded(false);
+  };
+};
+
+export const getPostHome = (setLoaded) => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`/posts/home/all`);
+    dispatch(getPostsToHome(data));
+    setLoaded(false);
   };
 };
 
@@ -55,28 +75,6 @@ export const updatePost = (_id, body) => {
   };
 };
 
-/* export const userProfilePosts= (_id) => {
-  return async (dispatch) => {
-    try{
-const {data} = await axios.get(`/post`)
-    }catch(err){
-
-    }
-  }
-} */
-
-export const getPostsByUserPleasuresFunct = (idGoogle) => {
-  return async (dispatch) => {
-    if (idGoogle === undefined) return;
-    try {
-      const { data } = await axios.get(`/posts/user/pleasures/${idGoogle}`);
-      dispatch(getPostsByUserPleasures(data));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
-
 //eliminar user
 export const deletePost = (_id) => {
   return async (dispatch) => {
@@ -91,63 +89,12 @@ export const deletePost = (_id) => {
   };
 };
 
-//get post by genre
-export const getPostByGenre = (object) => {
-  return async (dispatch) => {
-    if (object === undefined) return;
-    const genres = object.genres
-      .join(",")
-      .replace(/\s/g, "_")
-      .replace(/\//g, "-");
-    try {
-      const { data } = await axios.get(`/posts/genres/${genres}`);
-      dispatch(getAllPostByGenre(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 //obtener post reportados
 export const postsReported = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/reports`);
       dispatch(getPostsReported(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-//get post by time, pop
-export const getPostByTime = ({ order }) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`/posts/orderTime/${order}`);
-      dispatch(getAllPostByTime(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const getPostByPopularity = () => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`/posts/order/popularity`);
-      dispatch(getAllPostByPopularity(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-//relevance
-export const getPostByRelevance = () => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`/posts/genres/with-all`);
-      dispatch(getAllPostByRelevance(data));
     } catch (error) {
       console.log(error);
     }
