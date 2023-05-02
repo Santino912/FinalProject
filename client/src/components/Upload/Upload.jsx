@@ -202,6 +202,7 @@ export default function Upload() {
                   className={s.selectGenres}
                   name="genres"
                   multiple
+                  color="customOne"
                   displayEmpty
                   value={postData.genres}
                   onChange={handleChange}
@@ -305,6 +306,7 @@ export default function Upload() {
             <Button
               className={s.buttonSc}
               autoFocus
+              color="customOne"
               onClick={handleClose}
               disabled={loading.cover || loading.content}
             >
@@ -313,6 +315,7 @@ export default function Upload() {
             <Button
               className={s.buttonSc}
               type="submit"
+              color="customOne"
               disabled={loading.cover || loading.content}
             >
               Post

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  createTheme,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import { getGenres } from "../../redux/features/genres/genreGetSlice";
 import { getPost } from "../../redux/features/post/postGetSlice";
 import { booleanFilter, searchBooleanFilter } from "./utils/func/filters";
@@ -30,21 +36,6 @@ const Explore = () => {
     dispatch(getPost(filters, setLoaded));
   }, []);
 
-  const theme = createTheme({
-    typography: {
-      fontFamily: [
-        "Inter",
-        "Roboto",
-        "Helvetica Neue",
-        "Arial",
-        "sans-serif",
-      ].join(","),
-    },
-    palette: {
-      primary: { main: "#f5f5f5" },
-    },
-  });
-
   const handleChangeFetch = (e) => {
     e.preventDefault();
     setLoaded(true);
@@ -57,7 +48,7 @@ const Explore = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <Box>
       <Box className={styles.fondo}></Box>
       <Box className={styles.filter}></Box>
       <Box className={styles.allContainer}>
@@ -68,12 +59,17 @@ const Explore = () => {
               Explore
             </Typography>
           </Box>
-          <Box className={styles.filters}>
-            <InputComponent
-              filters={filters}
-              setFilters={setFilters}
-              handleChangeFetch={handleChangeFetch}
-            />
+          <Box className={styles.allFiltersContainer}>
+            <Box className={styles.filtersInput}>
+              <InputComponent
+                filters={filters}
+                setFilters={setFilters}
+                handleChangeFetch={handleChangeFetch}
+              />
+            </Box>
+            <Box className={styles.buttonFilter}>
+              <Button color="customOne">Filters</Button>
+            </Box>
           </Box>
           <Box className={styles.containerUsersPosts}>
             {loaded ? (
@@ -104,7 +100,7 @@ const Explore = () => {
           </Box>
         </Box>
       </Box>
-    </ThemeProvider>
+    </Box>
   );
 };
 

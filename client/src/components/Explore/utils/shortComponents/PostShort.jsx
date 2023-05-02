@@ -1,13 +1,19 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import style from "../../ShortStyle.module.css";
 
 const PostShort = ({ post }) => {
-  console.log(post);
+  const navigate = useNavigate();
+
   return (
-    <Box className={style.FindedContainerShort}>
+    <Box className={style.findedContainerShort}>
       <Box className={style.avatarContainer}>
-        <Box className={style.cover} />
+        <img
+          src={post?.cover}
+          className={style.cover}
+          alt={`${post?.title} cover`}
+        />
       </Box>
 
       <Box className={style.textContainer}>
@@ -18,8 +24,9 @@ const PostShort = ({ post }) => {
           className={style.subTitleName}
           variant={"h5"}
           component={"h5"}
+          onClick={() => navigate(`${post?.user?._id}`)}
         >
-          {`@${post?.user?.username}`}
+          {post?.user?.username}
         </Typography>
         <Typography className={style.date} variant={"h6"} component={"h6"}>
           {`${post?.postDate?.split("T")[0]}`}

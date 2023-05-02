@@ -4,6 +4,7 @@
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   min-height: 100vh;
 }
+
 .fondo {
   position: fixed;
   left: 0;
@@ -16,6 +17,18 @@
   background-attachment: fixed;
   width: 100vw;
   z-index: -1000;
+}
+
+.allFiltersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttonFilter {
+  justify-content: center;
+  display: flex;
+  border-radius: 10px;
 }
 
 .container {
@@ -54,5 +67,11 @@
 @media (max-width: 900px) {
   .sideBarSpace {
     min-width: 0px;
+  }
+  .containerUsersPosts .post {
+    padding: 50px 0px 50px 0;
+    width: 100vw;
+    height: 380px !important;
+    max-height: 390px !important;
   }
 }

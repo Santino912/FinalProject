@@ -11,7 +11,7 @@ const FindedComponent = ({ posts, users, searchBoolean }) => {
       {posts?.length > 0 && booleanFilterToShort(searchBoolean) && (
         <Box className={style.containerAll}>
           <Typography variant={"h4"} component={"h2"} className={style.title}>
-            Posts
+            Songs
           </Typography>
           <Box className={style.postsContainer}>
             {posts.map((post, i) => (
